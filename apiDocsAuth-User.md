@@ -227,7 +227,7 @@ user's information.
 
 ## Albums
 
-### Get an Album by id
+### Get an Album by albumId
 
 Returns information on an album specified by its id
 
@@ -469,7 +469,7 @@ Returns data on an edited album
 - Request
 
   - Method: PUT
-  - URL: /api/artists/:albumsId
+  - URL: /api/albums/:albumId
   - Headers:
     - Content-Type: application/json
   - Body:
@@ -534,3 +534,187 @@ Returns data on an edited album
   ```json
     "message": "Album couldn't be found"
   ```
+
+### Delete an album by albumId
+
+Deletes an album specified by its id
+
+- Require Authentication: true
+- Require Authorization: true
+- Request
+
+  - Method: DELETE
+  - URL: /api/albums/:albumId
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+
+* Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+    	"message": "Successfully deleted"
+    }
+    ```
+
+* Error response: Couldn't find an Album with the specified id
+
+- Status Code: 404
+- Headers:
+- Content-Type: application/json
+- Body:
+
+  ```json
+  {
+  	"message": "Album couldn't be found"
+  }
+  ```
+
+## Tracks
+
+### Get all tracks
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+
+  - Method: GET
+  - URL: /api/tracks
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+
+* Successful Response:
+
+```json
+{
+	"tracks": [
+		{
+			"name": "Track One",
+			"duration": 180,
+			"file": "path/to/file",
+			"trackId": 1,
+			"artistId": 1,
+			"albumId": 1
+		},
+		{
+			"name": "Track Two",
+			"duration": 180,
+			"file": "path/to/file",
+			"trackId": 2,
+			"artistId": 1,
+			"albumId": 1
+		}
+	]
+}
+```
+
+### Get all tracks by albumId
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+  - Method:
+  - URL:
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+* Error Response:
+
+### Get all tracks by artistId
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+  - Method:
+  - URL:
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+* Error Response:
+
+### Get a track by trackId
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+  - Method:
+  - URL:
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+* Error Response:
+
+### Create a track
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+  - Method:
+  - URL:
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+* Error Response:
+
+### Edit a track by trackId
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+  - Method:
+  - URL:
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+* Error Response:
+
+### Delete a track by trackId
+
+Returns an object containing all tracks
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+  - Method:
+  - URL:
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+* Error Response:
