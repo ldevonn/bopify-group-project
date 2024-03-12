@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-import datetime
+from datetime import datetime 
 
 class Album(db.Model):
     __tablename__ = 'albums'
