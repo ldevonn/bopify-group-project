@@ -972,7 +972,7 @@ Returns a newly create playlist
   ```json
   {
   	"name": "Test Playlist",
-    "imageUrl": 8,
+    "imageUrl": "image url",
     "userId": 1,
     "private": false
   }
@@ -1020,7 +1020,7 @@ Returns the updated playlist
   ```json
   {
   	"name": "Test Playlist",
-    "imageUrl": 8,
+    "imageUrl": "image url",
     "userId": 1,
     "private": false
   }
@@ -1030,7 +1030,7 @@ Returns the updated playlist
   {
   	"playlistId": 8,
   	"name": "Test Playlist",
-    "imageUrl": 8,
+    "imageUrl": "image url",
     "userId": 1,
     "private": false,
     "trackIds":
