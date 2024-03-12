@@ -10,9 +10,11 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    image_url = db.Column(db.String(255))
     hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column()
 
     @property
     def password(self):

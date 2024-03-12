@@ -172,7 +172,8 @@ user's information.
     {
     	"name": "Devon",
     	"email": "theGoatedDevon@gmail.com",
-    	"password": "secret password"
+    	"password": "secret password",
+      "imageUrl": "image url"
     }
     ```
 
@@ -188,7 +189,8 @@ user's information.
     	"user": {
     		"id": 1,
     		"name": "Devon",
-    		"email": "theGoatedDevon@gmail.com"
+    		"email": "theGoatedDevon@gmail.com",
+        "imageUrl": "image url"
     	}
     }
     ```
