@@ -1,11 +1,17 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 import datetime
 
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+
+    albums = relationship("Album", back_populates="artists")
+    playlists = relationship("Playlist", back_populates="playlistUser")
+    likes = relationship("Like", back_populates="user")
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -15,6 +21,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     image_url = db.Column(db.String(255))
     hashed_password = db.Column(db.String(255), nullable=False)
+    is_artist = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -34,5 +41,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'imageUrl': self.image_url
+            'imageUrl': self.image_url,
+            'isArtist': self.is_artist
         }
