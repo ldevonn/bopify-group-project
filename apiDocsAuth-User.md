@@ -252,7 +252,7 @@ Returns information on an album specified by its id
     	"name": "First Album",
     	"releaseDate": "01/01/2024",
     	"albumType": "Single",
-    	"imageId": 1,
+    	"imageUrl": "image url",
     	"tracks": {
     		"song1": {
     			"name": "First Track",
@@ -300,17 +300,17 @@ Returns an object containing all albums across the website.
 
     ```json
     {
-    	"albums": {
-    		"album1": {
+    	"albums": [
+    		{
+          "id": 1,
     			"name": "First Album",
     			"releaseDate": "01/01/2024",
     			"genre": "Country",
     			"albumType": "Single",
-    			"albumId": 1,
-    			"imageId": 1,
+    			"imageUrl": "image url",
     			"artistId": 1
     		}
-    	}
+      ]
     }
     ```
 
@@ -336,17 +336,35 @@ Returns an object containing all albums created by artistId
 
     ```json
     {
-    	"albums": {
-    		"album1": {
+    	"albums": [
+    		{
+          "id": 1,
     			"name": "First Album",
     			"releaseDate": "01/01/2024",
     			"genre": "Country",
     			"albumType": "Single",
-    			"albumId": 1,
-    			"imageId": 1,
-    			"artistId": 1
+    			"imageUrl": "image url",
+    			"artistId": 1,
+          "tracks": [
+            {
+              "name": "Track One",
+              "duration": 180,
+              "file": "path/to/file",
+              "trackId": 1,
+              "artistId": 1,
+              "albumId": 1
+            },
+            {
+              "name": "Track Two",
+              "duration": 180,
+              "file": "path/to/file",
+              "trackId": 2,
+              "artistId": 1,
+              "albumId": 1
+            }
+          ]
     		}
-    	}
+      ]
     }
     ```
 
@@ -361,7 +379,7 @@ Returns an object containing all albums created by artistId
     "message": "Artist couldn't be found"
   ```
 
-### Get albums by current user
+### Get albums by current user (Artist)
 
 Returns an object containing all albums created by artistId
 
@@ -369,7 +387,7 @@ Returns an object containing all albums created by artistId
 - Request
 
   - Method: GET
-  - URL: /api/artists/:artistId/albums
+  - URL: /api/albums/current
   - Headers:
     - Content-Type: application/json
   - Body: None
@@ -384,16 +402,34 @@ Returns an object containing all albums created by artistId
     ```json
     {
     	"albums": {
-    		"album1": {
+    		"1": {
     			"name": "First Album",
     			"releaseDate": "01/01/2024",
     			"genre": "Country",
     			"albumType": "Single",
     			"albumId": 1,
-    			"imageId": 1,
-    			"artistId": 1
+    			"imageUrl": "image url",
+    			"artistId": 1,
+          "tracks": [
+            {
+              "name": "Track One",
+              "duration": 180,
+              "file": "path/to/file",
+              "trackId": 1,
+              "artistId": 1,
+              "albumId": 1
+            },
+            {
+              "name": "Track Two",
+              "duration": 180,
+              "file": "path/to/file",
+              "trackId": 2,
+              "artistId": 1,
+              "albumId": 1
+            }
+          ]
     		}
-    	}
+      }
     }
     ```
 
@@ -416,7 +452,7 @@ Returns data on newly created album
   	"releaseDate": "01/02/2024",
   	"albumType": "Album",
   	"genre": "Rock",
-  	"imageId": 2,
+  	"imageUrl": "image url",
   	"artistId": 1
   }
   ```
@@ -434,7 +470,7 @@ Returns data on newly created album
     	"releaseDate": "01/02/2024",
     	"genre": "Rock",
     	"albumType": "Album",
-    	"imageId": 2,
+    	"imageUrl": "image url",
     	"tracks": null,
     	"albumId": 2,
     	"artistId": 1
@@ -455,7 +491,7 @@ Returns data on newly created album
     		"releaseDate": "Release Date is Required",
     		"genre": "Genre is required",
     		"albumType": "Album Type is required",
-    		"imageId": "Image Id is required"
+    		"imageUrl": "Image Id is required"
     	}
     }
     ```
@@ -480,7 +516,7 @@ Returns data on an edited album
   	"releaseDate": "01/02/2024",
   	"albumType": "Album",
   	"genre": "Rock",
-  	"imageId": 2,
+    "imageUrl": "image url",
   	"artistId": 1
   }
   ```
@@ -498,7 +534,7 @@ Returns data on an edited album
     	"releaseDate": "01/02/2024",
     	"genre": "Rock",
     	"albumType": "Album",
-    	"imageId": 2,
+    	"imageUrl": "image url",
     	"tracks": null,
     	"albumId": 2,
     	"artistId": 1
@@ -519,7 +555,7 @@ Returns data on an edited album
     		"releaseDate": "Release Date is Required",
     		"genre": "Genre is required",
     		"albumType": "Album Type is required",
-    		"imageId": "Image Id is required"
+    		"imageUrl": "Image Id is required"
     	}
     }
     ```
@@ -846,7 +882,7 @@ Returns a playlist object
   "playlist": {
     "name": "Test Playlist",
     "userId": 3,
-    "imageId": 8,
+    "imageUrl": "image url",
     "Private": false,
     "tracks": [
       {
@@ -899,14 +935,14 @@ Returns a playlist object
     "1": {
       "name": "Test Playlist",
       "userId": 3,
-      "imageId": 8,
+    	"imageUrl": "image url",
       "Private": false
     },
       "2": {
       "name": "Test Playlist",
       "userId": 3,
-      "imageId": 8,
-      "Private": false,
+    	"imageUrl": "image url",
+      "Private": false
     }
   }
 }
@@ -936,7 +972,7 @@ Returns a newly create playlist
   ```json
   {
   	"name": "Test Playlist",
-    "imageId": 8,
+    "imageUrl": 8,
     "userId": 1,
     "private": false
   }
@@ -946,7 +982,7 @@ Returns a newly create playlist
   {
   	"playlistId": 8,
   	"name": "Test Playlist",
-    "imageId": 8,
+    "imageUrl": "image url",
     "userId": 1,
     "private": false,
     "trackIds":
@@ -963,7 +999,7 @@ Returns a newly create playlist
     	"message": "Bad Request", // (or "Validation error" if generated by Sequelize),
     	"errors": {
     		"name": "Name is required",
-    		"imageId": "imageId is required",
+    		"imageUrl": "imageUrl is required",
         "private": "Private status required"
     	}
     }
@@ -984,7 +1020,7 @@ Returns the updated playlist
   ```json
   {
   	"name": "Test Playlist",
-    "imageId": 8,
+    "imageUrl": 8,
     "userId": 1,
     "private": false
   }
@@ -994,7 +1030,7 @@ Returns the updated playlist
   {
   	"playlistId": 8,
   	"name": "Test Playlist",
-    "imageId": 8,
+    "imageUrl": 8,
     "userId": 1,
     "private": false,
     "trackIds":
@@ -1011,7 +1047,7 @@ Returns the updated playlist
     	"message": "Bad Request", // (or "Validation error" if generated by Sequelize),
     	"errors": {
     		"name": "Name is required",
-    		"imageId": "imageId is required",
+    		"imageUrl": "imageUrl is required",
         "private": "Private status required"
     	}
     }
