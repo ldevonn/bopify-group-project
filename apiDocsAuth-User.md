@@ -653,16 +653,16 @@ Returns an object containing all tracks
 }
 ```
 
-### Get all tracks by artistId
+### Get all tracks by current user (artist)
 
 Returns an object containing all tracks
 
-- Require Authentication: false
-- Require Authorization: false
+- Require Authentication: true
+- Require Authorization: true
 
 * Request:
   - Method: GET
-  - URL: /api/artists/:artistId/tracks
+  - URL: /api/tracks/current
   - Headers:
     - Content-Type: application/json
   - Body: None
@@ -676,7 +676,7 @@ Returns an object containing all tracks
 		"duration": 180,
 		"file": "path/to/file",
 		"artistId": 1,
-		"albumId": 1
+		"albumId": 1,
 	},
 	{
 		"trackId": 2,
@@ -684,7 +684,7 @@ Returns an object containing all tracks
 		"duration": 180,
 		"file": "path/to/file",
 		"artistId": 1,
-		"albumId": 1
+		"albumId": 1,
 	}
 ]
 ```
@@ -719,7 +719,7 @@ Returns an object containing all tracks
 	"duration": 180,
 	"file": "path/to/file",
 	"artistId": 1,
-	"albumId": 1
+	"albumId": 1,
 }
 ```
 
@@ -774,7 +774,6 @@ Returns an object containing all tracks
     	"errors": {
     		"name": "Name is required",
     		"file": "File is required",
-    		"artistId": "Artist Id is required",
     		"albumId": "Album Id is required"
     	}
     }
@@ -796,10 +795,7 @@ Returns an object containing all tracks
   ```json
   {
   	"name": "track three edit",
-  	"duration": 180,
-  	"file": "path/to/file",
-  	"artistId": 1,
-  	"albumId": 1
+  	"file": "path/to/file"
   }
   ```
 * Successful Response:
@@ -825,7 +821,6 @@ Returns an object containing all tracks
     	"errors": {
     		"name": "Name is required",
     		"file": "File is required",
-    		"artistId": "Artist Id is required",
     		"albumId": "Album Id is required"
     	}
     }
@@ -847,7 +842,7 @@ Deletes a track
 
 ```json
 {
-	"message": "Successfuly Deleted"
+	"message": "Successfully Deleted"
 }
 ```
 
@@ -866,12 +861,12 @@ Deletes a track
 
 Returns a playlist object
 
-- Require Authentication: false
+- Require Authentication: true
 - Require Authorization: false
 
 * Request:
   - Method: GET
-  - URL: /api/playlist/:playlistId
+  - URL: /api/playlists/:playlistId
   - Headers:
     - Content-Type: application/json
   - Body: None
@@ -879,30 +874,33 @@ Returns a playlist object
 
 ```json
 {
-  "playlist": {
-    "name": "Test Playlist",
-    "userId": 3,
-    "imageUrl": "image url",
-    "Private": false,
-    "tracks": [
-      {
-        "trackId": 1,
-        "name": "track one",
-        "duration": 180,
-        "file": "path/to/file",
-        "artistId": 1,
-        "albumId": 1
-      },
-      {
-        "trackId": 2,
-        "name": "track two",
-        "duration": 180,
-        "file": "path/to/file",
-        "artistId": 1,
-        "albumId": 1
-      }
+  "playlists": [
+    {
+      "id": 1,
+      "name": "Test Playlist",
+      "userId": 3,
+      "imageUrl": "image url",
+      "Private": false,
+      "tracks": [
+        {
+          "trackId": 1,
+          "name": "track one",
+          "duration": 180,
+          "file": "path/to/file",
+          "artistId": 1,
+          "albumId": 1
+        },
+        {
+          "trackId": 2,
+          "name": "track two",
+          "duration": 180,
+          "file": "path/to/file",
+          "artistId": 1,
+          "albumId": 1
+        }
+      ]
+    }
   ]
-  }
 }
 ```
 
@@ -914,16 +912,16 @@ Returns a playlist object
 }
 ```
 
-## Get all Playlists by userId
+## Get all Playlists of current user (user)
 
 Returns a playlist object
 
-- Require Authentication: false
-- Require Authorization: false
+- Require Authentication: true
+- Require Authorization: true
 
 * Request:
   - Method: GET
-  - URL: /api/users/:userId/playlists
+  - URL: /api/playlists/current
   - Headers:
     - Content-Type: application/json
   - Body: None
@@ -931,20 +929,58 @@ Returns a playlist object
 
 ```json
 {
-  "playlists": {
-    "1": {
+  "playlists": [
+    {
+      "id": 1,
       "name": "Test Playlist",
       "userId": 3,
     	"imageUrl": "image url",
-      "Private": false
+      "Private": false,
+      "tracks": [
+        {
+          "trackId": 1,
+          "name": "track one",
+          "duration": 180,
+          "file": "path/to/file",
+          "artistId": 1,
+          "albumId": 1
+        },
+        {
+          "trackId": 2,
+          "name": "track two",
+          "duration": 180,
+          "file": "path/to/file",
+          "artistId": 1,
+          "albumId": 1,
+        }
+      ]
     },
-      "2": {
+    {
+      "id": 2,
       "name": "Test Playlist",
       "userId": 3,
     	"imageUrl": "image url",
-      "Private": false
+      "Private": false,
+      "tracks": [
+        {
+          "trackId": 1,
+          "name": "track one",
+          "duration": 180,
+          "file": "path/to/file",
+          "artistId": 1,
+          "albumId": 1
+        },
+        {
+          "trackId": 2,
+          "name": "track two",
+          "duration": 180,
+          "file": "path/to/file",
+          "artistId": 1,
+          "albumId": 1
+        }
+      ]
     }
-  }
+  ]
 }
 ```
 
@@ -958,7 +994,7 @@ Returns a playlist object
 
 ## Create a Playlist
 
-Returns a newly create playlist
+Returns a newly created playlist
 
 - Require Authentication: true
 - Require Authorization: false
@@ -985,7 +1021,7 @@ Returns a newly create playlist
     "imageUrl": "image url",
     "userId": 1,
     "private": false,
-    "trackIds":
+    "tracks": []
   }
   ```
 * Error response: Body validation errors
@@ -1033,7 +1069,7 @@ Returns the updated playlist
     "imageUrl": "image url",
     "userId": 1,
     "private": false,
-    "trackIds":
+    "tracks": []
   }
   ```
 * Error response: Body validation errors
@@ -1062,7 +1098,7 @@ Deletes a playlist
 
 * Request:
   - Method: DELETE
-  - URL: /api/playlist/:playlistId
+  - URL: /api/playlists/:playlistId
   - Headers:
     - Content-Type: application/json
   - Body: None
@@ -1070,7 +1106,7 @@ Deletes a playlist
 
 ```json
 {
-	"message": "Successfuly Deleted"
+	"message": "Successfully Deleted"
 }
 ```
 
