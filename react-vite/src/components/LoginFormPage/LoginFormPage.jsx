@@ -33,10 +33,10 @@ function LoginFormPage() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1 id="loginTitle">Log in to Spotify</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
+      <form id='loginForm' onSubmit={handleSubmit}>
         <label>
           Email
           <input
