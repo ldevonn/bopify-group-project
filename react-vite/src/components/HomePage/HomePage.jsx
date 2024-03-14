@@ -12,17 +12,22 @@ function HomePage() {
     
     return (
         <>
-        <div id='homePage'>
-            <div id="topLeftNav">
-                <img id="spotifyLogo" src={`${spotifyLogo}`}></img>
-                <button id="homeButton">Home</button>
-                <button id="searchButton">Search</button>
+        <div id="topLeftNav">
+            <img id="spotifyLogo" src={`${spotifyLogo}`}></img>
+            <button id="homeButton">Home</button>
+            <button id="searchButton">Search</button>
+        </div>
+        <div id="topNav">
+            <button id='signupButton' onClick={() => handleNav('/signup')}>Sign Up</button>
+            <button id='loginButton' onClick={() => handleNav('/login')}>Log In</button>
+        </div>
+        <div id='leftNav'>
+            <h1 id='leftNavTitle'>Your Library</h1>
+            <div id='createPlaylistComp'>
+                <p>Create your first playlist</p>
+                <p>It's easy, we'll help you!</p>
+                <button id='createPlaylistButton'>Create playlist</button>
             </div>
-            <div id="topNav">
-                <button id='signupButton' onClick={() => handleNav('/signup')}>Sign Up</button>
-                <button id='loginButton' onClick={() => handleNav('/login')}>Log In</button>
-            </div>
-        <h1 id='wip'>COMING SOON TO A SCREEN NEAR YOU</h1>
         </div>
         </>
     )
