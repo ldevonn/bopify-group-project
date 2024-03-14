@@ -62,7 +62,6 @@ def inject_csrf_token(response):
         httponly=True)
     return response
 
-
 @app.route("/api/docs")
 def api_help():
     """
