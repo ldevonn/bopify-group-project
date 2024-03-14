@@ -1,18 +1,17 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
+from app.models import Track
 
 track_routes = Blueprint('tracks', __name__)
 
 
 @track_routes.route('/')
-@login_required
-def users():
+def get_all_tracks():
     """
-    Query for all users and returns them in a list of user dictionaries
+    Query for all tracks and returns them in a list of track dictionaries
     """
-    users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
+    tracks = Track.query.all()
+    return {'tracks': [track.to_dict() for track in tracks]}
 
 
 @track_routes.route('/<int:id>')
