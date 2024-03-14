@@ -13,12 +13,17 @@ def get_all_tracks():
     tracks = Track.query.all()
     return {'tracks': [track.to_dict() for track in tracks]}
 
+@track_routes.route('/<int:track_id>')
+def get_track_by_id(track_id):
+    track = Track.query.get(track_id).to_dict()
+    return track
 
-@track_routes.route('/<int:id>')
-@login_required
-def user(id):
-    """
-    Query for a user by id and returns that user in a dictionary
-    """
-    user = User.query.get(id)
-    return user.to_dict()
+
+# @track_routes.route('/<int:trackId>')
+# @login_required
+# def user(id):
+#     """
+#     Query for all tracks by current user (artist) by id and returns that user in a dictionary
+#     """
+#     user = User.query.get(id)
+#     return user.to_dict()
