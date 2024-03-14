@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, abort
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import Track
 
 track_routes = Blueprint('tracks', __name__)
@@ -29,11 +29,17 @@ def get_track_by_id(track_id):
     return track.to_dict()
 
 
-# @track_routes.route('/<int:trackId>')
-# @login_required
-# def user(id):
-#     """
-#     Query for all tracks by current user (artist) by id and returns that user in a dictionary
-#     """
-#     user = User.query.get(id)
-#     return user.to_dict()
+@track_routes.route('/current', methods=["GET"])
+@login_required
+def get_artist_tracks():
+    """
+    Query for getting all tracks created by a user. Only artist-type users should get a list returned
+    """
+    user_id = current_user.id
+    tracks = Track.query.filter_by(artist_id=user_id).all()
+
+    if not tracks:
+        response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"})
+        return response
+    
+    return [track.to_dict() for track in tracks]
