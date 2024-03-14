@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app.models import Album, Track, User, db
-# from flask_login import current_user, login_required
+from flask_login import current_user, login_required
 
 album_routes = Blueprint('albums', __name__)
 
@@ -35,7 +35,16 @@ def get_album_by_artistId(artist_id):
 # Get albums by current user (Artist)
 @album_routes.route('/current')
 def get_album_by_current_user():
-    pass
+
+    albums = Album.query.filter(Album.artist_id == current_user.id).all()
+    albums_with_tracks = []
+
+    for album in albums:
+        album_data = album.to_dict()
+        tracks = Track.query.filter(Track.album_id == album.id)
+        album_data['tracks'] = [track.to_dict() for track in tracks]
+        albums_with_tracks.append(album_data)
+    return albums_with_tracks
 
 # Create an album
 @album_routes.route('/')
