@@ -30,7 +30,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        return {"user": user.to_dict()}
+        return user.to_dict()
     if "email" in form.errors:
         if form.errors["email"][0] == "Email provided not found.":
             return {"message": "Invalid credentials"}, 401
