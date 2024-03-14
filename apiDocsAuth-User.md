@@ -304,7 +304,7 @@ Returns an object containing all albums across the website.
     {
     	"albums": [
     		{
-          "id": 1,
+          "albumId": 1,
     			"name": "First Album",
     			"releaseDate": "01/01/2024",
     			"genre": "Country",
@@ -324,7 +324,7 @@ Returns an object containing all albums created by artistId
 - Request
 
   - Method: GET
-  - URL: /api/artists/:artistId/albums
+  - URL: /api/albums/artists/:artistId
   - Headers:
     - Content-Type: application/json
   - Body: None
@@ -340,13 +340,13 @@ Returns an object containing all albums created by artistId
     {
     	"albums": [
     		{
-          "id": 1,
-    			"name": "First Album",
-    			"releaseDate": "01/01/2024",
-    			"genre": "Country",
-    			"albumType": "Single",
-    			"imageUrl": "image url",
-    			"artistId": 1,
+          "albumId": 1,
+          "name": "First Album",
+          "releaseDate": "01/01/2024",
+          "genre": "Country",
+          "albumType": "Single",
+          "imageUrl": "image url",
+          "artistId": 1,
           "tracks": [
             {
               "name": "Track One",
