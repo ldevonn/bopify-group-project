@@ -69,7 +69,11 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return form.errors, 401
+    # return form.errors, 401
+    if form.errors["email"][0] == "Email address is already in use.":
+        return {"message": "Email already exists", "errors": form.errors}, 500
+    else:
+        return form.errors, 400
 
 
 @auth_routes.route('/unauthorized')
