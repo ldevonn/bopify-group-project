@@ -22,10 +22,10 @@ class Track(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
             'name': self.name,
             'duration': self.duration,
             'file': self.file,
+            'trackId': self.id,
             'artistId': self.artist_id,
             'albumId': self.album_id
         }
