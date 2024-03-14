@@ -697,7 +697,7 @@ Returns an object containing all tracks
 
 ```json
 {
-	"message": "Artist couldn't be found"
+	"message": "User is not an artist and/or does not have any uploaded tracks"
 }
 ```
 
