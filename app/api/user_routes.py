@@ -21,7 +21,7 @@ def present_user():
     """
     if current_user.is_anonymous:
         return {"user": None}
-    return {"user": current_user.to_dict()}
+    return current_user.to_dict()
 
 
 @user_routes.route('/<int:id>')
