@@ -2,13 +2,13 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from . import PlaylistsTracks
+from . import PlaylistsTracks, Like
 
 class Track(db.Model):
     __tablename__ = 'tracks'
     album = relationship("Album", back_populates="tracks")
-    likes = relationship("Like", back_populates="track")
     playlists = relationship('Track', secondary=PlaylistsTracks, back_populates='tracks')
+    user_likes = relationship('Track', secondary=Like, back_populates='track_likes')
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
