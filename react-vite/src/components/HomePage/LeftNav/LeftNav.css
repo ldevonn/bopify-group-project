@@ -1,0 +1,44 @@
+#leftNav {
+    background-color: #2F2F2F;
+    width: 465px;
+    height: 816px;
+    margin-left: 27px;
+    border-radius: 15px;
+}
+
+#leftNavTitle {
+    color: white;
+    background: transparent;
+    position: relative;
+    left: 63px;
+    top: 21px;
+    
+}
+
+#createPlaylistComp {
+    background-color: #1E1E1E;
+    color: white;
+    margin-top: 79px;
+    margin-left: 14px;
+    width: 395px;
+    height: 137px;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#createPlaylistComp p {
+    background: transparent;
+}
+
+#createPlaylistComp * {
+    margin-left: 36px;
+}
+
+#createPlaylistButton {
+    width: 123px;
+    height: 38px;
+    border-radius: 30px;
+    background-color: white;
+    border: none;
+    font-size: 16px;
+}
