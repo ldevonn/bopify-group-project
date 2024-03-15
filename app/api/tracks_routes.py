@@ -42,4 +42,4 @@ def get_artist_tracks():
         response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"})
         return response
     
-    return [track.to_dict() for track in tracks]
+    return jsonify([track.to_dict() for track in tracks])
