@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from . import PlaylistsTracks
+from .playlists_tracks import PlaylistsTracks
 
 class Playlist(db.Model):
     __tablename__ = 'playlists'

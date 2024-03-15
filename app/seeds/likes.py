@@ -1,23 +1,17 @@
 from app.models import db, Like, environment, SCHEMA
-from sqlalchemy.sql import text
+from sqlalchemy.sql import text, insert
 
 
 def seed_likes():
-    like1 = Like(
-        user_id=1, track_id=1)
-    like2 = Like(
-        user_id=1, track_id=2)
-    like3 = Like(
-        user_id=1, track_id=3)
-    like4 = Like(
-        user_id=2, track_id=3)
+    likes = [
+        {'user_id': 1, 'track_id': 1},
+        {'user_id': 1, 'track_id': 2},
+        {'user_id': 1, 'track_id': 3},
+        {'user_id': 2, 'track_id': 3},
+    ]
 
-
-
-    db.session.add(like1)
-    db.session.add(like2)
-    db.session.add(like3)
-    db.session.add(like4)
+    # Using the `insert` method to construct an insert statement for the 'likes' table
+    db.session.execute(insert(Like), likes)
     db.session.commit()
 
 
@@ -32,5 +26,4 @@ def undo_likes():
         db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM likes"))
-
     db.session.commit()
