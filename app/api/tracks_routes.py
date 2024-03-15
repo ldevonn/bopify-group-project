@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, abort
+from flask import Blueprint, jsonify, abort, render_template
 from flask_login import login_required, current_user
-from app.models import Track, User
+from app.models import Track, User, Album
+from ..forms import TrackForm
 
 track_routes = Blueprint('tracks', __name__)
 
@@ -59,7 +60,15 @@ def create_track():
         response.status_code = 403
         return response
     
-    # else:
+    else:
+        form = TrackForm()
+        albums = Album.query.filter_by(artist_id=user_id).all()
+        form.albumId.choices = [(album.id, album.name) for album in albums]
+
+        if form.validate_on_submit():
+            pass
+
+        # return render_template('create_track.html', form=form)
 
 
     return user
