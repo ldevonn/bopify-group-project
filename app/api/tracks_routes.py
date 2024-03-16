@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, abort
+from flask import Blueprint, jsonify, abort, render_template
 from flask_login import login_required, current_user
-from app.models import Track
+from app.models import Track, User, Album
+from ..forms import TrackForm
 
 track_routes = Blueprint('tracks', __name__)
 
@@ -42,4 +43,32 @@ def get_artist_tracks():
         response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"})
         return response
     
-    return [track.to_dict() for track in tracks]
+    return jsonify([track.to_dict() for track in tracks])
+
+
+@track_routes.route('/new', methods=["POST"])
+@login_required
+def create_track():
+    """
+    Query for an artist to create a track. The user must be an artist, and the artist must be logged in.
+    """
+    user_id = current_user.id
+    user = User.query.filter_by(id=user_id).one().to_dict()
+
+    if not user['isArtist']:
+        response = jsonify({"message": "User is not an artist. Only artists can upload tracks."})
+        response.status_code = 403
+        return response
+    
+    else:
+        form = TrackForm()
+        albums = Album.query.filter_by(artist_id=user_id).all()
+        form.albumId.choices = [(album.id, album.name) for album in albums]
+
+        if form.validate_on_submit():
+            pass
+
+        return render_template('create_track.html', form=form)
+
+
+    return user

@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
+from .likes import Like
 
 
 class User(db.Model, UserMixin):
@@ -11,7 +12,7 @@ class User(db.Model, UserMixin):
 
     albums = relationship("Album", back_populates="artists")
     playlists = relationship("Playlist", back_populates="playlistUser")
-    likes = relationship("Like", back_populates="user")
+    track_likes = relationship('Track', secondary=Like, back_populates='user_likes')
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
