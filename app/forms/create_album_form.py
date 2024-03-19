@@ -2,6 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms.fields import StringField, DateTimeField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 
+# def validate_album(form, field):
+#     if
+
 GENRES = [
     "Rock",
     "Pop",

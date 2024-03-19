@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<form action="", method="post">
+    <p>{{ form.name.label }}: {{ form.name() }}</p>
+    <p>{{ form.releaseDate.label }}: {{ form.releaseDate() }}</p>
+    <p>{{ form.albumType.label }}: {{ form.albumType() }}</p>
+    <p>{{ form.genre.label }}: {{ form.genre() }}</p>
+    <p>{{ form.imageUrl.label }}: {{ form.imageUrl() }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
+
+{% endblock %}
