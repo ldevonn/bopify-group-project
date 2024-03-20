@@ -81,6 +81,7 @@ def create_track():
             db.session.add(new_track)
             db.session.commit()
 
-            return redirect(url_for('tracks.get_all_tracks'))
+            return Track.query.filter_by(name=form.name.data).first().to_dict()
+            # return redirect(url_for('tracks.get_all_tracks'))
 
         return render_template('create_track.html', form=form)
