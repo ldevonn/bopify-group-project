@@ -6,6 +6,7 @@ playlist_routes = Blueprint('playlists', __name__)
 
 @playlist_routes.route('/')
 def get_all_playlists():
+  print(dir(current_user.to_dict()))
   playlists = Playlist.query.filter(Playlist.user_id == current_user.id).all()
   return {'playlists': [playlist.to_dict() for playlist in playlists]}
 
