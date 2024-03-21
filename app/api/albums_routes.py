@@ -98,7 +98,6 @@ def get_album_by_current_user():
         albums_with_tracks.append(album_data)
     return albums_with_tracks
 
-#--------------------------------------------------------continue here
 # Create an album
 @album_routes.route('/new', methods=['GET', 'POST'])
 @login_required
