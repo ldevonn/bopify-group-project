@@ -55,10 +55,6 @@ def get_or_update_track(track_id):
             response.status_code = 400
             return response
         
-        return render_template('create_track.html', form=form)
-        
-
-
 
 @track_routes.route('/current', methods=["GET"])
 @login_required
