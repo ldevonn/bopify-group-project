@@ -32,17 +32,17 @@ def get_album_by_id(album_id):
         tracks = Track.query.filter(Track.album_id == album_id)
         album['tracks'] = [track.to_dict() for track in tracks]
         return album.to_dict()
-# -------------------------------continue here
+
     if request.method == "PUT":
         form = CreateAlbumForm(obj=album)
 
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            name = form.name.data
-            releaseDate = form.releaseDate.data
-            albumType = form.albumType.data
-            genre = form.genre.data
-            imageUrl = form.imageUrl.data
+            album.name = form.name.data
+            album.releaseDate = form.releaseDate.data
+            album.albumType = form.albumType.data
+            album.genre = form.genre.data
+            album.imageUrl = form.imageUrl.data
 
             db.session.commit()
             return jsonify({"message": "Album has been updated successfully"})
@@ -57,7 +57,7 @@ def get_album_by_id(album_id):
             })
             response.status_code = 400
             return response
-# -------------------------------
+
     if request.method == 'DELETE':
         db.session.delete(album)
         db.session.commit()
