@@ -15,10 +15,13 @@ def get_all_tracks():
     return {'tracks': [track.to_dict() for track in tracks]}
 
 
-@track_routes.route('/<int:track_id>', methods=["GET", "PUT"])
-def get_or_update_track(track_id):
+@track_routes.route('/<int:track_id>', methods=["GET", "PUT", "DELETE"])
+def get_or_update_or_delete_track(track_id):
     """
-    Query for getting a track by track id (GET) OR editing a track by track id (PUT)
+    Query for 
+    getting a track by track id (GET) 
+    OR editing a track by track id (PUT) 
+    OR deleting a track by track id (DELETE)
     """
     track = Track.query.get(track_id)
 
@@ -29,7 +32,7 @@ def get_or_update_track(track_id):
     
     if request.method == 'GET':
         return track.to_dict()
-    else:
+    if request.method == "PUT":
         form = TrackForm(obj=track)
         albums = Album.query.filter_by(artist_id=current_user.id).all()
         form.albumId.choices = [(album.id, album.name) for album in albums]
@@ -54,6 +57,10 @@ def get_or_update_track(track_id):
             })
             response.status_code = 400
             return response
+    if request.method == 'DELETE':
+        db.session.delete(track)
+        db.session.commit()
+        return jsonify({"message": "Track deleted successfully"})
         
 
 @track_routes.route('/current', methods=["GET"])
