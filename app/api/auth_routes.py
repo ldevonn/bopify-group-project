@@ -59,15 +59,21 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
-            username=form.data['username'],
+            name=form.data['name'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            image_url=form.data['image_url'],
+            is_artist=form.data['is_artist']
         )
         db.session.add(user)
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return form.errors, 401
+    # return form.errors, 401
+    if form.errors["email"][0] == "Email address is already in use.":
+        return {"message": "Email already exists", "errors": form.errors}, 500
+    else:
+        return form.errors, 400
 
 
 @auth_routes.route('/unauthorized')

@@ -1,7 +1,7 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, render_template
 from app.models import Album, Track, User, db
 from flask_login import current_user, login_required
-from app.forms
+from app.forms import CreateAlbumForm
 
 album_routes = Blueprint('albums', __name__)
 
@@ -48,9 +48,31 @@ def get_album_by_current_user():
     return albums_with_tracks
 
 # Create an album
-@album_routes.route('/')
+@album_routes.route('/', methods = ['POST'])
 def create_album():
-    pass
+
+    user_id = current_user.id
+    user = User.query.filter_by(id=user_id).one().to_dict()
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+
+    if user["isArtist"]:
+        form = CreateAlbumForm()
+        print("HIT")
+        if form.validate_on_submit():
+            data = form.data
+            new_album = Album(name = data["name"],
+                            releaseDate = data["releaseDate"],
+                            albumType = data["albumType"],
+                            genre = data["genre"],
+                            imageUrl = data["imageUrl"],
+                            artistId = current_user.id)
+            db.session.add(new_album)
+            db.session.commit()
+            album = Album.query.get(new_album.id).to_dict()
+            return jsonify(album), 201
+        # return form
+    return user
 
 # Edit an album
 @album_routes.route('/<int:album_id>')

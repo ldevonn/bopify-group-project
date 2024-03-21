@@ -9,6 +9,8 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.albums_routes import album_routes
 from.api.tracks_routes import track_routes
+from .api.playlists_routes import playlist_routes
+from .api.likes_routes import likes_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -32,6 +34,8 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(album_routes, url_prefix='/api/albums')
 app.register_blueprint(track_routes, url_prefix='/api/tracks')
+app.register_blueprint(playlist_routes, url_prefix='/api/playlists')
+app.register_blueprint(likes_routes, url_prefix='/api/likes')
 db.init_app(app)
 Migrate(app, db)
 

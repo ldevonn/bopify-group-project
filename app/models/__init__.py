@@ -6,3 +6,5 @@ from .likes import Like
 from .tracks import Track
 
 from .db import environment, SCHEMA
+from .playlists_tracks import PlaylistsTracks
+from .likes import Like

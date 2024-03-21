@@ -1,17 +1,18 @@
-from app.models import db, Like, environment, SCHEMA
+from app.models import db, PlaylistsTracks, environment, SCHEMA
 from sqlalchemy.sql import text, insert
 
 
-def seed_likes():
-    likes = [
-        {'user_id': 1, 'track_id': 1},
-        {'user_id': 1, 'track_id': 2},
-        {'user_id': 1, 'track_id': 3},
-        {'user_id': 2, 'track_id': 3},
+def seed_playlists_tracks():
+    playliststracks = [
+        {'track_id': 1, 'playlist_id': 1},
+        {'track_id': 1, 'playlist_id': 2},
+        {'track_id': 3, 'playlist_id': 1},
+        {'track_id': 2, 'playlist_id': 2},
     ]
 
-    # Using the `insert` method to construct an insert statement for the 'likes' table
-    db.session.execute(insert(Like), likes)
+
+
+    db.session.execute(insert(PlaylistsTracks), playliststracks)
     db.session.commit()
 
 
@@ -21,9 +22,9 @@ def seed_likes():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_likes():
+def undo_playlists_tracks():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.playlistsTracks RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM likes"))
+        db.session.execute(text("DELETE FROM playlistsTracks"))
     db.session.commit()
