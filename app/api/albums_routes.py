@@ -16,7 +16,7 @@ def get_all_albums():
 
 
 # Get an Album by albumId
-@album_routes.route('/<int:album_id>')
+@album_routes.route('/<int:album_id>', methods=['GET', 'PUT', 'DELETE'])
 def get_album_by_id(album_id):
     album = Album.query.get(album_id)
 
@@ -25,9 +25,42 @@ def get_album_by_id(album_id):
         response.status_code = 404
         return response
 
-    tracks = Track.query.filter(Track.album_id == album_id)
-    album['tracks'] = [track.to_dict() for track in tracks]
-    return album.to_dict()
+    if request.method in ["PUT", "DELETE"] and album.artist_id != current_user.id:
+        return jsonify({"message": "Unauthorized access"}), 403
+
+    if request.method == 'GET':
+        tracks = Track.query.filter(Track.album_id == album_id)
+        album['tracks'] = [track.to_dict() for track in tracks]
+        return album.to_dict()
+# -------------------------------continue here
+    if request.method == "PUT":
+        form = CreateAlbumForm(obj=album)
+
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            track.name = form.name.data
+            track.duration = form.duration.data
+            track.file = form.file.data
+            track.album_id = form.albumId.data
+
+            db.session.commit()
+            return jsonify({"message": "Album has been updated successfully"})
+        else:
+            error_messages = {}
+            for field, errors in form.errors.items():
+                error_messages[field] = errors[0]
+
+            response = jsonify({
+                "message": "Bad Request",
+                "errors": error_messages,
+            })
+            response.status_code = 400
+            return response
+# -------------------------------
+    if request.method == 'DELETE':
+        db.session.delete(album)
+        db.session.commit()
+        return jsonify({"message": "Successfully Deleted"})
 
 
 # Get albums by artistId
@@ -67,61 +100,39 @@ def get_album_by_current_user():
 
 #--------------------------------------------------------continue here
 # Create an album
-@album_routes.route('/new', methods = ['GET', 'POST'])
+@album_routes.route('/new', methods=['GET', 'POST'])
 @login_required
 def create_album():
 
     user_id = current_user.id
     user = User.query.filter_by(id=user_id).one().to_dict()
 
-    # print(current_user.id)
-
     if not user['isArtist']:
         response = jsonify({"message": "User is not an artist. Only artists can create Albums."})
         response.status_code = 403
         return response
+    else:
+        form = CreateAlbumForm()
 
-    form = CreateAlbumForm()
-
-    if user['isArtist']:
+        form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            data = form.data
-            new_album = Album(name = data["name"],
-                              release_date = data["releaseDate"],
-                              album_type = data["albumType"],
-                              genre = data["genre"],
-                              image_url = data["imageUrl"],
-                              artist_id = current_user.id)
+            print("HIT!!!!!!!")
+            name = form.name.data
+            releaseDate = form.releaseDate.data
+            albumType = form.albumType.data
+            genre = form.genre.data
+            imageUrl = form.imageUrl.data
+
+            new_album = Album(name = name,
+                            release_date = releaseDate,
+                            album_type = albumType,
+                            genre = genre,
+                            image_url = imageUrl,
+                            artist_id = current_user.id)
             db.session.add(new_album)
             db.session.commit()
-            album = Album.query.get(new_album.id).to_dict()
-            return "album created"
+            # album = Album.query.get(new_album.id).to_dict()
+            print(form.errors)
+            return jsonify({"message": "Album successfully created."})
+        print(form.errors)
         return render_template('create_album.html', form=form)
-        # return 'This user is an artist'
-
-    return "create album blank form"
-
-# Edit an album
-@album_routes.route('/<int:album_id>')
-def edit_album():
-    pass
-
-# Delete an album by albumId
-@album_routes.route('/<int:album_id>', methods = ['DELETE'])
-@login_required
-def delete_album(album_id):
-    album = Album.query.get(album_id)
-
-    if not album:
-        response = jsonify({"message": "Album couldn't be found"})
-        response.status_code = 404
-        return response
-
-    if album.artist_id != current_user.id:
-        response = jsonify({"message": "You are not authorized to delete this album"})
-        response.status_code = 403
-        return response
-
-    db.session.delete(album)
-    db.session.commit()
-    return jsonify({"message": "Successfully Deleted"})
