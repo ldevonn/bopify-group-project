@@ -859,8 +859,8 @@ Deletes a track
 	"message": "Couldn't find track"
 }
 ```
-### Playlists
-## Get a Playlist by playlistId
+## Playlists
+### Get a Playlist by playlistId
 
 Returns a playlist object
 
@@ -915,7 +915,7 @@ Returns a playlist object
 }
 ```
 
-## Get all Playlists of current user (user)
+### Get all Playlists of current user (user)
 
 Returns a playlist object
 
@@ -995,7 +995,7 @@ Returns a playlist object
 }
 ```
 
-## Create a Playlist
+### Create a Playlist
 
 Returns a newly created playlist
 
@@ -1044,7 +1044,7 @@ Returns a newly created playlist
     }
     ```
 
-## Edit a Playlist by playlistId
+### Edit a Playlist by playlistId
 Returns the updated playlist
 
 - Require Authentication: true
@@ -1092,7 +1092,7 @@ Returns the updated playlist
     }
     ```
 
-## Delete a Playlist by playlistId
+### Delete a Playlist by playlistId
 
 Deletes a playlist
 
@@ -1121,5 +1121,152 @@ Deletes a playlist
 ```json
 {
 	"message": "Couldn't find Playlist"
+}
+```
+
+## Likes
+
+### Get all likes by track_id
+
+Returns an object containing all likes by track_id
+
+- Require Authentication: false
+- Require Authorization: false
+
+* Request:
+
+  - Method: GET
+  - URL: /api/likes/:trackId
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+
+* Successful Response:
+
+```json
+{
+		{
+      "likes": <number of likes>
+		}
+}
+```
+* Error response: Couldn't find a track with the specified id
+
+- Status Code: 404
+- Headers:
+- Content-Type: application/json
+- Body:
+
+  ```json
+    "message": "Track couldn't be found"
+  ```
+
+### Get all liked tracks by current user
+
+Returns an object containing all tracks liked by user
+
+- Require Authentication: true
+- Require Authorization: true
+
+* Request:
+  - Method: GET
+  - URL: /api/likes
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+```json
+[
+	{
+		"trackId": 1,
+		"name": "track one",
+		"duration": 180,
+		"file": "path/to/file",
+		"artistId": 1,
+		"albumId": 1,
+	},
+	{
+		"trackId": 2,
+		"name": "track two",
+		"duration": 180,
+		"file": "path/to/file",
+		"artistId": 1,
+		"albumId": 1,
+	}
+]
+```
+
+- Error Response:
+
+```json
+{
+	"message": "User does not have any liked songs"
+}
+```
+
+### Create a like (like a song)
+
+Returns an object containing the track liked
+
+- Require Authentication: true
+- Require Authorization: false
+
+* Request:
+  - Method: POST
+  - URL: /api/likes/:trackId
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "userID": <logged in user id>
+    "trackId": <track Id> 
+  }
+  ```
+* Successful Response:
+  ```json
+  {
+  	"message": "You have successfully liked the track"
+  }
+  ```
+- Error Response:
+- Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+
+```json
+{
+	"message": "Couldn't find track"
+}
+```
+
+### Delete a like
+Deletes a like for a track
+
+- Require Authentication: true
+- Require Authorization: true
+
+* Request:
+  - Method: DELETE
+  - URL: /api/likes/:trackId
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+* Successful Response:
+
+```json
+{
+	"message": "Successfully Deleted Like"
+}
+```
+- Error Response:
+- Status Code: 404
+  - Headers:
+    - Content-Type: application/json
+
+```json
+{
+	"message": "Couldn't find track"
 }
 ```
