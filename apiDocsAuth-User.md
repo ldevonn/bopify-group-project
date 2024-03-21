@@ -1197,14 +1197,6 @@ Returns an object containing all tracks liked by user
 ]
 ```
 
-- Error Response:
-
-```json
-{
-	"message": "User does not have any liked songs"
-}
-```
-
 ### Create a like (like a song)
 
 Returns an object containing the track liked
@@ -1237,7 +1229,7 @@ Returns an object containing the track liked
 
 ```json
 {
-	"message": "Couldn't find track"
+	"message": "Track couldn't be found"
 }
 ```
 
@@ -1267,6 +1259,6 @@ Deletes a like for a track
 
 ```json
 {
-	"message": "Couldn't find track"
+	"message": "Like couldn't be found"
 }
 ```
