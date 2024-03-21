@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% block content %}
+{{ form.csrf_token }}
+<div>
+    <h2>Edit Album</h2>
+    <form action="", method="post">
+        {{ form.hidden_tag() }}
+        <!-- name -->
+        <p>{{ form.name.label }}: {{ form.name() }}</p>
+        <p>{% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}</p>
+        <!-- releaseDate -->
+        <p>{{ form.releaseDate.label }}: {{ form.releaseDate() }}</p>
+        <p>{% for error in form.releaseDate.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}</p>
+        <!-- albumType -->
+        <p>{{ form.albumType.label }}: {{ form.albumType() }}</p>
+        <p>{% for error in form.albumType.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}</p>
+        <!-- genre -->
+        <p>{{ form.genre.label }}: {{ form.genre() }}</p>
+        <p>{% for error in form.genre.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}</p>
+        <!-- imageUrl -->
+        <p>{{ form.imageUrl.label }}: {{ form.imageUrl() }}</p>
+        <p>{% for error in form.imageUrl.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}</p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+
+{% endblock %}

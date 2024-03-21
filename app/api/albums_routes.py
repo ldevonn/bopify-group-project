@@ -38,10 +38,11 @@ def get_album_by_id(album_id):
 
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            track.name = form.name.data
-            track.duration = form.duration.data
-            track.file = form.file.data
-            track.album_id = form.albumId.data
+            name = form.name.data
+            releaseDate = form.releaseDate.data
+            albumType = form.albumType.data
+            genre = form.genre.data
+            imageUrl = form.imageUrl.data
 
             db.session.commit()
             return jsonify({"message": "Album has been updated successfully"})
@@ -115,7 +116,6 @@ def create_album():
 
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            print("HIT!!!!!!!")
             name = form.name.data
             releaseDate = form.releaseDate.data
             albumType = form.albumType.data
