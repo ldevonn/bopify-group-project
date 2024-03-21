@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import (DataRequired, Email, ValidationError)
 from app.models import Playlist, Track
 
@@ -23,3 +23,5 @@ from app.models import Playlist, Track
 class PlaylistForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     image_url = StringField('image')
+    private = BooleanField('private')
+    submit = SubmitField("Submit")
