@@ -101,4 +101,3 @@ def create_playlist():
     db.session.commit()
     playlist = Playlist.query.get(new_playlist.id).to_dict()
     return jsonify(playlist), 201
-  pass
