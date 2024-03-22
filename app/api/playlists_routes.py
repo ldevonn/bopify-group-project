@@ -25,9 +25,12 @@ def get_current_user_playlists():
 def get_playlist_by_id(playlist_id):
   """
   Query for a playlist by id and returns that playlist in a dictionary including it's tracks
+  OR Edit a playlist by id and returns the updated playlist in a dictionary including it's tracks
+  OR Delete a playlist by id
   """
 
   playlist = Playlist.query.get(playlist_id)
+
   if not playlist:
     res = jsonify({"message": "Playlist couldn't be found"})
     res.status_code = 404
@@ -50,16 +53,37 @@ def get_playlist_by_id(playlist_id):
   
   if request.method == "PUT":
     form = PlaylistForm(obj=playlist)
-    user_playlists = Playlist.query.filter_by(user_id=current_user.id).all()
-    form.user_id.choices = [()]
+
     form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+      playlist.name = form.name.data
+      playlist.image_url = form.image_url.data
+      playlist.private = form.private.data
+      
+      db.session.commit()
 
+      tracks = Track.query.join(PlaylistsTracks).filter(PlaylistsTracks.columns.playlist_id == playlist_id).all()
 
+      return {
+              "name": playlist.name, 
+              "userId": playlist.user_id,
+              "imageUrl": playlist.image_url,
+              "Private": playlist.private,
+              "tracks": [track.to_dict() for track in tracks]
+            }
+
+  if request.method == "DELETE":
+    db.session.delete(playlist)
+    db.session.commit()
+    return jsonify({"message": "Successfully Deleted"})
 
 
 @playlist_routes.route('/new', methods=["POST"])
 @login_required
 def create_playlist():
+  """
+  Create a playlist. A user or artist must be logged in.
+  """
   user = User.query.filter_by(id=current_user.id).one().to_dict()
   if not user:
     return jsonify({"message": "User not found"})
