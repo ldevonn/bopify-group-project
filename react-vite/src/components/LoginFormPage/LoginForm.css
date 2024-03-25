@@ -17,6 +17,7 @@
     width: 50%;
     height: 50vh;
     border-radius: 30px;
+    box-shadow: black 4px 4px 8px 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,6 +26,7 @@
 
 #loginTitle {
     color: white;
+    margin-top: 8%;
     background: transparent;
 }
 
@@ -57,10 +59,18 @@
 #loginSubmit {
     background-color: #15BE3A;
     height: 30px;
+    border: none;
+    border-radius: 30px;
+}
+
+#loginSubmit:hover {
+    cursor: pointer;
+    transition: 150ms;
+    background-color: #109d2f;
 }
 
 .divider {
-    width: 50%;
+    width: 35%;
     border-top: 1px solid white;
     margin: 20px 0;
 }

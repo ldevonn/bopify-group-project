@@ -35,3 +35,7 @@
     width: 231px;
     height: 74px;
 }
+
+#spotifyLogo:hover {
+    cursor: pointer;
+}
