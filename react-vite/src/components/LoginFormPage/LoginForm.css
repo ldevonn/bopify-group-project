@@ -1,10 +1,77 @@
-/* #loginTitle {
+.loginPage {
+    background: linear-gradient(to bottom, #464646, black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginTopBar {
+    background-color: black;
+    height: 125px;
+    width: 100%;
+}
+
+#loginFormCard {
+    margin-top: 10%;
+    width: 50%;
+    height: 50vh;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #000000, #171717);
+}
+
+#loginTitle {
     color: white;
+    background: transparent;
 }
 
 #loginForm {
     color: white;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
 }
-* {
-    background-color: black;
-} */
+
+#email {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    border-color: white;
+    border-width: 1px;
+
+    background-color: #181818;
+}
+
+#password {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    border-color: white;
+    border-width: 1px;
+    background-color: #181818;
+}
+
+#loginSubmit {
+    background-color: #15BE3A;
+    height: 30px;
+}
+
+.divider {
+    width: 50%;
+    border-top: 1px solid white;
+    margin: 20px 0;
+}
+
+#noAccountPrompt {
+    background: none;
+    color: white;
+}
+
+#noAccountPromptLink {
+    background: none;
+    color: white;
+    /*text-underline: white;*/
+}

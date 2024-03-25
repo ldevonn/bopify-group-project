@@ -7,9 +7,11 @@ import "./HomePage.css";
 function HomePage() {
     return (
         <>
-        <TopLeftNav/>
-        <LeftNav/>
-        <TopNav/>
+            <div className='homePage'>
+                <TopLeftNav/>
+                <LeftNav/>
+                <TopNav/>
+            </div>
         </>
     )
 }
