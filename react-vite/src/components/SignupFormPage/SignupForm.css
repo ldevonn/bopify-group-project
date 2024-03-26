@@ -1,0 +1,102 @@
+.signupPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.signupFormCard {
+    margin-top: 10%;
+    width: 50%;
+    /*height: 50vh;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#signupTitle{
+    color: white;
+    width: 300px;
+    font-size: 48px;
+}
+
+#signupForm {
+    display: flex;
+    color: white;
+    flex-direction: column;
+}
+
+#name {
+    position: relative;
+    margin-top: -13px;
+    margin-bottom: 15px;
+    height: 38px;
+    border-color: #ADADAD;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #181818;
+}
+
+#emailSU {
+    margin-top: -13px;
+    margin-bottom: 15px;
+    height: 38px;
+    border-color: #ADADAD;
+    border-style: solid;
+    border-width: 1px;
+
+    background-color: #181818;
+}
+
+#passwordSU {
+    margin-top: -13px;
+    margin-bottom: 15px;
+    height: 38px;
+    border-color: #ADADAD;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #181818;
+}
+
+#nameDesc {
+    margin-top: 1px;
+    color: #707070;
+}
+
+#emailDesc {
+    margin-top: 1px;
+    color: #707070;
+}
+
+#passwordDesc {
+    margin-top: 1px;
+    color: #707070;
+}
+
+.dividerSU {
+    margin-top: 30px;
+    width: 100%;
+}
+
+#name::placeholder {
+    padding-left: 15px;
+}
+
+#emailSU::placeholder {
+    padding-left: 15px;
+}
+
+#passwordSU::placeholder {
+    padding-left: 15px;
+}
+
+#signupAdditional {
+    display: flex;
+    justify-content: center;
+}
+
+#loginLnk {
+    padding-left: 10%;
+    color: white;
+}

@@ -1,93 +1,32 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { thunkSignup } from "../../redux/session";
-
+import spotifyLogo from '../../media/spotifyLogo.png'
+import './SignupForm.css'
+import {Link, useNavigate} from "react-router-dom";
 function SignupFormPage() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const sessionUser = useSelector((state) => state.session.user);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
-
-  if (sessionUser) return <Navigate to="/" replace={true} />;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
-      });
-    }
-
-    const serverResponse = await dispatch(
-      thunkSignup({
-        email,
-        username,
-        password,
-      })
-    );
-
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      navigate("/");
-    }
-  };
+  const navigate = useNavigate()
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
-      </form>
-    </>
+      <>
+        <div className='signupPage'>
+          <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')}/>
+          <div className='signupFormCard'>
+            <h1 id='signupTitle'>Sign up to start listening</h1>
+            <form id='signupForm'>
+              <label style={{background: 'none'}} htmlFor='name'>Name</label>
+              <p id='nameDesc'>This name will appear on your profile</p>
+              <input type='name' id='name' name='name' required placeholder='Name'/>
+              <label style={{background: 'none'}} htmlFor='email'>Email</label>
+              <p id='emailDesc'>We need an email so we can keep you updated on new music!</p>
+              <input type='email' id='emailSU' name='email' required placeholder='Email'/>
+              <label style={{background: 'none'}} htmlFor='password'>Password:</label>
+              <p id='passwordDesc'>We need this so that only you can access the account!</p>
+              <input type='password' id='passwordSU' name='password' required placeholder='Password'/>
+              <button id='loginSubmit' type='submit'>Signup</button>
+              <hr className='dividerSU'/>
+              <p id='signupAdditional'>Already have an account? <Link id='loginLnk' to='/login'>Log in to Spotify!</Link></p>
+            </form>
+          </div>
+        </div>
+      </>
   );
 }
 

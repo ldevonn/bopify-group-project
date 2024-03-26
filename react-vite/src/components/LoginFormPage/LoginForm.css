@@ -10,6 +10,7 @@
     background-color: black;
     height: 125px;
     width: 100%;
+    position: relative;
 }
 
 #loginFormCard {
@@ -40,8 +41,10 @@
 #email {
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 20px;
-    border-color: white;
+    height: 25px;
+    border-color: #ADADAD;
+    border-style: solid;
+    border-radius: 5px;
     border-width: 1px;
 
     background-color: #181818;
@@ -50,8 +53,10 @@
 #password {
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 20px;
-    border-color: white;
+    height: 25px;
+    border-color: #ADADAD;
+    border-style: solid;
+    border-radius: 5px;
     border-width: 1px;
     background-color: #181818;
 }
