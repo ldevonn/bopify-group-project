@@ -1,7 +1,7 @@
 #loginButton {
-    position: relative;
+    /* position: relative;
     left: 1500px;
-    bottom: 1050px;
+    bottom: 1050px; */
     margin-left: 52px;
     background-color: #15BE3A;
     border-radius: 30px;
@@ -13,9 +13,9 @@
 }
 
 #signupButton {
-    position: relative;
+    /* position: relative;
     left: 1500px;
-    bottom: 1050px;
+    bottom: 1050px; */
     font-size: 22px;
     border: none;
     color: white;
