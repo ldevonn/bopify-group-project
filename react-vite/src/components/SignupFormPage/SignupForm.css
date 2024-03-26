@@ -15,14 +15,14 @@
 }
 
 #signupTitle{
-    color: white;
+    color: wheat;
     width: 300px;
     font-size: 48px;
 }
 
 #signupForm {
     display: flex;
-    color: white;
+    color: wheat;
     flex-direction: column;
 }
 
@@ -79,15 +79,8 @@
     width: 100%;
 }
 
-#name::placeholder {
-    padding-left: 15px;
-}
-
-#emailSU::placeholder {
-    padding-left: 15px;
-}
-
-#passwordSU::placeholder {
+input {
+    color: white;
     padding-left: 15px;
 }
 
@@ -98,5 +91,5 @@
 
 #loginLnk {
     padding-left: 10%;
-    color: white;
+    color: #e9d5ff;
 }
