@@ -8,8 +8,10 @@ function HomePage() {
     return (
         <>
             <div className='homePage'>
-                <TopLeftNav/>
-                <LeftNav/>
+                <div className="leftColumn">
+                    <TopLeftNav/>
+                    <LeftNav/>
+                </div>
                 <TopNav/>
             </div>
         </>
