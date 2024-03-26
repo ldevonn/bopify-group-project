@@ -1,0 +1,41 @@
+#topLeftNav {
+    background-color: #2F2F2F;
+    width: 465px;
+    height: 222px;
+    border-radius: 15px;
+    margin-left: 27px;
+    margin-top: 14px;
+}
+
+#homeButton{
+    position: absolute;
+    left: 129px;
+    top: 111px;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
+#searchButton{
+    position: absolute;
+    left: 129px;
+    top: 151px;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
+#spotifyLogo {
+    position: absolute;
+    left: 55px;
+    top: 30px;
+    background-color: transparent;
+    width: 231px;
+    height: 74px;
+}
+
+#spotifyLogo:hover {
+    cursor: pointer;
+}

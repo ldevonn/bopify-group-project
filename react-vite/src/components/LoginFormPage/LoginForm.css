@@ -1,0 +1,87 @@
+.loginPage {
+    background: linear-gradient(to bottom, #464646, black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginTopBar {
+    background-color: black;
+    height: 125px;
+    width: 100%;
+}
+
+#loginFormCard {
+    margin-top: 10%;
+    width: 50%;
+    height: 50vh;
+    border-radius: 30px;
+    box-shadow: black 4px 4px 8px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #000000, #171717);
+}
+
+#loginTitle {
+    color: white;
+    margin-top: 8%;
+    background: transparent;
+}
+
+#loginForm {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+#email {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    border-color: white;
+    border-width: 1px;
+
+    background-color: #181818;
+}
+
+#password {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
+    border-color: white;
+    border-width: 1px;
+    background-color: #181818;
+}
+
+#loginSubmit {
+    background-color: #15BE3A;
+    height: 30px;
+    border: none;
+    border-radius: 30px;
+}
+
+#loginSubmit:hover {
+    cursor: pointer;
+    transition: 150ms;
+    background-color: #109d2f;
+}
+
+.divider {
+    width: 35%;
+    border-top: 1px solid white;
+    margin: 20px 0;
+}
+
+#noAccountPrompt {
+    background: none;
+    color: white;
+}
+
+#noAccountPromptLink {
+    background: none;
+    color: white;
+    /*text-underline: white;*/
+}
