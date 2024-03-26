@@ -1,15 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import (DataRequired, Email, ValidationError)
 from app.models import Playlist, Track
 
 
-def user_exists(form, field):
-    # Checking if user exists
-    email = field.data
-    user = User.query.filter(User.email == email).first()
-    if user:
-        raise ValidationError('Email address is already in use.')
+# def user_exists(form, field):
+#     # Checking if user exists
+#     email = field.data
+#     user = User.query.filter(User.email == email).first()
+#     if user:
+#         raise ValidationError('Email address is already in use.')
 
 
 # def username_exists(form, field):
@@ -22,4 +22,6 @@ def user_exists(form, field):
 
 class PlaylistForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    image_url = StringField('image')
+    image_url = StringField('image', validators=[DataRequired()])
+    private = BooleanField('private')
+    submit = SubmitField("Submit")

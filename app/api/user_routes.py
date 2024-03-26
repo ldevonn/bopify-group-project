@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
-from app.models import User
+from app.models import User, Track, Playlist, PlaylistsTracks, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -34,3 +34,16 @@ def user(id):
     if not user:
         return {'errors': {'message': 'User not found'}}, 404
     return user.to_dict()
+
+# @user_routes.route('/<int:id>/playlists')
+# def get_playlist_by_user(id):
+#     """
+#     Query for a playlist by user_id and returns that playlist in a dictionary
+#     """
+#     playlists = Playlist.query.filter(Playlist.user_id==id).all()
+#     if not playlists:
+#         res = jsonify({"message": "User couldn't be found"})
+#         res.status_code = 404
+#         return res
+
+#     return {"playlists": [playlist.to_dict() for playlist in playlists]}

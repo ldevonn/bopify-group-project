@@ -65,12 +65,11 @@ Returns the information about the current user that is logged in.
 
     ```json
     {
-    		"id": 1,
-    		"name": "Devon",
-    		"email": "theGoatedDevon@gmail.com",
-        "isArtist": false,
-        "imageUrl": null
-    	}
+    	"id": 1,
+    	"name": "Devon",
+    	"email": "theGoatedDevon@gmail.com",
+      "isArtist": false,
+      "imageUrl": null
     }
     ```
 
