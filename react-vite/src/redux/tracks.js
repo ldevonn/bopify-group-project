@@ -1,6 +1,9 @@
 const GET_TRACKS = 'tracks/getTracks'
 const GET_TRACK_DETAILS = 'tracks/getTrackDetails'
 const GET_TRACK_BY_USER = 'tracks/getTrackByUser'
+const ADD_TRACK = 'tracks/addTrack'
+const UPDATE_TRACK = 'tracks/updateTrack'
+const DELETE_TRACK = 'tracks/deleteTrack'
 
 const getTracks = (allTracks) => {
   return {
@@ -20,6 +23,27 @@ const getTrackByCurrentUser = (trackByUser) => {
   return {
     type: GET_TRACK_BY_USER,
     trackByUser
+  }
+}
+
+const addTrack = (newTrack) => {
+  return {
+    type: ADD_TRACK,
+    newTrack
+  }
+}
+
+const modifiedTrack = (updatedTrack) => {
+  return {
+    type: UPDATE_TRACK,
+    updatedTrack
+  }
+}
+
+const deleteTrack = (track) => {
+  return {
+    type: DELETE_TRACK,
+    track
   }
 }
 
@@ -73,6 +97,60 @@ export const fetchCurrentUserTracks = () => async (dispatch) => {
   }
 }
 
+export const createTrack = (payload) => async (dispatch) => {
+  const res = await fetch('/api/tracks/new', {
+    method: 'POST',
+    header: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(addTrack(data))
+    return data
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const updateTrack = (payload, trackId) => async (dispatch) => {
+  const res = await fetch(`/api/tracks/${trackId}`, {
+    method: 'PUT',
+    header: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(modifiedTrack(data))
+    return data
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const fetchDeleteTrack = (trackId) => async (dispatch) => {
+  const res = await fetch(`api/tracks/${trackId}`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    dispatch(deleteTrack())
+    return res
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
 const tracksReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_TRACKS:
@@ -81,6 +159,10 @@ const tracksReducer = (state = {}, action) => {
       return { ...state, trackDetails: action.trackDetails }
     case GET_TRACK_BY_USER:
       return { ...state, trackByUser: action.trackByUser }
+    case ADD_TRACK:
+      return { ...state, trackDetails: action.addTrack }
+    case UPDATE_TRACK:
+      return { ...state, trackDetails: action.updatedTrack }
     default:
       return state
   }
