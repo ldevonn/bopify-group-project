@@ -1,8 +1,18 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import './SignupForm.css'
-import {Link, useNavigate} from "react-router-dom";
+import {Navigate, Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {thunkLogin} from "../../redux/session.js";
+import {useSelector, useDispatch} from "react-redux";
+
+
 function SignupFormPage() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const sessionUser = useSelector((state) => state.session.user)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState({})
 
   return (
       <>
