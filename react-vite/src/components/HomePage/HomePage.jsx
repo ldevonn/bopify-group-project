@@ -1,6 +1,7 @@
 import TopNav from "./TopNav";
 import LeftNav from './LeftNav'
 import TopLeftNav from "./TopLeftNav";
+import AllAlbums from "./AllAlbums";
 
 import "./HomePage.css";
 
@@ -12,7 +13,10 @@ function HomePage() {
                     <TopLeftNav/>
                     <LeftNav/>
                 </div>
-                <TopNav/>
+                <div className="top-nav-with-albums">
+                    <TopNav/>
+                    <AllAlbums/>
+                </div>
             </div>
         </>
     )

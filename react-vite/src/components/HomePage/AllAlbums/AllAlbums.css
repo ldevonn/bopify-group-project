@@ -1,0 +1,29 @@
+#allAlbumTiles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: transparent;
+    margin-top: 15px;
+}
+
+.albumTile {
+    background-color: #15BE3A;
+    height: 260px;
+    width: 188px;
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.album-image {
+    height: 155px;
+    width: 155px;
+    margin: 15px;
+}
+
+.albumTileText {
+    color: white;
+    background-color: transparent;
+    margin-left: 15px;
+}

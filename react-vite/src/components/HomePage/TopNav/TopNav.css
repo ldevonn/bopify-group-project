@@ -24,7 +24,7 @@
 
 #logoutButton {
     margin-left: 52px;
-    background-color: #2F2F2F;
+    background-color: black;
     border-radius: 30px;
     border: none;
     color: white;
@@ -39,9 +39,19 @@
     color: white;
     background-color: transparent;
     margin-top: 15px;
+    margin-left: 15px;
 }
 
 #topNavLoggedIn {
     display: flex;
     flex-direction: row;
+    background-color: transparent;
+    justify-content: space-between;
+}
+
+#topNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: transparent;
 }

@@ -59,16 +59,18 @@ export const fetchGetAlbums = () => async (dispatch) => {
   const res = await fetch("/api/albums")
   if (res.ok) {
     const data = await res.json()
-    const albumsData = {}
+    // const albumsData = {}
 
-    for (let i = 0; i < data.albums.length; i++) {
-      let currObj = data.albums[i]
-      albumsData[currObj.id] = currObj
-    }
+    // for (let i = 0; i < data.albums.length; i++) {
+    //   let currObj = data.albums[i]
+    //   albumsData[currObj.id] = currObj
+    // }
 
-    dispatch(getAlbums(albumsData))
+    // dispatch(getAlbums(albumsData))
+    dispatch(getAlbums(data))
 
-    return albumsData
+    // return albumsData
+    return data
   }  else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages
@@ -125,7 +127,7 @@ export const createAlbum = (payload) => async (dispatch) => {
     header: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   })
-  
+
   if (res.ok) {
     const data = await res.json()
     dispatch(addAlbum(data))
@@ -144,7 +146,7 @@ export const updateAlbum = (payload, albumId) => async (dispatch) => {
     header: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   })
-  
+
   if (res.ok) {
     const data = await res.json()
     dispatch(modifiedAlbum(data))
@@ -161,7 +163,7 @@ export const fetchDeleteAlbum = (albumId) => async (dispatch) => {
   const res = await fetch(`api/albums/${albumId}`, {
     method: 'DELETE'
   })
-  
+
   if (res.ok) {
     dispatch(deleteAlbum())
     return res
