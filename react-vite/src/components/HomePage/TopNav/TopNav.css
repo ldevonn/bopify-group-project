@@ -21,3 +21,27 @@
     color: white;
     background-color: transparent;
 }
+
+#logoutButton {
+    margin-left: 52px;
+    background-color: #2F2F2F;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    width: 137px;
+    height: 46px;
+    font-size: 22px;
+}
+
+#welcomeMessage {
+    font-size: 22px;
+    border: none;
+    color: white;
+    background-color: transparent;
+    margin-top: 15px;
+}
+
+#topNavLoggedIn {
+    display: flex;
+    flex-direction: row;
+}
