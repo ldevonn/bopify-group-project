@@ -2,7 +2,7 @@
     background-color: #2F2F2F;
     width: 465px;
     height: 816px;
-    margin-left: 27px;
+    margin-left: 10px;
     border-radius: 15px;
 }
 
@@ -12,7 +12,7 @@
     position: relative;
     left: 63px;
     top: 21px;
-    
+
 }
 
 #createPlaylistComp {

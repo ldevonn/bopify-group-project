@@ -13,16 +13,16 @@ function AllAlbums () {
         dispatch(fetchGetAlbums())
     }, [dispatch])
 
-    console.log("HIT!!!", allAlbums)
+    console.log("Hit!!!", allAlbums)
 
     return (
         <div id='allAlbumTiles'>
             {allAlbums && allAlbums.albums.map(album => {
                 return (
-                    <div key={album.id} className="albumTile">
+                    <div key={album.id} className="albumTile" onClick={() => navigate(`/albums/${album.albumId}`)}>
                         <img src={`${album.imageUrl}`} className="album-image"></img>
-                        <div className="albumTileText">{album.name}</div>
-                        <div className="albumTileText">artistId: {album.artistId}</div>
+                        <div className="albumTileAlbumName">{album.name}</div>
+                        <div className="albumTileArtistName">{album.artistName}</div>
                     </div>
                 )
             })}
