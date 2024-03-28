@@ -22,6 +22,7 @@ def get_current_user_playlists():
   return {'playlists': playlist_data}
 
 @playlist_routes.route('/<int:playlist_id>', methods=["GET", "PUT", "DELETE"])
+@login_required
 def get_playlist_by_id(playlist_id):
   """
   Query for a playlist by id and returns that playlist in a dictionary including it's tracks
@@ -84,20 +85,24 @@ def create_playlist():
   """
   Create a playlist. A user or artist must be logged in.
   """
-  user = User.query.filter_by(id=current_user.id).one().to_dict()
+  user = User.query.get(current_user.id)
   if not user:
-    return jsonify({"message": "User not found"})
+    return jsonify({"message": "User not found"}), 404
   
   form = PlaylistForm()
+  
+  form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     data = form.data
     new_playlist = Playlist(
                       name = data["name"],
-                      imageUrl = data["image_url"],
-                      userId = current_user.id,
+                      image_url = data["imageUrl"],
+                      user_id = current_user.id,
                       private = data["private"],
     )
     db.session.add(new_playlist)
     db.session.commit()
     playlist = Playlist.query.get(new_playlist.id).to_dict()
     return jsonify(playlist), 201
+  else:
+    return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
