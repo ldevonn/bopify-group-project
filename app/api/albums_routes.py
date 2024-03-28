@@ -29,9 +29,11 @@ def get_album_by_id(album_id):
         return jsonify({"message": "Unauthorized access"}), 403
 
     if request.method == 'GET':
-        tracks = Track.query.filter(Track.album_id == album_id)
-        album['tracks'] = [track.to_dict() for track in tracks]
-        return album.to_dict()
+        tracks = [track.to_dict() for track in album.tracks]
+        return {**album.to_dict(), 'tracks': tracks}
+        # tracks = Track.query.filter(Track.album_id == album_id)
+        # album.tracks = [track.to_dict() for track in tracks]
+        # return album.to_dict()
 
     if request.method == "PUT":
         form = CreateAlbumForm(obj=album)
