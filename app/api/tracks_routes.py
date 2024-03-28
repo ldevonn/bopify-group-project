@@ -51,7 +51,7 @@ def get_or_update_or_delete_track(track_id):
             track.album_id = form.albumId.data
 
             db.session.commit()
-            return jsonify({"message": "Track has been updated successfully"})
+            return jsonify({"message": "Track has been updated successfully"}), 201
         else:
             error_messages = {}
             for field, errors in form.errors.items():

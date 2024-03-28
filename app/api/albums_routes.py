@@ -50,7 +50,7 @@ def get_album_by_id(album_id):
             album.imageUrl = form.imageUrl.data
 
             db.session.commit()
-            return jsonify({"message": "Album has been updated successfully"})
+            return jsonify({"message": "Album has been updated successfully"}), 201
         else:
             error_messages = {}
             for field, errors in form.errors.items():
