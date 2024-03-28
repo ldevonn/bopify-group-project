@@ -1,0 +1,57 @@
+input[type="range"]{
+    -webkit-appearance: none;
+    background-color: gray;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 6px;
+    width: 25%;
+    cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    box-shadow: -210px 0 0 210px white;
+    width: 1px;
+}
+
+input[type='range']:hover::-webkit-slider-thumb {
+    cursor: pointer;
+    background: white;
+    box-shadow: -215px 0 0 210px green;
+    border-radius: 15%;
+    height: 15px;
+    width: 15px;
+    transition: 75ms;
+    overflow: visible;
+}
+
+.fa-solid {
+    /*color: white;*/
+    background: transparent;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+}
+
+.controls div{
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+    background: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(201, 27, 21, 0.18);
+    cursor: pointer;
+}
+
+.controls div:nth-child(2){
+    transform: scale(1.2);
+}

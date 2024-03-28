@@ -22,6 +22,6 @@ from app.models import Playlist, Track
 
 class PlaylistForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    image_url = StringField('image', validators=[DataRequired()])
+    imageUrl = StringField('image', validators=[DataRequired()])
     private = BooleanField('private')
     submit = SubmitField("Submit")
