@@ -1,0 +1,37 @@
+.album-detail-info-section {
+    color: white;
+    border: solid;
+    border-color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+.album-detail-image {
+    height: 155px;
+    width: 155px;
+    margin: 15px;
+    border: none;
+    border-radius: 10px;
+}
+
+.album-detail-type-name-and-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-detail-artist-release-date-length {
+    display: flex;
+    flex-direction: row;
+    font-size: small;
+    font-weight: light;
+}
+
+.album-detail-album-name {
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.album-detail-album-type {
+    font-size: smaller;
+    font-weight: lighter;
+}
