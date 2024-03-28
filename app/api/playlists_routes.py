@@ -58,7 +58,7 @@ def get_playlist_by_id(playlist_id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
       playlist.name = form.name.data
-      playlist.image_url = form.image_url.data
+      playlist.image_url = form.imageUrl.data
       playlist.private = form.private.data
       
       db.session.commit()
@@ -71,7 +71,7 @@ def get_playlist_by_id(playlist_id):
               "imageUrl": playlist.image_url,
               "Private": playlist.private,
               "tracks": [track.to_dict() for track in tracks]
-            }
+            }, 201
 
   if request.method == "DELETE":
     db.session.delete(playlist)
