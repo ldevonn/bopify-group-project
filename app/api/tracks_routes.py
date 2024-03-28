@@ -121,6 +121,16 @@ def create_track():
             db.session.commit()
 
             return Track.query.filter_by(name=form.name.data).order_by(Track.id.desc()).first().to_dict(), 201
+        
+        errors = {}
+        for field, error in form.errors.items():
+            field_obj = getattr(form, field)
+            errors[field_obj.label.text] = error[0]
+        error_response = {
+            "message": "Body validation errors",
+            "errors": errors
+        }
+        return jsonify(error_response), 400
             # return redirect(url_for('tracks.get_all_tracks'))
 
         return render_template('create_track.html', form=form)
