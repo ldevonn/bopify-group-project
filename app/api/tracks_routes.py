@@ -79,7 +79,7 @@ def get_artist_tracks():
     tracks = Track.query.filter_by(artist_id=user_id).all()
 
     if not tracks:
-        response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"})
+        response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"}), 400
         return response
     
     return jsonify([track.to_dict() for track in tracks])
