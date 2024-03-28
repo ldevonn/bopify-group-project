@@ -4,24 +4,30 @@
     flex-wrap: wrap;
     background-color: transparent;
     margin-top: 15px;
+    height: 944px;
 }
 
 .albumTile {
-    background-color: #2F2F2F;
+    background-color: transparent;
     height: 260px;
     width: 188px;
-    border: solid;
-    border-color: white;
-    border-radius: 5px;
+    /* border: solid;
+    border-color: white; */
+    border-radius: 10px;
     margin: 10px;
+}
+
+.albumTile:hover {
+    cursor: pointer;
+    background-color: #1E1E1E;
 }
 
 .album-image {
     height: 155px;
     width: 155px;
     margin: 15px;
-    border-radius: 10px;
     border: none;
+    border-radius: 10px;
 }
 
 .albumTileAlbumName {

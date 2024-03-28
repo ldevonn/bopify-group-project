@@ -1,4 +1,4 @@
-import { fetchGetAlbums } from "../../../redux/albums"
+import { fetchGetAlbums } from "../../redux/albums"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -12,8 +12,6 @@ function AllAlbums () {
     useEffect(() => {
         dispatch(fetchGetAlbums())
     }, [dispatch])
-
-    console.log("Hit!!!", allAlbums)
 
     return (
         <div id='allAlbumTiles'>

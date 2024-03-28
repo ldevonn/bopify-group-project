@@ -1,9 +1,9 @@
 #leftNav {
-    background-color: #2F2F2F;
-    width: 465px;
+    background-color: #121212;
+    width: 400px;
     height: 816px;
-    margin-left: 10px;
     border-radius: 15px;
+    margin-top: -10px;
 }
 
 #leftNavTitle {
@@ -12,7 +12,6 @@
     position: relative;
     left: 63px;
     top: 21px;
-
 }
 
 #createPlaylistComp {
@@ -20,7 +19,7 @@
     color: white;
     margin-top: 79px;
     margin-left: 14px;
-    width: 395px;
+    width: 330px;
     height: 137px;
     border-radius: 15px;
     padding: 20px;

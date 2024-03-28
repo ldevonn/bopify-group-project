@@ -84,6 +84,7 @@ export const fetchGetAlbumDetails = (albumId) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json()
     dispatch(getAlbumDetails(data))
+    console.log('HIT!!!', data)
     return data
   }  else if (res.status < 500) {
     const errorMessages = await res.json()
