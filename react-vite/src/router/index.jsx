@@ -22,6 +22,14 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignupFormPage />,
       },
+      {
+        path: '/player',
+        element: <MusicPlayer/>,
+      },
+      {
+        path: '/albums/:albumId',
+        element: <AlbumDetails />
+      },
     ],
   },
 ]);
