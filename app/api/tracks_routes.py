@@ -30,8 +30,11 @@ def get_or_update_or_delete_track(track_id):
         response.status_code = 404
         return response
     
-    if request.method in ["PUT", "DELETE"] and track.artist_id != current_user.id:
-        return jsonify({"message": "Unauthorized access"}), 403
+    if request.method in ["PUT", "DELETE"]:
+        if current_user.is_authenticated and track.artist_id == current_user.id:
+          pass
+        else:
+            return jsonify({"message": "Unauthorized access"}), 403 
     
     if request.method == 'GET':
         return track.to_dict()

@@ -24,9 +24,12 @@ def get_album_by_id(album_id):
         response = jsonify({"message": "Album couldn't be found"})
         response.status_code = 404
         return response
-
-    if request.method in ["PUT", "DELETE"] and album.artist_id != current_user.id:
-        return jsonify({"message": "Unauthorized access"}), 403
+    
+    if request.method in ["PUT", "DELETE"]:
+        if current_user.is_authenticated and album.artist_id == current_user.id:
+            pass
+        else:
+            return jsonify({"message": "Unauthorized access"}), 403 
 
     if request.method == 'GET':
         tracks = [track.to_dict() for track in album.tracks]
