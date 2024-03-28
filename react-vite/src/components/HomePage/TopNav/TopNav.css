@@ -1,7 +1,4 @@
 #loginButton {
-    /* position: relative;
-    left: 1500px;
-    bottom: 1050px; */
     margin-left: 52px;
     background-color: #15BE3A;
     border-radius: 30px;
@@ -13,9 +10,6 @@
 }
 
 #signupButton {
-    /* position: relative;
-    left: 1500px;
-    bottom: 1050px; */
     font-size: 22px;
     border: none;
     color: white;
@@ -24,7 +18,7 @@
 
 #logoutButton {
     margin-left: 52px;
-    background-color: #2F2F2F;
+    background-color: #121212;
     border-radius: 30px;
     border: none;
     color: white;
@@ -39,9 +33,19 @@
     color: white;
     background-color: transparent;
     margin-top: 15px;
+    margin-left: 15px;
 }
 
 #topNavLoggedIn {
     display: flex;
     flex-direction: row;
+    background-color: transparent;
+    justify-content: space-between;
+}
+
+#topNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: transparent;
 }

@@ -1,7 +1,7 @@
 import TopNav from "./TopNav";
 import LeftNav from './LeftNav'
 import TopLeftNav from "./TopLeftNav";
-
+import AllAlbums from "../AllAlbums";
 import "./HomePage.css";
 
 function HomePage() {
@@ -12,9 +12,13 @@ function HomePage() {
                     <TopLeftNav/>
                     <LeftNav/>
                 </div>
-                <TopNav/>
+                <div className="top-nav-with-gradient">
+                    <TopNav/>
+                    <AllAlbums />
+                </div>
             </div>
         </>
     )
 }
+
 export default HomePage
