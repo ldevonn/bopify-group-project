@@ -32,14 +32,19 @@ def get_album_by_id(album_id):
         response = jsonify({"message": "Album couldn't be found"})
         response.status_code = 404
         return response
-
-    if request.method in ["PUT", "DELETE"] and album.artist_id != current_user.id:
-        return jsonify({"message": "Unauthorized access"}), 403
+    
+    if request.method in ["PUT", "DELETE"]:
+        if current_user.is_authenticated and album.artist_id == current_user.id:
+            pass
+        else:
+            return jsonify({"message": "Unauthorized access"}), 403 
 
     if request.method == 'GET':
-        tracks = Track.query.filter(Track.album_id == album_id)
-        album['tracks'] = [track.to_dict() for track in tracks]
-        return album.to_dict()
+        tracks = [track.to_dict() for track in album.tracks]
+        return {**album.to_dict(), 'tracks': tracks}
+        # tracks = Track.query.filter(Track.album_id == album_id)
+        # album.tracks = [track.to_dict() for track in tracks]
+        # return album.to_dict()
 
     if request.method == "PUT":
         form = CreateAlbumForm(obj=album)
@@ -53,7 +58,7 @@ def get_album_by_id(album_id):
             album.imageUrl = form.imageUrl.data
 
             db.session.commit()
-            return jsonify({"message": "Album has been updated successfully"})
+            return jsonify({"message": "Album has been updated successfully"}), 201
         else:
             error_messages = {}
             for field, errors in form.errors.items():
@@ -139,7 +144,16 @@ def create_album():
             db.session.add(new_album)
             db.session.commit()
             # album = Album.query.get(new_album.id).to_dict()
-            print(form.errors)
-            return jsonify({"message": "Album successfully created."})
-        print(form.errors)
+            return jsonify({"message": "Album successfully created."}), 201
+        
+        errors = {}
+        for field, error in form.errors.items():
+            field_obj = getattr(form, field)
+            errors[field_obj.label.text] = error[0]
+        error_response = {
+            "message": "Body validation errors",
+            "errors": errors
+        }
+        return jsonify(error_response), 400
+
         return render_template('create_album.html', form=form)
