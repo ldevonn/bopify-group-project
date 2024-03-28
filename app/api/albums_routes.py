@@ -134,6 +134,6 @@ def create_album():
             db.session.commit()
             # album = Album.query.get(new_album.id).to_dict()
             print(form.errors)
-            return jsonify({"message": "Album successfully created."})
+            return jsonify({"message": "Album successfully created."}), 201
         print(form.errors)
         return render_template('create_album.html', form=form)
