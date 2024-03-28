@@ -133,7 +133,16 @@ def create_album():
             db.session.add(new_album)
             db.session.commit()
             # album = Album.query.get(new_album.id).to_dict()
-            print(form.errors)
             return jsonify({"message": "Album successfully created."}), 201
-        print(form.errors)
+        
+        errors = {}
+        for field, error in form.errors.items():
+            field_obj = getattr(form, field)
+            errors[field_obj.label.text] = error[0]
+        error_response = {
+            "message": "Body validation errors",
+            "errors": errors
+        }
+        return jsonify(error_response), 400
+
         return render_template('create_album.html', form=form)
