@@ -12,7 +12,15 @@ album_routes = Blueprint('albums', __name__)
 def get_all_albums():
     albums = Album.query.all()
     print(albums)
-    return {'albums': [album.to_dict() for album in albums]}
+    response = {'albums': []}
+
+    for album in albums:
+        album_data = album.to_dict()
+        artist = User.query.get(album_data['artistId'])
+        album_data['artistName'] = artist.name
+        response['albums'].append(album_data)
+
+    return response
 
 
 # Get an Album by albumId
