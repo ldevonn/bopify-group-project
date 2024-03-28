@@ -1011,11 +1011,11 @@ Returns a newly created playlist
   {
   	"name": "Test Playlist",
     "imageUrl": "image url",
-    "userId": 1,
     "private": false
   }
   ```
 * Successful Response:
+  Status Code: 201
   ```json
   {
   	"playlistId": 8,
@@ -1059,11 +1059,11 @@ Returns the updated playlist
   {
   	"name": "Test Playlist",
     "imageUrl": "image url",
-    "userId": 1,
     "private": false
   }
   ```
 * Successful Response:
+  Status Code: 201
   ```json
   {
   	"playlistId": 8,

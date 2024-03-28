@@ -30,8 +30,11 @@ def get_or_update_or_delete_track(track_id):
         response.status_code = 404
         return response
     
-    if request.method in ["PUT", "DELETE"] and track.artist_id != current_user.id:
-        return jsonify({"message": "Unauthorized access"}), 403
+    if request.method in ["PUT", "DELETE"]:
+        if current_user.is_authenticated and track.artist_id == current_user.id:
+          pass
+        else:
+            return jsonify({"message": "Unauthorized access"}), 403 
     
     if request.method == 'GET':
         return track.to_dict()
@@ -48,7 +51,7 @@ def get_or_update_or_delete_track(track_id):
             track.album_id = form.albumId.data
 
             db.session.commit()
-            return jsonify({"message": "Track has been updated successfully"})
+            return jsonify({"message": "Track has been updated successfully"}), 201
         else:
             error_messages = {}
             for field, errors in form.errors.items():
@@ -76,7 +79,7 @@ def get_artist_tracks():
     tracks = Track.query.filter_by(artist_id=user_id).all()
 
     if not tracks:
-        response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"})
+        response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"}), 400
         return response
     
     return jsonify([track.to_dict() for track in tracks])
@@ -117,7 +120,17 @@ def create_track():
             db.session.add(new_track)
             db.session.commit()
 
-            return Track.query.filter_by(name=form.name.data).order_by(Track.id.desc()).first().to_dict()
+            return Track.query.filter_by(name=form.name.data).order_by(Track.id.desc()).first().to_dict(), 201
+        
+        errors = {}
+        for field, error in form.errors.items():
+            field_obj = getattr(form, field)
+            errors[field_obj.label.text] = error[0]
+        error_response = {
+            "message": "Body validation errors",
+            "errors": errors
+        }
+        return jsonify(error_response), 400
             # return redirect(url_for('tracks.get_all_tracks'))
 
         return render_template('create_track.html', form=form)
