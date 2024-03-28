@@ -13,12 +13,25 @@ function AlbumDetails () {
 
     useEffect(() => {
         dispatch(fetchGetAlbumDetails(albumId))
-    }, [dispatch])
+    }, [dispatch, albumId])
 
-    console.log(album)
+    // artist =
 
     return (
-        <h1>Album Details</h1>
+        <div className="album-detail-info-section">
+            <img src={album && album.imageUrl} className="album-detail-image"></img>
+            <div className="album-detail-type-name-and-info">
+                <div className="album-detail-album-type">{album && album.albumType}</div>
+                <div className="album-detail-album-name">{album && album.name}</div>
+                <div className='album-detail-artist-release-date-length'>
+                    <div>{album && album.artist.name}</div>
+                    <div>•</div>
+                    <div>{album && album.releaseDate.slice(12, 16)}</div>
+                    <div>•</div>
+                    <div>{album && album.tracks.length} songs</div>
+                </div>
+            </div>
+        </div>
     )
 }
 
