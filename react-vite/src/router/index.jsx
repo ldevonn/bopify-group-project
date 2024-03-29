@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import HomePage from '../components/HomePage'
+import AlbumDetails from '../components/AlbumDetails/AlbumDetails';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import Layout from './Layout';
 
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage/>,
+        element: <HomePage />,
       },
       {
         path: "/login",
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
       {
         path: '/player',
         element: <MusicPlayer/>,
-      }
+      },
+      {
+        path: '/albums/:albumId',
+        element: <AlbumDetails />
+      },
     ],
   },
 ]);

@@ -1,0 +1,43 @@
+#allAlbumTiles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: transparent;
+    margin-top: 15px;
+    height: 944px;
+}
+
+.albumTile {
+    background-color: transparent;
+    height: 260px;
+    width: 188px;
+    /* border: solid;
+    border-color: white; */
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.albumTile:hover {
+    cursor: pointer;
+    background-color: #1E1E1E;
+}
+
+.album-image {
+    height: 155px;
+    width: 155px;
+    margin: 15px;
+    border: none;
+    border-radius: 10px;
+}
+
+.albumTileAlbumName {
+    color: white;
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.albumTileArtistName {
+    color: rgb(133, 133, 133);
+    background-color: transparent;
+    margin-left: 15px;
+}
