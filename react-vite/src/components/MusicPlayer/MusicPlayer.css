@@ -1,3 +1,9 @@
+.audioPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 input[type="range"]{
     -webkit-appearance: none;
     background-color: gray;
@@ -30,13 +36,13 @@ input[type='range']:hover::-webkit-slider-thumb {
 }
 
 .fa-solid {
-    /*color: white;*/
     background: transparent;
 }
 
 .controls {
     display: flex;
     justify-content: center;
+    background: transparent;
 }
 
 .controls div{
@@ -48,8 +54,12 @@ input[type='range']:hover::-webkit-slider-thumb {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    box-shadow: 0 5px 15px rgba(201, 27, 21, 0.18);
     cursor: pointer;
+}
+
+.controls div:hover {
+    background: #dedede;
+    transition: 100ms;
 }
 
 .controls div:nth-child(2){
