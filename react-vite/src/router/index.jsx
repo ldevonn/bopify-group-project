@@ -8,6 +8,7 @@ import PlaylistFormPage from '../components/PlaylistFormPage/PlaylistFormPage.js
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import ManageAlbums from '../components/ManageAlbums/ManageAlbums.jsx';
 import AllPlaylists from '../components/AllPlaylistsCurrentUser/AllPlaylistsCurrentUser.jsx';
+import PlaylistDetails from '../components/PlaylistDetails/PlaylistDetails.jsx';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -50,10 +51,10 @@ export const router = createBrowserRouter([
         path: '/playlists',
         element: <AllPlaylists />
       },
-      // {
-      //   path: '/playlists/:playlistId',
-      //   element: <PlaylistDetailPage />
-      // }
+      {
+        path: '/playlists/:playlistId',
+        element: <PlaylistDetails />
+      }
     ],
   },
 ]);

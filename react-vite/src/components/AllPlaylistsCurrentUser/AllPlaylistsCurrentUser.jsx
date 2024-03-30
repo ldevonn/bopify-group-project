@@ -13,7 +13,6 @@ function AllPlaylists () {
     const usersPlaylists = useSelector(state => state.playlists.allPlaylists);
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    console.log("HIT!!!", usersPlaylists)
 
     useEffect(() => {
         dispatch(fetchPlaylistByCurrentUser())
