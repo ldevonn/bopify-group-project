@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Playlist, Track, User, db
 from app.models.playlists_tracks import PlaylistsTracks
 from app.forms.playlist_form import PlaylistForm
-
+from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 from flask_login import current_user, login_required
 
 playlist_routes = Blueprint('playlists', __name__)
@@ -58,8 +58,18 @@ def get_playlist_by_id(playlist_id):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
       playlist.name = form.name.data
-      playlist.image_url = form.imageUrl.data
       playlist.private = form.private.data
+      newImageUrl = form.imageUrl.data
+      newImageUrl.filename = get_unique_filename(newImageUrl.filename)
+      upload = upload_file_to_s3(newImageUrl)
+      print(upload)
+
+      if "url" not in upload:
+        form.errors['image'][0] == 'File upload failed'
+      
+      url = upload["url"]
+
+      playlist.image_url = url
       
       db.session.commit()
 
@@ -74,6 +84,7 @@ def get_playlist_by_id(playlist_id):
             }, 201
 
   if request.method == "DELETE":
+    remove_file_from_s3(playlist.image_url)
     db.session.delete(playlist)
     db.session.commit()
     return jsonify({"message": "Successfully Deleted"})
@@ -94,9 +105,19 @@ def create_playlist():
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     data = form.data
+    image = form.data["imageUrl"]
+    image.filename = get_unique_filename(image.filename)
+    upload = upload_file_to_s3(image)
+    print(upload)
+
+    if "url" not in upload:
+      form.errors['image'][0] == 'File upload failed'
+
+    url = upload["url"]
+
     new_playlist = Playlist(
                       name = data["name"],
-                      image_url = data["imageUrl"],
+                      image_url = url,
                       user_id = current_user.id,
                       private = data["private"],
     )
@@ -105,4 +126,5 @@ def create_playlist():
     playlist = Playlist.query.get(new_playlist.id).to_dict()
     return jsonify(playlist), 201
   else:
+    print(form.errors)
     return jsonify({"message": "Form validation errors", "errors": form.errors}), 400

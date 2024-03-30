@@ -32,6 +32,16 @@
     font-size: 22px;
 }
 
+#createAlbumButton {
+    position: absolute;
+    left: 129px;
+    top: 191px;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
 #spotifyLogo {
     position: absolute;
     left: 55px;

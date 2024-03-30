@@ -1,9 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, DateField, SelectField, TextAreaField, SubmitField
+from wtforms.fields import StringField, DateField, SelectField, SubmitField
+from flask_wtf.file import FileAllowed, FileField, FileRequired
 from wtforms.validators import DataRequired
-
-# def validate_album(form, field):
-#     if
+from app.api.aws import ALLOWED_IMG_EXTENSIONS
 
 GENRES = [
     "Rock",
@@ -53,5 +52,5 @@ class CreateAlbumForm(FlaskForm):
     releaseDate = DateField("Release Date", validators=[DataRequired()], format="%m/%d/%Y")
     albumType = SelectField("Album Type", choices=ALBUM_TYPES, validators=[DataRequired()])
     genre = SelectField("Genre", choices=GENRES, validators=[DataRequired()])
-    imageUrl = StringField("Image Url", validators=[DataRequired()])
+    imageUrl = FileField("Album Image", validators=[FileRequired(), FileAllowed(list(ALLOWED_IMG_EXTENSIONS))])
     submit = SubmitField("Submit")

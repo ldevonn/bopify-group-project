@@ -3,9 +3,10 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import HomePage from '../components/HomePage'
 import AlbumDetails from '../components/AlbumDetails/AlbumDetails';
+import AlbumFormPage from '../components/AlbumFormPage/AlbumFormPage.jsx';
+import PlaylistFormPage from '../components/PlaylistFormPage/PlaylistFormPage.jsx';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import Layout from './Layout';
-import TestingPage from "../components/testingPage/testingPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -32,8 +33,12 @@ export const router = createBrowserRouter([
         element: <AlbumDetails />
       },
       {
-        path: '/testing',
-        element: <TestingPage/>
+        path: '/albums/new',
+        element: <AlbumFormPage />
+      },
+      {
+        path: '/playlists/new',
+        element: <PlaylistFormPage />
       }
     ],
   },
