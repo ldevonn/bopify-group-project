@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, abort, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app.models import Track, User, Album, db
-from ..forms import TrackForm
+from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
+from ..forms import TrackForm, EditTrackForm
 
 track_routes = Blueprint('tracks', __name__)
 
@@ -38,8 +39,9 @@ def get_or_update_or_delete_track(track_id):
     
     if request.method == 'GET':
         return track.to_dict()
+    
     if request.method == "PUT":
-        form = TrackForm(obj=track)
+        form = EditTrackForm(obj=track)
         albums = Album.query.filter_by(artist_id=current_user.id).all()
         form.albumId.choices = [(album.id, album.name) for album in albums]
 
@@ -47,7 +49,16 @@ def get_or_update_or_delete_track(track_id):
         if form.validate_on_submit():
             track.name = form.name.data
             track.duration = form.duration.data
-            track.file = form.file.data
+            # new_file = form.file.data
+            # if new_file.filename:
+            #     new_file.filename = get_unique_filename(new_file.filename)
+            #     upload = upload_file_to_s3(new_file)
+            #     print(upload)
+            # if "url" not in upload:
+            # # if the dictionary doesn't have a url key
+            #     return render_template("create_track.html", form=form, errors=[upload])
+            # else:
+            #     track.file = upload["url"]
             track.album_id = form.albumId.data
 
             db.session.commit()
@@ -63,7 +74,9 @@ def get_or_update_or_delete_track(track_id):
             })
             response.status_code = 400
             return response
+        
     if request.method == 'DELETE':
+        remove_file_from_s3(track.file)
         db.session.delete(track)
         db.session.commit()
         return jsonify({"message": "Track deleted successfully"})
@@ -108,12 +121,21 @@ def create_track():
             name = form.name.data
             duration = form.duration.data
             file = form.file.data
+            file.filename = get_unique_filename(file.filename)
+            upload = upload_file_to_s3(file)
+            print(upload)
             albumId = form.albumId.data
+
+            if "url" not in upload:
+            # if the dictionary doesn't have a url key
+                return render_template("create_track.html", form=form, errors=[upload])
+
+            url = upload["url"]
 
             new_track = Track(
                 name=name,
                 duration=duration,
-                file=file,
+                file=url,
                 artist_id=user_id,
                 album_id=albumId,
             )
@@ -126,11 +148,11 @@ def create_track():
         for field, error in form.errors.items():
             field_obj = getattr(form, field)
             errors[field_obj.label.text] = error[0]
-        error_response = {
-            "message": "Body validation errors",
-            "errors": errors
-        }
-        return jsonify(error_response), 400
+        if errors:
+            error_response = {
+                "message": "Body validation errors",
+                "errors": errors
+            }
+            return jsonify(error_response), 400
             # return redirect(url_for('tracks.get_all_tracks'))
-
-        return render_template('create_track.html', form=form)
+        return render_template("post_form.html", form=form, errors=None)
