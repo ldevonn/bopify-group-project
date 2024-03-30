@@ -33,7 +33,7 @@ def get_or_update_or_delete_track(track_id):
     
     if request.method in ["PUT", "DELETE"]:
         if current_user.is_authenticated and track.artist_id == current_user.id:
-          pass
+            pass
         else:
             return jsonify({"message": "Unauthorized access"}), 403 
     
@@ -153,6 +153,7 @@ def create_track():
                 "message": "Body validation errors",
                 "errors": errors
             }
+            print(form.errors)
             return jsonify(error_response), 400
             # return redirect(url_for('tracks.get_all_tracks'))
         return render_template("post_form.html", form=form, errors=None)

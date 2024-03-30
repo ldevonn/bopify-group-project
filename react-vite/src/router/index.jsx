@@ -11,6 +11,7 @@ import Layout from './Layout';
 import EditAlbumForm from '../components/EditAlbumForm/EditAlbumForm.jsx';
 import LikedTracks from '../components/LikedTracks/LikedTracks.jsx';
 import EditPlaylistForm from '../components/EditPlaylistForm/EditPlaylistForm.jsx';
+import TrackFormPage from '../components/TrackFormPage/index.js';
 
 
 export const router = createBrowserRouter([
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
         element: <EditAlbumForm />
       },
       {
+        path: '/albums/:albumId/tracks/new',
+        element: <TrackFormPage />
+      },
+      {
         path: '/playlists/:playlistId/edit',
         element: <EditPlaylistForm />
       },
@@ -61,7 +66,6 @@ export const router = createBrowserRouter([
         path: '/liked',
         element: <LikedTracks />
       }
-
     ],
   },
 ]);

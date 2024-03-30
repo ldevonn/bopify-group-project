@@ -1,3 +1,3 @@
-import TrackFormPage from ".";
+import TrackFormPage from "./TrackFormPage";
 
 export default TrackFormPage
