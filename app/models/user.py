@@ -10,9 +10,9 @@ from .likes import Like
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    albums = relationship("Album", back_populates="artists")
-    playlists = relationship("Playlist", back_populates="playlistUser")
-    track_likes = relationship('Track', secondary=Like, back_populates='user_likes')
+    albums = relationship("Album", back_populates="artists", cascade="all, delete")
+    playlists = relationship("Playlist", back_populates="playlistUser", cascade="all, delete")
+    track_likes = relationship('Track', secondary=Like, back_populates='user_likes', cascade="all, delete")
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

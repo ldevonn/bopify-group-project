@@ -4,7 +4,7 @@ import {fetchDeletePlaylist} from '../../redux/playlists.js'
 import {fetchDeleteAlbum} from '../../redux/albums.js'
 import './DeleteElement.css';
 
-function DeleteElement() {
+function DeleteElement(props) {
     const [isImageRed, setIsImageRed] = useState(false); // State to track image color
     const dispatch = useDispatch()
     const currentUrl = window.location.pathname
@@ -14,7 +14,7 @@ function DeleteElement() {
             setIsImageRed(true); // Toggle image color between black and red
         } else {
             try {
-                await handleDelete()
+                await handleDelete(props.albumId)
             } catch (error) {
                 console.error('Error deleting element:', error)
             }
@@ -25,7 +25,7 @@ function DeleteElement() {
         try {
             if (currentUrl === '/testing') {
                 await dispatch(fetchDeletePlaylist(elementId))
-            } else if (currentUrl === '/testing2') {
+            } else if (currentUrl === '/albums/manage') {
                 await dispatch(fetchDeleteAlbum(elementId))
             } else {
                 console.log('current url not supported')

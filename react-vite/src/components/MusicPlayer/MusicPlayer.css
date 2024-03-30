@@ -32,7 +32,6 @@ input[type='range']:hover::-webkit-slider-thumb {
     height: 15px;
     width: 15px;
     transition: 75ms;
-    overflow: visible;
 }
 
 .fa-solid {

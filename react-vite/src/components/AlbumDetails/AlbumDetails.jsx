@@ -1,12 +1,14 @@
 import { fetchGetAlbumDetails } from "../../redux/albums"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from 'react-router-dom'
-import { useEffect } from "react"
+import {useEffect, useState} from "react"
 import TopLeftNav from "../HomePage/TopLeftNav"
 import LeftNav from "../HomePage/LeftNav"
 import TopNav from "../HomePage/TopNav"
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
-// import { useNavigate } from "react-router-dom"
+import {likeTheTrack} from "../../redux/likes.js";
+import {removeLikedTrack} from "../../redux/likes.js";
+
 import "./AlbumDetails.css"
 
 function AlbumDetails () {
@@ -14,6 +16,7 @@ function AlbumDetails () {
     const dispatch = useDispatch()
     albumId = +albumId
     const album = useSelector(state => state.albums.albumDetails);
+    const [isLiked, setIsLiked] = useState(false)
 
     useEffect(() => {
         dispatch(fetchGetAlbumDetails(albumId))
@@ -22,6 +25,21 @@ function AlbumDetails () {
     let songsPlural = 'song'
     if (album && album.tracks.length > 1) {
         songsPlural = 'songs'
+    }
+
+    async function toggleLike(trackId) {
+        let likeButton = document.getElementById('likeButton')
+        if (likeButton && !isLiked) {
+            setIsLiked(true)
+            likeButton.classList.remove('fa-regular')
+            likeButton.classList.add('fa-solid')
+            await dispatch(likeTheTrack(trackId))
+        } else {
+            setIsLiked(false)
+            likeButton.classList.remove('fa-solid')
+            likeButton.classList.add('fa-regular')
+            await dispatch(removeLikedTrack(trackId))
+        }
     }
 
     return (
@@ -57,6 +75,7 @@ function AlbumDetails () {
                     {album && album.tracks.map((track, i) => {
                         const minutes = Math.floor(track.duration / 60)
                         const seconds = track.duration % 60
+                        console.log(track)
                         return (
                             <div key={i} className="album-detail-track">
                                 <div className="album-number-track-and-artist">
@@ -67,7 +86,7 @@ function AlbumDetails () {
                                     </div>
                                 </div>
                                 <div className="like-button-and-duration">
-                                    <button className="album-detail-like-button">Like</button>
+                                    <i className="fa-regular fa-heart" id='likeButton' style={{background: 'transparent', marginRight: 10}} onClick={() => toggleLike(track.trackId)}></i>
                                     <div className="album-detail-track-duration">{minutes}:{seconds}</div>
                                 </div>
                             </div>
