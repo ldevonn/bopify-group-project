@@ -7,6 +7,7 @@ import LeftNav from "../HomePage/LeftNav"
 import TopNav from "../HomePage/TopNav"
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
 import "./ManageAlbums.css"
+import DeleteElement from "../DeleteButtons/DeleteElement.jsx";
 
 function ManageAlbums () {
     const sessionUser = useSelector(state => state.session.user);
@@ -41,7 +42,7 @@ function ManageAlbums () {
                                 <div className="albumTileAlbumName">{album.name}</div>
                                 <div className="edit-delete-album-buttons">
                                     <button className="placeholderEditbutton">Edit</button>
-                                    <button className="placeholderDeletebutton">Delete</button>
+                                    <DeleteElement albumId={album.albumId}/>
                                 </div>
                             </div>
                         )

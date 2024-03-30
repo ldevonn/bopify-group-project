@@ -1,5 +1,10 @@
+.delete-playlist-comp {
+  background: transparent;
+}
+
 #delete-playlist-img {
   color: white;
+  background: transparent;
 }
 
 .red-image {
