@@ -76,6 +76,7 @@ def get_album_by_id(album_id):
             return response
 
     if request.method == 'DELETE':
+        remove_file_from_s3(album.image_url)
         db.session.delete(album)
         db.session.commit()
         return jsonify({"message": "Successfully Deleted"})
