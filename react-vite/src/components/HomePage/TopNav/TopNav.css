@@ -68,3 +68,17 @@
     justify-content: flex-end;
     background-color: transparent;
 }
+
+#manageAlbums {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
+#manageAlbums:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    transition: 100ms;
+    color: #c7c7c7;
+}
