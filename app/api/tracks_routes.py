@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, abort, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app.models import Track, User, Album, db
-from app.api.aws import (upload_file_to_s3, get_unique_filename)
+from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 from ..forms import TrackForm, EditTrackForm
 
 track_routes = Blueprint('tracks', __name__)
@@ -76,6 +76,7 @@ def get_or_update_or_delete_track(track_id):
             return response
         
     if request.method == 'DELETE':
+        remove_file_from_s3(track.file)
         db.session.delete(track)
         db.session.commit()
         return jsonify({"message": "Track deleted successfully"})
