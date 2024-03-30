@@ -124,15 +124,15 @@ export const fetchCurrentUserAlbums = () => async (dispatch) => {
 }
 
 export const createAlbum = (payload) => async (dispatch) => {
-  const res = await csrfFetch(`/api/albums/new`, {
+  const res = await fetch(`/api/albums/new`, {
     method: 'POST',
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    // header: { "Content-Type": "application/json" },
+    body: payload
   })
 
   if (res.ok) {
-    const data = await res.json()
-    dispatch(addAlbum(data))
+    const { resPost } = await res.json()
+    dispatch(addAlbum(resPost))
     return data
   } else if (res.status < 500) {
     const errorMessages = await res.json()

@@ -35,7 +35,8 @@ function AlbumFormPage () {
     formData.append("releaseDate", fReleaseDate)
     formData.append("albumType", albumType)
     formData.append("genre", genre)
-    formData.append("image", imageUrl)
+    formData.append("imageUrl", imageUrl)
+    console.log("FORMDATA: ", formData)
     setImageLoading(true)
     
     const serverResponse = await dispatch(
@@ -116,6 +117,7 @@ function AlbumFormPage () {
 
 
             <button id='albumSubmit' type='submit'>Create Album</button>
+            {(imageLoading) && <p>Loading...</p>}
           </form>
         </div>
       </div>
