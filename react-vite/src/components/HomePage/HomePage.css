@@ -19,6 +19,12 @@
     height: 100%;
 }
 
+.music-player{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
 /* @media screen {
     .top-nav-with-albums {
       width: 100%;
