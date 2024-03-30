@@ -43,7 +43,7 @@ function TrackFormPage() {
         <h1 id='LIKEY'>LIKEY</h1>
         <div className='TrackFormCard'>
           <h1 id='TrackFormTitle'>Create your track</h1>
-          <form id='TrackForm' onSubmit={handleSubmit}>
+          <form id='TrackForm' onSubmit={handleSubmit} encType='multipart/form-data'>
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
 
@@ -54,7 +54,7 @@ function TrackFormPage() {
             <input type='text' id='duration' name='duration' required placeholder='duration' onChange={(e) => setDuration(e.target.value)} />
 
             <label style={{ background: 'none' }} htmlFor='trackFile'>Track File</label>
-            <input type='file' accept='audio/*' id='trackFile' name='trackFile' onChange={(e) => setFile(e.target.value)}></input>
+            <input type='file' accept='audio/*' id='trackFile' name='trackFile' onChange={(e) => setFile(e.target.files[0])}></input>
 
             <button id='trackSubmit' type='submit'>Create Track</button>
           </form>
