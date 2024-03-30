@@ -6,7 +6,7 @@ from datetime import datetime
 class Album(db.Model):
     __tablename__ = 'albums'
 
-    tracks = relationship("Track", back_populates="album")
+    tracks = relationship("Track", back_populates="album", cascade="all, delete")
     artists = relationship("User", back_populates="albums")
 
     if environment == "production":

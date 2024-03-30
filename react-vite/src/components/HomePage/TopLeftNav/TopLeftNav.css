@@ -22,7 +22,7 @@
     color: #c7c7c7;
 }
 
-#searchButton{
+#createAlbumButton {
     position: absolute;
     left: 129px;
     top: 151px;
@@ -32,14 +32,10 @@
     font-size: 22px;
 }
 
-#createAlbumButton {
-    position: absolute;
-    left: 129px;
-    top: 191px;
-    color: white;
-    background: none;
-    border: none;
-    font-size: 22px;
+#createAlbumButton:hover {
+    color: #c7c7c7;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #spotifyLogo {

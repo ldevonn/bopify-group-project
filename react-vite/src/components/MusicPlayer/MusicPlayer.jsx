@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 
 
 function MusicPlayer() {
-    const [sliderValue, setSliderValue] = useState(0)
+    const [sliderValue, setSliderValue] = useState()
     const [isPlaying, setIsPlaying] = useState(false)
 
     const handleSliderChange = (e) => {
