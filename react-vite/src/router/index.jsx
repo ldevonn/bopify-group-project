@@ -7,6 +7,7 @@ import AlbumFormPage from '../components/AlbumFormPage/AlbumFormPage.jsx';
 import PlaylistFormPage from '../components/PlaylistFormPage/PlaylistFormPage.jsx';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import ManageAlbums from '../components/ManageAlbums/ManageAlbums.jsx';
+import AllPlaylists from '../components/AllPlaylistsCurrentUser/AllPlaylistsCurrentUser.jsx';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -44,7 +45,15 @@ export const router = createBrowserRouter([
       {
         path: 'albums/manage',
         element: <ManageAlbums />
-      }
+      },
+      {
+        path: '/playlists',
+        element: <AllPlaylists />
+      },
+      // {
+      //   path: '/playlists/:playlistId',
+      //   element: <PlaylistDetailPage />
+      // }
     ],
   },
 ]);
