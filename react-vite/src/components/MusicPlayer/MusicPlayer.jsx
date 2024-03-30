@@ -7,6 +7,8 @@ function MusicPlayer(props) {
     const [sliderValue, setSliderValue] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
 
+    console.log(props.trackUrl)
+
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value)
     }
@@ -69,7 +71,7 @@ function MusicPlayer(props) {
     return (
         <>
             <div className='audioPage'>
-                <audio id="song" autoPlay={isPlaying}>
+                <audio id="song">
                     <source src={props.trackUrl} type="audio/mpeg"/>
                 </audio>
                 <input type="range"

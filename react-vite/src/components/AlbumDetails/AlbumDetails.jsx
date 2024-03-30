@@ -44,8 +44,7 @@ function AlbumDetails () {
     }
 
     function handlePlay(track) {
-        setCurrentSong(track.file)
-        setIsPlaying(true)
+        setCurrentSong(track)
     }
 
     return (
