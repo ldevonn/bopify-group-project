@@ -5,6 +5,7 @@ import HomePage from '../components/HomePage'
 import AlbumDetails from '../components/AlbumDetails/AlbumDetails';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import Layout from './Layout';
+import TestingPage from "../components/testingPage/testingPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
         path: '/albums/:albumId',
         element: <AlbumDetails />
       },
+      {
+        path: '/testing',
+        element: <TestingPage/>
+      }
     ],
   },
 ]);
