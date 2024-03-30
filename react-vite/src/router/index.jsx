@@ -7,10 +7,13 @@ import AlbumFormPage from '../components/AlbumFormPage/AlbumFormPage.jsx';
 import PlaylistFormPage from '../components/PlaylistFormPage/PlaylistFormPage.jsx';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import ManageAlbums from '../components/ManageAlbums/ManageAlbums.jsx';
+import AllPlaylists from '../components/AllPlaylistsCurrentUser/AllPlaylistsCurrentUser.jsx';
+import PlaylistDetails from '../components/PlaylistDetails/PlaylistDetails.jsx';
 import Layout from './Layout';
 import EditAlbumForm from '../components/EditAlbumForm/EditAlbumForm.jsx';
 import LikedTracks from '../components/LikedTracks/LikedTracks.jsx';
 import EditPlaylistForm from '../components/EditPlaylistForm/EditPlaylistForm.jsx';
+import TrackFormPage from '../components/TrackFormPage/index.js';
 
 
 export const router = createBrowserRouter([
@@ -54,14 +57,25 @@ export const router = createBrowserRouter([
         element: <EditAlbumForm />
       },
       {
+        path: '/albums/:albumId/tracks/new',
+        element: <TrackFormPage />
+      },
+      {
         path: '/playlists/:playlistId/edit',
         element: <EditPlaylistForm />
       },
       {
         path: '/liked',
         element: <LikedTracks />
+      },
+      {
+        path: '/playlists',
+        element: <AllPlaylists />
+      },
+      {
+        path: '/playlists/:playlistId',
+        element: <PlaylistDetails />
       }
-
     ],
   },
 ]);

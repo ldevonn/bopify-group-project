@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux";
+import AllPlaylists from "../../AllPlaylistsCurrentUser/AllPlaylistsCurrentUser";
 import "./LeftNav.css"
 
 function LeftNav() {
@@ -18,11 +19,7 @@ function LeftNav() {
     return (
     <div id='leftNav'>
         <h1 id='leftNavTitle'>Your Library</h1>
-        <div id='createPlaylistComp'>
-            <p>Create your first playlist</p>
-            <p>It&apos;s easy, we&apos;ll help you!</p>
-            <button id='createPlaylistButton' onClick={handleCreatePlaylist} >Create playlist</button>
-        </div>
+        <AllPlaylists />
     </div>
     )
 }

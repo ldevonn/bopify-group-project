@@ -14,6 +14,8 @@ function AllAlbums () {
     }, [dispatch])
 
     return (
+        <>
+        <h1 className="all-albums-title">All Albums</h1>
         <div id='allAlbumTiles'>
             {allAlbums && allAlbums.albums.map(album => {
                 return (
@@ -25,6 +27,7 @@ function AllAlbums () {
                 )
             })}
         </div>
+        </>
     )
 }
 

@@ -1,0 +1,102 @@
+#allPlaylistTiles {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    margin-top: 15px;
+    align-items: center;
+}
+
+#createPlaylistButton {
+    margin-left: 138px;
+    margin-top: 25px;
+}
+
+.playlistTile {
+    background-color: transparent;
+    height: 80px;
+    width: 384px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border: solid;
+    border-color: white; */
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.playlistTile:hover {
+    cursor: pointer;
+    background-color: #1E1E1E;
+}
+
+.playlist-tile-info{
+    background-color: transparent;
+}
+
+.playlist-image {
+    height: 60px;
+    width: 60px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.playlistTilePlaylistName {
+    color: white;
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.all-playlists-playlist-tag {
+    color: rgb(133, 133, 133);
+    background-color: transparent;
+    margin-left: 15px;
+}
+.dot {
+    color: rgb(133, 133, 133);
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.all-playlists-username{
+    color: rgb(133, 133, 133);
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.playlist-and-username {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    margin-top: 5px;
+}
+
+#createPlaylistComp {
+    background-color: #1E1E1E;
+    color: white;
+    margin-top: 79px;
+    margin-left: 14px;
+    width: 330px;
+    height: 137px;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* if user has no playlists */
+
+#createPlaylistComp p {
+    background: transparent;
+}
+
+#createPlaylistComp * {
+    margin-left: 36px;
+}
+
+#createPlaylistButton {
+    width: 123px;
+    height: 38px;
+    border-radius: 30px;
+    background-color: white;
+    border: none;
+    font-size: 16px;
+}

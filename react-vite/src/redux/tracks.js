@@ -107,6 +107,7 @@ export const createTrack = (payload) => async (dispatch) => {
   
   if (res.ok) {
     const { resPost } = await res.json()
+    console.log("CREATE TRACK: " , resPost)
     dispatch(addTrack(resPost))
     return resPost
   } else if (res.status < 500) {

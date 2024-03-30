@@ -16,7 +16,8 @@ const rootReducer = combineReducers({
   albums: albumsReducer,
   tracks: tracksReducer,
   playlist: playlistsReducer,
-  likes: likesReducer
+  likes: likesReducer,
+  playlists: playlistsReducer
 });
 
 let enhancer;
