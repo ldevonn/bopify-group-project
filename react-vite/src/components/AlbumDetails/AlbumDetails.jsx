@@ -17,6 +17,7 @@ function AlbumDetails () {
     albumId = +albumId
     const album = useSelector(state => state.albums.albumDetails);
     const [isLiked, setIsLiked] = useState(false)
+    const [currentSong, setCurrentSong] = useState(undefined)
 
     useEffect(() => {
         dispatch(fetchGetAlbumDetails(albumId))
@@ -40,6 +41,11 @@ function AlbumDetails () {
             likeButton.classList.add('fa-regular')
             await dispatch(removeLikedTrack(trackId))
         }
+    }
+
+    function handlePlay(track) {
+        setCurrentSong(track.file)
+        setIsPlaying(true)
     }
 
     return (
@@ -75,9 +81,8 @@ function AlbumDetails () {
                     {album && album.tracks.map((track, i) => {
                         const minutes = Math.floor(track.duration / 60)
                         const seconds = track.duration % 60
-                        console.log(track)
                         return (
-                            <div key={i} className="album-detail-track">
+                            <div key={i} className="album-detail-track" onDoubleClick={() => handlePlay(track.file)}>
                                 <div className="album-number-track-and-artist">
                                     <div className="album-detail-track-number">{i + 1}</div>
                                     <div className="album-detail-track-and-artist">
@@ -95,7 +100,7 @@ function AlbumDetails () {
                 </div>
             </div>
             <div className="music-player">
-                <MusicPlayer />
+                <MusicPlayer trackUrl={currentSong}/>
             </div>
         </div>
 
