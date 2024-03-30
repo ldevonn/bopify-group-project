@@ -1,0 +1,63 @@
+#allAlbumTiles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: transparent;
+    margin-top: 15px;
+    height: 944px;
+}
+
+.albumTile {
+    background-color: transparent;
+    height: 260px;
+    width: 188px;
+    /* border: solid;
+    border-color: white; */
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.albumTile:hover {
+    cursor: pointer;
+    background-color: #1E1E1E;
+}
+
+.album-image {
+    height: 155px;
+    width: 155px;
+    margin: 15px;
+    border: none;
+    border-radius: 10px;
+}
+
+.albumTileAlbumName {
+    color: white;
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.albumTileArtistName {
+    color: rgb(133, 133, 133);
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.edit-delete-album-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: transparent;
+}
+
+.placeholderEditbutton {
+    color: white;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.placeholderDeletebutton {
+    color: white;
+    background-color: rgb(255, 74, 74);
+    margin-right: 15px;
+    margin-top: 15px;
+}

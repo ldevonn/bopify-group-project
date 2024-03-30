@@ -6,6 +6,7 @@ import AlbumDetails from '../components/AlbumDetails/AlbumDetails';
 import AlbumFormPage from '../components/AlbumFormPage/AlbumFormPage.jsx';
 import PlaylistFormPage from '../components/PlaylistFormPage/PlaylistFormPage.jsx';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
+import ManageAlbums from '../components/ManageAlbums/ManageAlbums.jsx';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: '/playlists/new',
         element: <PlaylistFormPage />
+      },
+      {
+        path: 'albums/manage',
+        element: <ManageAlbums />
       }
     ],
   },
