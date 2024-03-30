@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Playlist, Track, User, db
 from app.models.playlists_tracks import PlaylistsTracks
 from app.forms.playlist_form import PlaylistForm
+from app.forms.playlist_track_form import PlaylistTrackForm
 from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 from flask_login import current_user, login_required
 
@@ -127,3 +128,40 @@ def create_playlist():
     return jsonify(playlist), 201
   else:
     return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
+  
+
+@playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
+@login_required
+def add_track_to_playlist(playlist_id):
+  """
+  Add a track to an existing playlist
+  """
+  playlist = Playlist.query.get(playlist_id)
+
+  if not playlist:
+    return jsonify({"message": "Playlist not found"}), 404
+  
+  if playlist.user_id != current_user.id:
+    return jsonify({"message": "Unauthorized access"}), 403
+  
+  form = PlaylistTrackForm()
+
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    track_id = form.track_id.data
+    track = Track.query.get(track_id)
+
+    if not track:
+      return jsonify({"message": "Track not found"}), 404
+    
+    if track in playlist.tracks:
+      return jsonify({"message": "Track is already in the playlist"}), 400
+    
+    playlist.tracks.append(track)
+    db.session.commit()
+
+    return jsonify({"message": "Track added to playlist successfully"}), 201
+  
+  else:
+        errors = form.errors
+        return jsonify({"message": "Form validation errors", "errors": errors}), 400
