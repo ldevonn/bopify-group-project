@@ -1,9 +1,8 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import { createTrack } from '../../redux/tracks'
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate, NavLink, useParams } from 'react-router-dom'
+import { useState } from "react";
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./TrackForm.css"
 
 function TrackFormPage() {

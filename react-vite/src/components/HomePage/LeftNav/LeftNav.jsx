@@ -20,7 +20,7 @@ function LeftNav() {
         <h1 id='leftNavTitle'>Your Library</h1>
         <div id='createPlaylistComp'>
             <p>Create your first playlist</p>
-            <p>It's easy, we'&apos;ll help you!</p>
+            <p>It&apos;s easy, we&apos;ll help you!</p>
             <button id='createPlaylistButton' onClick={handleCreatePlaylist} >Create playlist</button>
         </div>
     </div>

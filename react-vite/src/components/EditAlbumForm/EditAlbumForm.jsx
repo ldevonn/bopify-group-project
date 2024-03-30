@@ -1,8 +1,8 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import { updateAlbum } from "../../redux/albums";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate, NavLink, useParams } from 'react-router-dom'
+import { useState } from "react";
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./EditAlbum.css"
 
 function EditAlbumForm() {
