@@ -149,6 +149,7 @@ def create_album():
             # album = Album.query.get(new_album.id).to_dict()
             return jsonify({"message": "Album successfully created."}), 201
 
+        print(form.errors)
         errors = {}
         for field, error in form.errors.items():
             field_obj = getattr(form, field)

@@ -60,8 +60,6 @@ function PlaylistFormPage() {
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
-            {/* <input type='checkbox' id='isPrivate' name='isPrivate' onChange={(e) => setIsPrivate(e.target.value)}></input> */}
-            
             <button id='playlistSubmit' type='submit'>Create Album</button>
           </form>
         </div>

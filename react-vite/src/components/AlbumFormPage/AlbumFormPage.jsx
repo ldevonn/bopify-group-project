@@ -20,12 +20,19 @@ function AlbumFormPage () {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log({name, releaseDate, albumType, genre, imageUrl})
-
+    let date = new Date(releaseDate)
+    let month = ''
+    if (date.getMonth() < 9) {
+      month = '0' + (date.getMonth() + 1)
+    } else {
+      month = (date.getMonth() + 1)
+    }
+    let fReleaseDate = (month + '/' + date.getDate() + '/' + date.getFullYear());
+    
     const serverResponse = await dispatch(
       createAlbum({
         name,
-        releaseDate,
+        "releaseDate": fReleaseDate,
         albumType,
         genre,
         imageUrl
