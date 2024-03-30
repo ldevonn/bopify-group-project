@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, abort, render_template, redirect, url_for,
 from flask_login import login_required, current_user
 from app.models import Track, User, Album, db
 from app.api.aws import (upload_file_to_s3, get_unique_filename)
-from ..forms import TrackForm
+from ..forms import TrackForm, EditTrackForm
 
 track_routes = Blueprint('tracks', __name__)
 
@@ -41,7 +41,7 @@ def get_or_update_or_delete_track(track_id):
         return track.to_dict()
     
     if request.method == "PUT":
-        form = TrackForm(obj=track)
+        form = EditTrackForm(obj=track)
         albums = Album.query.filter_by(artist_id=current_user.id).all()
         form.albumId.choices = [(album.id, album.name) for album in albums]
 
@@ -49,7 +49,16 @@ def get_or_update_or_delete_track(track_id):
         if form.validate_on_submit():
             track.name = form.name.data
             track.duration = form.duration.data
-            track.file = form.file.data
+            # new_file = form.file.data
+            # if new_file.filename:
+            #     new_file.filename = get_unique_filename(new_file.filename)
+            #     upload = upload_file_to_s3(new_file)
+            #     print(upload)
+            # if "url" not in upload:
+            # # if the dictionary doesn't have a url key
+            #     return render_template("create_track.html", form=form, errors=[upload])
+            # else:
+            #     track.file = upload["url"]
             track.album_id = form.albumId.data
 
             db.session.commit()
