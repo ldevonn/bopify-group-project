@@ -6,5 +6,27 @@
 .homePage {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
+
+.top-nav-with-gradient{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    background: linear-gradient(0deg, #121212 70%, #1E1E1E);
+    border-radius: 15px;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.music-player{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+/* @media screen {
+    .top-nav-with-albums {
+      width: 100%;
+    }
+  } */

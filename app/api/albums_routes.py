@@ -11,7 +11,6 @@ album_routes = Blueprint('albums', __name__)
 @album_routes.route('/')
 def get_all_albums():
     albums = Album.query.all()
-    print(albums)
     response = {'albums': []}
 
     for album in albums:
@@ -32,16 +31,20 @@ def get_album_by_id(album_id):
         response = jsonify({"message": "Album couldn't be found"})
         response.status_code = 404
         return response
-    
+
     if request.method in ["PUT", "DELETE"]:
         if current_user.is_authenticated and album.artist_id == current_user.id:
             pass
         else:
-            return jsonify({"message": "Unauthorized access"}), 403 
+            return jsonify({"message": "Unauthorized access"}), 403
 
     if request.method == 'GET':
         tracks = [track.to_dict() for track in album.tracks]
-        return {**album.to_dict(), 'tracks': tracks}
+        # artists = [artist.to_dict() for artist in albums.artists]
+        album_data = album.to_dict()
+        artist = User.query.get(album_data['artistId'])
+        # print(artist.to_dict())
+        return {**album.to_dict(), 'tracks': tracks, 'artist': {**artist.to_dict()}}
         # tracks = Track.query.filter(Track.album_id == album_id)
         # album.tracks = [track.to_dict() for track in tracks]
         # return album.to_dict()
@@ -145,7 +148,7 @@ def create_album():
             db.session.commit()
             # album = Album.query.get(new_album.id).to_dict()
             return jsonify({"message": "Album successfully created."}), 201
-        
+
         errors = {}
         for field, error in form.errors.items():
             field_obj = getattr(form, field)
