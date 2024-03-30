@@ -3,7 +3,7 @@ import { updatePlaylist } from '../../redux/playlists';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Navigate, Link, useNavigate, NavLink, useParams } from 'react-router-dom'
-import "./PlaylistForm.css"
+import "./EditPlaylist.css"
 
 function EditPlaylistForm() {
   let { playlistId } = useParams()

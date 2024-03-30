@@ -1,0 +1,65 @@
+.TrackFormPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.TrackFormCard {
+  margin-top: 10%;
+  width: 50%;
+  /*height: 50vh;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#TrackFormTitle {
+  color: wheat;
+  width: 300px;
+  font-size: 48px;
+}
+
+#TrackForm {
+  display: flex;
+  color: wheat;
+  flex-direction: column;
+}
+
+#trackName {
+  color: wheat
+}
+
+#duration {
+  color: wheat
+}
+
+#trackFile {
+  color: wheat
+}
+
+/* #name {
+  position: relative;
+  margin-top: -13px;
+  margin-bottom: 15px;
+  height: 38px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
+}
+
+#releaseDate {
+  margin-top: -13px;
+  margin-bottom: 15px;
+  height: 38px;
+  border-color: #ADADAD;
+  border-style: solid;
+  border-width: 1px;
+
+  background-color: #181818;
+} */
+
+#trackSubmit {
+  color: white
+}

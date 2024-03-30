@@ -86,7 +86,7 @@ export const createPlaylist = (payload) => async (dispatch) => {
   if (res.ok) {
     const { resPost } = await res.json()
     dispatch(addPlaylist(resPost))
-    return data
+    return resPost
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages
@@ -96,15 +96,15 @@ export const createPlaylist = (payload) => async (dispatch) => {
 }
 
 export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/playlists/${playlistId}`, {
+  const res = await fetch(`/api/playlists/${playlistId}`, {
     method: 'PUT',
     body: payload
   })
-
+  
   if (res.ok) {
-    const data = await res.json()
-    dispatch(modifiedPlaylist(data))
-    return data
+    const { resPost } = await res.json()
+    dispatch(modifiedPlaylist(resPost))
+    return resPost
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages

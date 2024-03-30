@@ -100,16 +100,15 @@ export const fetchCurrentUserTracks = () => async (dispatch) => {
 }
 
 export const createTrack = (payload) => async (dispatch) => {
-  const res = await csrfFetch('/api/tracks/new', {
+  const res = await fetch('/api/tracks/new', {
     method: 'POST',
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: payload
   })
   
   if (res.ok) {
-    const data = await res.json()
-    dispatch(addTrack(data))
-    return data
+    const { resPost } = await res.json()
+    dispatch(addTrack(resPost))
+    return resPost
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages

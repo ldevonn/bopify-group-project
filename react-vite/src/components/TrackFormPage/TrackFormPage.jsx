@@ -21,13 +21,14 @@ function TrackFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    const formData = new FormData()
+    form.append("name", name)
+    form.append("duration", duration)
+    form.append("file", file)
+    form.append("albumId", albumId)
+
     const serverResponse = await dispatch(
-      createTrack({
-        name,
-        duration,
-        file,
-        albumId
-      })
+      createTrack(formData)
     )
     if (serverResponse) {
       setErrors(serverResponse)
@@ -43,7 +44,9 @@ function TrackFormPage() {
         <div className='TrackFormCard'>
           <h1 id='TrackFormTitle'>Create your track</h1>
           <form id='TrackForm' onSubmit={handleSubmit}>
+
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
+
             <label style={{ background: 'none' }} htmlFor='name'>Name</label>
             <input type='trackName' id='trackName' name='trackName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
 
@@ -51,9 +54,9 @@ function TrackFormPage() {
             <input type='text' id='duration' name='duration' required placeholder='duration' onChange={(e) => setDuration(e.target.value)} />
 
             <label style={{ background: 'none' }} htmlFor='trackFile'>Track File</label>
-            <input type='text' id='trackFile' name='trackFile' onChange={(e) => setFile(e.target.value)}></input>
+            <input type='file' accept='audio/*' id='trackFile' name='trackFile' onChange={(e) => setFile(e.target.value)}></input>
 
-            <button id='trackSubmit' type='submit'>Create Album</button>
+            <button id='trackSubmit' type='submit'>Create Track</button>
           </form>
         </div>
       </div>
