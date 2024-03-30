@@ -14,6 +14,7 @@ function AlbumFormPage () {
   const [albumType, setAlbumType] = useState('Album')
   const [genre, setGenre] = useState('Rock')
   const [imageUrl, setImageUrl] = useState('')
+  const [imageLoading, setImageLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
   if (!sessionUser) return <Navigate to="/" replace={true} />
@@ -28,15 +29,17 @@ function AlbumFormPage () {
       month = (date.getMonth() + 1)
     }
     let fReleaseDate = (month + '/' + date.getDate() + '/' + date.getFullYear());
+
+    const formData = new FormData()
+    formData.append("name", name)
+    formData.append("releaseDate", fReleaseDate)
+    formData.append("albumType", albumType)
+    formData.append("genre", genre)
+    formData.append("image", imageUrl)
+    setImageLoading(true)
     
     const serverResponse = await dispatch(
-      createAlbum({
-        name,
-        "releaseDate": fReleaseDate,
-        albumType,
-        genre,
-        imageUrl
-      })
+      createAlbum(formData)
     )
     if (serverResponse) {
       setErrors(serverResponse)
@@ -51,7 +54,9 @@ function AlbumFormPage () {
         <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')}/>
         <div className='albumFormCard'>
           <h1 id='albumFormTitle'>Create your album</h1>
-          <form id='albumForm' onSubmit={handleSubmit}>
+          <form id='albumForm' onSubmit={handleSubmit} encType='multipart/form-data'>
+
+
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
             <label style={{ background: 'none' }} htmlFor='name'>Name</label>
             <input type='albumName' id='albumName' name='albumName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
@@ -107,7 +112,9 @@ function AlbumFormPage () {
             </select>
 
             <label style={{ background: 'none' }} htmlFor='imageUrl'>Image URL</label>
-            <input type='text' id='albumImageUrl' name='albumImageUrl' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.value)} />
+            <input type='file' accept='image/*' id='albumImageUrl' name='albumImageUrl' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
+
+
             <button id='albumSubmit' type='submit'>Create Album</button>
           </form>
         </div>
