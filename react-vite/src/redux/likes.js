@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf"
+
 const GET_LIKES = 'likes/getLikes'
 const GET_LIKES_PER_TRACK = 'likes/getLikesPerTrack'
 const LIKED_TRACK = 'likes/likedTrack'
@@ -32,7 +34,7 @@ const removeLiked = (liked) => {
 }
 
 export const fetchGetLikedTracksByCurrentUser = () => async (dispatch) => {
-  const res = await fetch('/api/likes')
+  const res = await csrfFetch('/api/likes')
 
   if (res.ok) {
     const data = await res.json()
@@ -47,7 +49,7 @@ export const fetchGetLikedTracksByCurrentUser = () => async (dispatch) => {
 }
 
 export const fetchTotalLikesByTrack = (trackId) => async (dispatch) => {
-  const res = await fetch(`/api/likes/${trackId}`)
+  const res = await csrfFetch(`/api/likes/${trackId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getNumLikesPerTrack(data))
@@ -61,7 +63,7 @@ export const fetchTotalLikesByTrack = (trackId) => async (dispatch) => {
 }
 
 export const likeTheTrack = (trackId, payload) => async (dispatch) => {
-  const res = await fetch(`/api/likes/${trackId}`, {
+  const res = await csrfFetch(`/api/likes/${trackId}`, {
     method: 'POST',
     header: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -79,7 +81,7 @@ export const likeTheTrack = (trackId, payload) => async (dispatch) => {
 }
 
 export const removeLikedTrack = (trackId) => async (dispatch) => {
-  const res = await fetch(`/api/likes/${trackId}`, {
+  const res = await csrfFetch(`/api/likes/${trackId}`, {
     method: 'DELETE',
   })
   if (res.ok) {

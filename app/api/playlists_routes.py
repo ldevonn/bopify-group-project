@@ -105,4 +105,5 @@ def create_playlist():
     playlist = Playlist.query.get(new_playlist.id).to_dict()
     return jsonify(playlist), 201
   else:
+    print(form.errors)
     return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
