@@ -7,6 +7,8 @@ import AlbumFormPage from '../components/AlbumFormPage/AlbumFormPage.jsx';
 import PlaylistFormPage from '../components/PlaylistFormPage/PlaylistFormPage.jsx';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
 import ManageAlbums from '../components/ManageAlbums/ManageAlbums.jsx';
+import AllPlaylists from '../components/AllPlaylistsCurrentUser/AllPlaylistsCurrentUser.jsx';
+import PlaylistDetails from '../components/PlaylistDetails/PlaylistDetails.jsx';
 import Layout from './Layout';
 import EditAlbumForm from '../components/EditAlbumForm/EditAlbumForm.jsx';
 import LikedTracks from '../components/LikedTracks/LikedTracks.jsx';
@@ -65,6 +67,14 @@ export const router = createBrowserRouter([
       {
         path: '/liked',
         element: <LikedTracks />
+      },
+      {
+        path: '/playlists',
+        element: <AllPlaylists />
+      },
+      {
+        path: '/playlists/:playlistId',
+        element: <PlaylistDetails />
       }
     ],
   },
