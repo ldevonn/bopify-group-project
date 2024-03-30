@@ -10,7 +10,6 @@ import albumsReducer from "./albums"
 import tracksReducer from "./tracks";
 import playlistsReducer from "./playlists";
 import likesReducer from "./likes";
-import playlistsReducer from "./playlists";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
