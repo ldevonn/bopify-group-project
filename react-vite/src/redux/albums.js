@@ -133,7 +133,7 @@ export const createAlbum = (payload) => async (dispatch) => {
   if (res.ok) {
     const { resPost } = await res.json()
     dispatch(addAlbum(resPost))
-    return data
+    return resPost
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages

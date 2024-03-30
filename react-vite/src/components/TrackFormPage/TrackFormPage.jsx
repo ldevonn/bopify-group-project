@@ -21,10 +21,10 @@ function TrackFormPage() {
     e.preventDefault()
 
     const formData = new FormData()
-    form.append("name", name)
-    form.append("duration", duration)
-    form.append("file", file)
-    form.append("albumId", albumId)
+    formData.append("name", name)
+    formData.append("duration", duration)
+    formData.append("file", file)
+    formData.append("albumId", albumId)
 
     const serverResponse = await dispatch(
       createTrack(formData)
