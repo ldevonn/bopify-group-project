@@ -4,6 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import HomePage from '../components/HomePage'
 import AlbumDetails from '../components/AlbumDetails/AlbumDetails';
 import MusicPlayer from "../components/MusicPlayer/MusicPlayer.jsx";
+import ManageAlbums from '../components/ManageAlbums/ManageAlbums.jsx';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
         path: '/albums/:albumId',
         element: <AlbumDetails />
       },
+      {
+        path: 'albums/manage',
+        element: <ManageAlbums />
+      }
     ],
   },
 ]);
