@@ -37,7 +37,7 @@ function AllPlaylists () {
         <>
             <button id='createPlaylistButton' onClick={handleCreatePlaylist} >Create playlist</button>
 
-            {usersPlaylists && Object.keys(usersPlaylists).length > 0 ? (
+            {sessionUser && usersPlaylists && Object.keys(usersPlaylists).length > 0 ? (
                 <div id='allPlaylistTiles'>
                 {usersPlaylists && Object.keys(usersPlaylists).map(playlistId => {
                     return (
