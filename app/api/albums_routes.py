@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template, redirect
 from flask_login import current_user, login_required
 from app.models import Album, Track, User, db
+from app.api.aws import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 from ..forms import CreateAlbumForm
 
 
@@ -137,12 +138,21 @@ def create_album():
             albumType = form.albumType.data
             genre = form.genre.data
             imageUrl = form.imageUrl.data
+            imageUrl.filename = get_unique_filename(imageUrl.filename)
+            upload = upload_file_to_s3(imageUrl)
+            print(upload)
+
+            if "url" not in upload:
+            # if the dictionary doesn't have a url key
+                return render_template("create_album.html", form=form, errors=[upload])
+
+            url = upload["url"]
 
             new_album = Album(name = name,
                             release_date = releaseDate,
                             album_type = albumType,
                             genre = genre,
-                            image_url = imageUrl,
+                            image_url = url,
                             artist_id = current_user.id)
             db.session.add(new_album)
             db.session.commit()
