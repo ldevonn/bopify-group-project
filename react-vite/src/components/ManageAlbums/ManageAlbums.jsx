@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import TopLeftNav from "../HomePage/TopLeftNav"
 import LeftNav from "../HomePage/LeftNav"
 import TopNav from "../HomePage/TopNav"
+import DeleteElement from "../DeleteButtons/DeleteElement"
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
 import "./ManageAlbums.css"
 
@@ -41,7 +42,7 @@ function ManageAlbums () {
                                 <div className="albumTileAlbumName">{album.name}</div>
                                 <div className="edit-delete-album-buttons">
                                     <button className="placeholderEditbutton">Edit</button>
-                                    <button className="placeholderDeletebutton">Delete</button>
+                                    <DeleteElement elementId={album.id}/>
                                 </div>
                             </div>
                         )

@@ -25,7 +25,7 @@ function DeleteElement() {
         try {
             if (currentUrl === '/testing') {
                 await dispatch(fetchDeletePlaylist(elementId))
-            } else if (currentUrl === '/testing2') {
+            } else if (currentUrl === '/album/delete') {
                 await dispatch(fetchDeleteAlbum(elementId))
             } else {
                 console.log('current url not supported')
