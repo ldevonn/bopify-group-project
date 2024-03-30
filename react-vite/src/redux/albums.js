@@ -143,10 +143,9 @@ export const createAlbum = (payload) => async (dispatch) => {
 }
 
 export const updateAlbum = (payload, albumId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/albums/${albumId}`, {
+  const res = await fetch(`/api/albums/${albumId}`, {
     method: 'PUT',
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: payload
   })
 
   if (res.ok) {

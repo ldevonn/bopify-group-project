@@ -1,12 +1,13 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
-import { createAlbum } from "../../redux/albums";
+import { updateAlbum } from "../../redux/albums";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate, NavLink } from 'react-router-dom'
-import "./AlbumForm.css"
+import { Navigate, Link, useNavigate, NavLink, useParams } from 'react-router-dom'
+import "./EditAlbum.css"
 
-function AlbumFormPage () {
+function EditAlbumForm() {
   const navigate = useNavigate()
+  const { albumId } = useParams()
   const dispatch = useDispatch()
   const sessionUser = useSelector((state) => state.session.user)
   const [name, setName] = useState('')
@@ -35,9 +36,9 @@ function AlbumFormPage () {
     formData.append("albumType", albumType)
     formData.append("genre", genre)
     formData.append("imageUrl", imageUrl)
-    
+
     const serverResponse = await dispatch(
-      createAlbum(formData)
+      updateAlbum(formData, albumId)
     )
     if (serverResponse) {
       setErrors(serverResponse)
@@ -48,14 +49,14 @@ function AlbumFormPage () {
 
   return (
     <>
-      <div className='albumFormPage'>
-        <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')}/>
-        <div className='albumFormCard'>
-          <h1 id='albumFormTitle'>Create your album</h1>
-          <form id='albumForm' onSubmit={handleSubmit} encType='multipart/form-data'>
+      <div className='editAlbumFormPage'>
+        <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')} />
+        <div className='editAlbumFormCard'>
+          <h1 id='editAlbumFormTitle'>Update your album</h1>
+          <form id='editAlbumForm' onSubmit={handleSubmit} encType='multipart/form-data'>
+
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
-
             <label style={{ background: 'none' }} htmlFor='name'>Name</label>
             <input type='albumName' id='albumName' name='albumName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
             <label style={{ background: 'none' }} htmlFor='releaseDate'>Release Date</label>
@@ -109,10 +110,10 @@ function AlbumFormPage () {
               <option value='Psychedeli'>Psychedelic</option>
             </select>
 
-            <label style={{ background: 'none' }} htmlFor='albumImageUrl'>Image URL</label>
+            <label style={{ background: 'none' }} htmlFor='imageUrl'>Image URL</label>
             <input type='file' accept='image/*' id='albumImageUrl' name='albumImageUrl' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
 
-            <button id='albumSubmit' type='submit'>Create Album</button>
+            <button id='albumSubmit' type='submit'>Update Album</button>
           </form>
         </div>
       </div>
@@ -121,4 +122,4 @@ function AlbumFormPage () {
 
 }
 
-export default AlbumFormPage
+export default EditAlbumForm

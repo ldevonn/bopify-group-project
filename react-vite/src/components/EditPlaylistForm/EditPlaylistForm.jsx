@@ -1,11 +1,12 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
-import { createPlaylist } from '../../redux/playlists';
+import { updatePlaylist } from '../../redux/playlists';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate, NavLink } from 'react-router-dom'
+import { Navigate, Link, useNavigate, NavLink, useParams } from 'react-router-dom'
 import "./PlaylistForm.css"
 
-function PlaylistFormPage() {
+function EditPlaylistForm() {
+  let { playlistId } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const sessionUser = useSelector((state) => state.session.user)
@@ -28,7 +29,7 @@ function PlaylistFormPage() {
     formData.append("private", isPrivate)
 
     const serverResponse = await dispatch(
-      createPlaylist(formData)
+      updatePlaylist(formData, playlistId)
     )
     if (serverResponse) {
       setErrors(serverResponse)
@@ -39,11 +40,11 @@ function PlaylistFormPage() {
 
   return (
     <>
-      <div className='playlistFormPage'>
+      <div className='editPlaylistFormPage'>
         <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')} />
-        <div className='playlistFormCard'>
-          <h1 id='playlistFormTitle'>Create your playlist</h1>
-          <form id='playlistForm' onSubmit={handleSubmit} encType='multipart/form-data'>
+        <div className='editPlaylistFormCard'>
+          <h1 id='editPlaylistFormTitle'>Create your playlist</h1>
+          <form id='editPlaylistForm' onSubmit={handleSubmit} encType='multipart/form-data'>
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
 
@@ -58,8 +59,8 @@ function PlaylistFormPage() {
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
-            
-            <button id='playlistSubmit' type='submit'>Create Album</button>
+
+            <button id='playlistSubmit' type='submit'>Edit Album</button>
           </form>
         </div>
       </div>
@@ -68,4 +69,4 @@ function PlaylistFormPage() {
 
 }
 
-export default PlaylistFormPage
+export default EditPlaylistForm
