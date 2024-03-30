@@ -4,7 +4,7 @@
 {{ form.csrf_token }}
 <div>
     <h2>Create a New Album</h2>
-    <form action="", method="post">
+    <form method="post", enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <!-- name -->
         <p>{{ form.name.label }}: {{ form.name() }}</p>
