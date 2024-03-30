@@ -59,7 +59,17 @@ def get_album_by_id(album_id):
             album.releaseDate = form.releaseDate.data
             album.albumType = form.albumType.data
             album.genre = form.genre.data
-            album.imageUrl = form.imageUrl.data
+
+            newImageUrl = form.imageUrl.data
+            newImageUrl.filename = get_unique_filename(newImageUrl.filename)
+            upload = upload_file_to_s3(newImageUrl)
+            print(upload)
+
+            if "url" not in upload:
+            # if the dictionary doesn't have a url key
+                return render_template("create_track.html", form=form, errors=[upload])
+            else:
+                album.image_url = upload["url"]
 
             db.session.commit()
             return jsonify({"message": "Album has been updated successfully"}), 201
