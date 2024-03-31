@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {useDispatch} from "react-redux";
 import {fetchDeletePlaylist} from '../../redux/playlists.js'
 import {fetchDeleteAlbum} from '../../redux/albums.js'
+import { fetchDeleteTrack } from '../../redux/tracks.js';
 import { useNavigate } from 'react-router-dom';
 import './DeleteElement.css';
 
@@ -16,8 +17,14 @@ function DeleteElement(props) {
             setIsImageRed(true); // Toggle image color between black and red
         } else {
             try {
+                console.log("line 20: ", props)
                 if (props.albumId) await handleDelete(props.albumId)
                 if (props.playlistId) await handleDelete(props.playlistId)
+                if (props.trackId) {
+                    console.log(props.trackId)
+                    await handleDelete(props.playlistId)
+                    navigate(`/albums/${props.albumIdForNav}`)
+                }
                 navigate('/')
             } catch (error) {
                 console.error('Error deleting element:', error)
@@ -32,6 +39,8 @@ function DeleteElement(props) {
                 await dispatch(fetchDeletePlaylist(elementId))
             } else if (currentUrl === '/albums/manage') {
                 await dispatch(fetchDeleteAlbum(elementId))
+            } else if (currentUrl === '/albums') {
+                await dispatch(fetchDeleteTrack(elementId))
             } else {
                 console.log('current url not supported')
             }

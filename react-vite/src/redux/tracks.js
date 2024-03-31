@@ -104,7 +104,7 @@ export const createTrack = (payload) => async (dispatch) => {
     method: 'POST',
     body: payload
   })
-  
+
   if (res.ok) {
     const { resPost } = await res.json()
     console.log("CREATE TRACK: " , resPost)
@@ -138,7 +138,7 @@ export const updateTrack = (payload, trackId) => async (dispatch) => {
 }
 
 export const fetchDeleteTrack = (trackId) => async (dispatch) => {
-  const res = await csrfFetch(`api/tracks/${trackId}`, {
+  const res = await csrfFetch(`/api/tracks/${trackId}`, {
     method: 'DELETE'
   })
 
