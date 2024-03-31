@@ -6,6 +6,7 @@ import TopLeftNav from "../HomePage/TopLeftNav"
 import LeftNav from "../HomePage/LeftNav"
 import TopNav from "../HomePage/TopNav"
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
+import DeleteElement from "../DeleteButtons/DeleteElement"
 import { useNavigate } from "react-router-dom"
 import "./PlaylistDetails.css"
 
@@ -13,6 +14,7 @@ function PlaylistDetails () {
     let { playlistId } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const sessionUser = useSelector((state) => state.session.user)
     playlistId = +playlistId
     const playlist = useSelector(state => state.playlists.playlistDetails);
 
@@ -25,6 +27,8 @@ function PlaylistDetails () {
         songsPlural = 'songs'
         // console.log('line 25: ', Object.keys(playlist))
     }
+
+    console.log(playlistId)
 
     return (
         <div className="playlist-details-page">
@@ -48,6 +52,12 @@ function PlaylistDetails () {
                                 <div className="album-detail-lighter-larger">{playlist && Object.keys(playlist.playlist.tracks).length} {songsPlural}</div>
                             </div>
                         </div>
+                        {sessionUser && playlist && sessionUser.id == playlist.playlist.userId ? (
+                            <>
+                                <DeleteElement id="deleteButton" playlistId={playlistId}/>
+                                <button className="edit-playlist-button" onClick={() => navigate(`/playlists/${playlistId}/edit`)}>Edit</button>
+                            </>
+                        ) : (<div></div>)}
                     </div>
                 </div>
                 <div className="album-detail-tracks-list">

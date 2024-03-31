@@ -34,7 +34,7 @@ const removeLiked = (liked) => {
 }
 
 export const fetchGetLikedTracksByCurrentUser = () => async (dispatch) => {
-  const res = await fetch('/api/likes')
+  const res = await csrfFetch('/api/likes')
 
   if (res.ok) {
     const data = await res.json()
