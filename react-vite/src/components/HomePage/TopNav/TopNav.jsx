@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {thunkLogout} from "../../../redux/session";
 import { thunkLogin } from "../../../redux/session";
 import './TopNav.css'
+import {useState} from "react";
 
 function TopNav() {
     const navigate = useNavigate();
@@ -28,9 +29,7 @@ function TopNav() {
                 password: 'password'
             })
         )
-        if (serverResponse) {
-            setErrors(serverResponse)
-        } else {
+        if (!serverResponse) {
             navigate('/')
         }
     }
@@ -44,9 +43,7 @@ function TopNav() {
                 password: 'password'
             })
         )
-        if (serverResponse) {
-            setErrors(serverResponse)
-        } else {
+        if (!serverResponse) {
             navigate('/')
         }
     }
