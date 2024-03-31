@@ -19,8 +19,8 @@ class Track(db.Model):
     name = db.Column(db.String(40), nullable=False)
     duration = db.Column(db.Integer, nullable=False)
     file = db.Column(db.String(255), nullable=False)
-    artist_id = db.Column(db.Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
-    album_id = db.Column(db.Integer, ForeignKey('albums.id', ondelete='CASCADE'), nullable=False)
+    artist_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'), nullable=False)
+    album_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('albums.id'), ondelete='CASCADE'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
