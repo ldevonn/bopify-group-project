@@ -71,11 +71,24 @@ function AllPlaylists () {
                     </div>
                 </>
             ) : (
-                <div id='createPlaylistComp'>
-                    <p>Create your first playlist</p>
-                    <p>It&apos;s easy, we&apos;ll help you!</p>
-                    <button id='createPlaylistButton' onClick={handleCreatePlaylist} >Create playlist</button>
+                <>
+                <div className="playlistTile" onClick={() => navigate(`/liked`)}>
+                    <img src={`${likedsongs}`} className="playlist-image"></img>
+                    <div className="playlist-tile-info">
+                        <div className="playlistTilePlaylistName">Liked Songs</div>
+                        <div className="playlist-and-username">
+                            <div className="all-playlists-playlist-tag">Playlist</div>
+                            <div className="dot"> • </div>
+                            <div className="all-playlists-username">{sessionUser.name}</div>
+                        </div>
+                    </div>
                 </div>
+                <div id='createPlaylistComp'>
+                    <div className="create-playlist-comp-element">Create your first playlist</div>
+                    <div className="create-playlist-comp-element">It&apos;s easy, we&apos;ll help you!</div>
+                    <button id='createPlaylistButton'  className="create-playlist-comp-element" onClick={handleCreatePlaylist} >Create playlist</button>
+                </div>
+                </>
             )}
 
         </>

@@ -33,7 +33,7 @@
   color: wheat;
 }
 
-.playlistSubmit {
+#playlistSubmit {
   color: black;
   background-color: #15BE3A;
   border-radius: 30px;

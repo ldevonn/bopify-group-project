@@ -74,7 +74,7 @@
 #createPlaylistComp {
     background-color: #1E1E1E;
     color: white;
-    margin-top: 79px;
+    margin-top: 15px;
     margin-left: 14px;
     width: 330px;
     height: 137px;
@@ -99,4 +99,12 @@
     background-color: white;
     border: none;
     font-size: 16px;
+    margin-left: 100px;
+}
+
+.create-playlist-comp-element {
+    margin: 5px;
+    background: none;
+    font-size: larger;
+    align-self: center;
 }
