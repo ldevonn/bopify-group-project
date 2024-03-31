@@ -28,8 +28,6 @@ function PlaylistDetails () {
         // console.log('line 25: ', Object.keys(playlist))
     }
 
-    console.log(playlistId)
-
     return (
         <div className="playlist-details-page">
             <div className="leftColumn">
