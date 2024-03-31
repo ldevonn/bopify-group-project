@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from flask_login import login_required, current_user
-from app.models import Track, db, Like
+from flask_login import current_user, login_required
+from app.models import Track, db, Like, User, Album
 from sqlalchemy import delete
 
 likes_routes = Blueprint('likes', __name__)
@@ -24,17 +24,28 @@ def get_all_liked_songs():
     .all()
     )
 
-    print("LIKED_TRACKS: ", liked_tracks)
+    trackList = []
 
-    return {'tracks': [track.to_dict() for track in liked_tracks]}, 200
+    for track in liked_tracks:
+        track_data = track.to_dict()
+
+        artist = User.query.get(track_data['artistId'])
+        track_data['artistName'] = artist.name
+
+        album = Album.query.get(track_data['albumId']).to_dict()
+        track_data['albumImage'] = album['imageUrl']
+
+        trackList.append(track_data)
+
+    return trackList
 
 
 @likes_routes.route('/<int:track_id>', methods=["GET", "POST", "DELETE"])
 def get_or_create_or_delete_like(track_id):
     """
-    Query for 
-    getting all likes by track id (GET) 
-    OR creating a like by track id (PUT) 
+    Query for
+    getting all likes by track id (GET)
+    OR creating a like by track id (PUT)
     OR deleting a like by track id (DELETE)
     """
     track = Track.query.get(track_id)
@@ -44,15 +55,15 @@ def get_or_create_or_delete_like(track_id):
         response = jsonify({"message": "Track couldn't be found"})
         response.status_code = 404
         return response
-    
+
     if request.method in ["POST", "DELETE"]:
         if not current_user.is_authenticated:
             return jsonify({"message": "Unauthorized access"}), 403
-    
+
     if request.method == 'GET':
         likes = db.session.query(Like).filter(Like.c.track_id == track_id).all()
         return jsonify({'likes': len(likes)})
-    
+
     if request.method == 'POST':
         check_like = db.session.query(Like).filter(Like.c.track_id == track_id, Like.c.user_id == user_id).first()
         if check_like:
@@ -62,7 +73,7 @@ def get_or_create_or_delete_like(track_id):
             db.session.execute(Like.insert(), create_like)
             db.session.commit()
             return jsonify({"message": "You have successfully liked the track"}), 201
-        
+
     if request.method == 'DELETE':
         deleted_like_sql = delete(Like).where(
             Like.c.track_id == track_id,
