@@ -2,9 +2,13 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import ForeignKey
 
 PlaylistsTracks = db.Table('playlistsTracks',
-    db.Column('track_id', db.Integer, db.ForeignKey('tracks.id', ondelete='CASCADE'), nullable=False),
-    db.Column('playlist_id', db.Integer, db.ForeignKey('playlists.id', ondelete='CASCADE'), nullable=False)
+    db.Model.metadata,
+    db.Column('track_id', db.Integer, db.ForeignKey('tracks.id'), nullable=False),
+    db.Column('playlist_id', db.Integer, db.ForeignKey('playlists.id'), nullable=False)
 )
+
+if environment == "production":
+    PlaylistsTracks.schema = SCHEMA
     
     
 
