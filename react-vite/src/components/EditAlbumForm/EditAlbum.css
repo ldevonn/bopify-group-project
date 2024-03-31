@@ -1,0 +1,102 @@
+.editAlbumFormPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editAlbumFormCard {
+  margin-top: 10%;
+  width: 50%;
+  /*height: 50vh;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#editAlbumFormTitle {
+  color: wheat;
+  width: 300px;
+  font-size: 48px;
+}
+
+#editAlbumForm {
+  display: flex;
+  color: wheat;
+  flex-direction: column;
+}
+
+#albumName {
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
+}
+
+#releaseDate {
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
+}
+
+#albumType {
+  position: relative;
+  color: wheat;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
+}
+
+#genre {
+  position: relative;
+  color: wheat;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
+}
+
+#albumImageUrl {
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
+  padding-top: 5px;
+}
+
+#updateAlbumSubmit {
+  color: black;
+  background-color: #15BE3A;
+  border-radius: 30px;
+  border: none;
+  width: 150px;
+  height: 46px;
+  font-size: 18px;
+  margin-left: 55px;
+  margin-top: 10px;
+}
+

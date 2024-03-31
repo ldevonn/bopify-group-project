@@ -56,19 +56,19 @@ function AlbumFormPage () {
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
 
-            <label style={{ background: 'none' }} htmlFor='name'>Name</label>
-            <input type='albumName' id='albumName' name='albumName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
-            <label style={{ background: 'none' }} htmlFor='releaseDate'>Release Date</label>
-            <input type='date' id='releaseDate' name='releaseDate' required placeholder='Release Date' onChange={(e) => setReleaseDate(e.target.value)} />
+            <label style={{ background: 'none' }} htmlFor='createAlbumName'>Name</label>
+            <input type='text' id='createAlbumName' name='createAlbumName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
+            <label style={{ background: 'none' }} htmlFor='createReleaseDate'>Release Date</label>
+            <input type='date' id='createReleaseDate' name='createReleaseDate' required placeholder='Release Date' onChange={(e) => setReleaseDate(e.target.value)} />
 
-            <label style={{ background: 'none' }} htmlFor='albumType'>Album Type</label>
-            <select id='albumType' name='albumType' required value={albumType} onChange={(e) => setAlbumType(e.target.value)}>
+            <label style={{ background: 'none' }} htmlFor='createAlbumType'>Album Type</label>
+            <select id='createAlbumType' name='createAlbumType' required value={albumType} onChange={(e) => setAlbumType(e.target.value)}>
               <option value='Album'>Album</option>
               <option value='Single'>Single</option>
             </select>
 
-            <label style={{ background: 'none' }} htmlFor='genre'>Genre</label>
-            <select id='genre' name='genre' required value={genre} onChange={(e) => setGenre(e.target.value)}>
+            <label style={{ background: 'none' }} htmlFor='createAlbumGenre'>Genre</label>
+            <select id='createAlbumGenre' name='createAlbumGenre' required value={genre} onChange={(e) => setGenre(e.target.value)}>
               <option value='Rock'>Rock</option>
               <option value='Pop'>Pop</option>
               <option value='Hip hop'>Hip hop</option>
@@ -109,8 +109,8 @@ function AlbumFormPage () {
               <option value='Psychedeli'>Psychedelic</option>
             </select>
 
-            <label style={{ background: 'none' }} htmlFor='albumImageUrl'>Image URL</label>
-            <input type='file' accept='image/*' id='albumImageUrl' name='albumImageUrl' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
+            <label style={{ background: 'none' }} htmlFor='createAlbumImage'>Image URL</label>
+            <input type='file' accept='image/*' id='createAlbumImage' name='createAlbumImage' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
 
             <button id='albumSubmit' type='submit'>Create Album</button>
           </form>
