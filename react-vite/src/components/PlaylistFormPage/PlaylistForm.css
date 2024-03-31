@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.playlist-form-element {
+  margin: 5px;
+}
+
 .playlistFormCard {
   margin-top: 10%;
   width: 50%;
@@ -23,4 +27,22 @@
   display: flex;
   color: wheat;
   flex-direction: column;
+}
+
+#isPrivate {
+  color: wheat;
+}
+
+.playlistSubmit {
+  color: black;
+  background-color: #15BE3A;
+  border-radius: 30px;
+  border: none;
+  width: 150px;
+  height: 46px;
+  font-size: 18px;
+}
+
+.playlist-form-name {
+  background-color: black;
 }

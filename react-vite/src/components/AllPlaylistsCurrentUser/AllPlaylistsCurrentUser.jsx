@@ -15,9 +15,10 @@ function AllPlaylists () {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+
     useEffect(() => {
         dispatch(fetchPlaylistByCurrentUser())
-    }, [dispatch])
+    }, [dispatch, sessionUser])
 
     // useEffect(() => {
     //     if (!sessionUser) {
