@@ -82,7 +82,7 @@ export const createPlaylist = (payload) => async (dispatch) => {
     method: 'POST',
     body: payload
   })
-  
+
   if (res.ok) {
     const { resPost } = await res.json()
     dispatch(addPlaylist(resPost))
@@ -100,7 +100,7 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
     method: 'PUT',
     body: payload
   })
-  
+
   if (res.ok) {
     const { resPost } = await res.json()
     dispatch(modifiedPlaylist(resPost))
@@ -114,7 +114,8 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
 }
 
 export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
-  const res = await csrfFetch(`api/playlists/${playlistId}`, {
+  console.log("Line 117", playlistId)
+  const res = await csrfFetch(`/api/playlists/${playlistId}`, {
     method: 'DELETE'
   })
 

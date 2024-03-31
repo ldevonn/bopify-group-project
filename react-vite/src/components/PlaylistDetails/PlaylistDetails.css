@@ -163,3 +163,12 @@
     margin-left: 15px;
     border-radius: 5px;
 }
+/*
+#deleteButton {
+
+} */
+
+.edit-playlist-button {
+    color: white;
+    background-color: #1E1E1E;
+}

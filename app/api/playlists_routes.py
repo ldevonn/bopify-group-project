@@ -51,7 +51,6 @@ def get_playlist_by_id(playlist_id):
         track_data['artistName'] = artist.name
 
         album = Album.query.get(track_data['albumId']).to_dict()
-        # print("HIT!!!", album.to_dict())
         track_data['albumImage'] = album['imageUrl']
 
         trackList.append(track_data)
