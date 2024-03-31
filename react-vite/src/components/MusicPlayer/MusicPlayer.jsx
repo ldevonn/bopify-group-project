@@ -7,62 +7,63 @@ function MusicPlayer(props) {
     const [sliderValue, setSliderValue] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
 
-    console.log(props.trackUrl)
-
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value)
     }
 
     useEffect(() => {
         let progress = document.getElementById('progressBar')
-        let song = document.getElementById('song')
 
-        if (song) {
-            song.onloadedmetadata = function (){
-                progress.max = song.duration;
-                progress.value = song.currentTime
+        if (props.isPlaying){
+            setIsPlaying(true)
+        }
+
+        if (props.currAudio) {
+            props.currAudio.onloadedmetadata = function (){
+                progress.max = props.currAudio.duration;
+                progress.value = props.currAudio.currentTime
             }
-            song.ontimeupdate = function () {
-                progress.value = song.currentTime
+            props.currAudio.ontimeupdate = function () {
+                progress.value = props.currAudio.currentTime
+            }
+            props.currAudio.onended = function () {
+                setIsPlaying(false)
+            }
+            props.currAudio.onplay = function () {
+                setIsPlaying(true)
+            }
+            props.currAudio.onpause = function () {
+                setIsPlaying(false)
             }
         }
 
         progress.onchange = function () {
-            song.currentTime = progress.value;
+            props.currAudio.currentTime = progress.value;
             if (isPlaying) {
-                song.play();
+                props.currAudio.play();
             }
-        }
-    }, [isPlaying])
+        };
+    }, [props.currAudio, props.isPlaying, isPlaying])
 
 
     function playPause() {
-        let playToggle = document.getElementById('play/stop')
-        let song = document.getElementById('song')
-
-        if (playToggle && song) {
-            if(isPlaying){
-                song.pause();
+        if (props.currAudio) {
+            if (isPlaying) {
+                props.currAudio.pause();
                 setIsPlaying(false)
-                playToggle.classList.remove("fa-stop")
-                playToggle.classList.add("fa-play")
             } else {
-                song.play()
-                setIsPlaying(true)
-                playToggle.classList.add("fa-stop")
-                playToggle.classList.remove("fa-play")
+                props.currAudio.play();
             }
         }
     }
 
     function rewind() {
-        let song = document.getElementById('song')
         let playToggle = document.getElementById('play/stop')
 
-        if (playToggle && song) {
-            song.currentTime = 0;
+        if (props.currAudio) {
+            props.currAudio.currentTime = 0;
             if (isPlaying) {
-                song.start()
+                props.currAudio.start()
             }
         }
     }
@@ -71,9 +72,6 @@ function MusicPlayer(props) {
     return (
         <>
             <div className='audioPage'>
-                <audio id="song">
-                    <source src={props.trackUrl} type="audio/mpeg"/>
-                </audio>
                 <input type="range"
                        id='progressBar'
                        value={sliderValue}
@@ -85,7 +83,7 @@ function MusicPlayer(props) {
                     <i className="fa-solid fa-backward-fast"></i>
                 </div>
                 <div onClick={playPause}>
-                    <i className={"fa-solid fa-play"} id='play/stop'></i>
+                    <i className={`fa-solid ${isPlaying ? 'fa-stop' : 'fa-play'}`} id='play/stop'></i>
                 </div>
                 <div>
                     <i className="fa-solid fa-forward-fast"></i>

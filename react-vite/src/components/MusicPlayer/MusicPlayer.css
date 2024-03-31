@@ -5,17 +5,18 @@
 }
 
 input[type="range"]{
+    display: none;
     -webkit-appearance: none;
     background-color: gray;
     border-radius: 15px;
     overflow: hidden;
     height: 6px;
-    width: 25%;
+    width: 50%;
     cursor: pointer;
 }
 
 input[type='range']::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
+    /*display: none;*/
 }
 
 input[type='range']::-webkit-slider-thumb {
