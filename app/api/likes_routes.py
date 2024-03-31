@@ -13,6 +13,9 @@ def get_all_liked_songs():
     Query for all liked tracks by the logged in user
     """
     user_id = current_user.id
+    print("currentUser: ", current_user)
+    print("<--------------LIKE ROUTE FUNCTION WAS CALLED! --------------------->")
+    print("user_id: ", user_id)
 
     liked_tracks = (
     db.session.query(Track)
@@ -21,7 +24,9 @@ def get_all_liked_songs():
     .all()
     )
 
-    return {'tracks': [track.to_dict() for track in liked_tracks]}
+    print("LIKED_TRACKS: ", liked_tracks)
+
+    return {'tracks': [track.to_dict() for track in liked_tracks]}, 200
 
 
 @likes_routes.route('/<int:track_id>', methods=["GET", "POST", "DELETE"])

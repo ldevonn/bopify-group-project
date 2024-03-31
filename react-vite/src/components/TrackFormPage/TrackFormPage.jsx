@@ -40,7 +40,6 @@ function TrackFormPage() {
     <>
       <div className='TrackFormPage'>
         <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')} />
-        <h1 id='LIKEY'>LIKEY</h1>
         <div className='TrackFormCard'>
           <h1 id='TrackFormTitle'>Create your track</h1>
           <form id='TrackForm' onSubmit={handleSubmit} encType='multipart/form-data'>
