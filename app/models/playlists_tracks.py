@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import ForeignKey
 
-table_name = 'playliststracks'
+table_name = 'playlistsTracks'
 
 PlaylistsTracks = db.Table(table_name,
     db.Model.metadata,
