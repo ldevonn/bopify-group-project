@@ -7,6 +7,12 @@
     height: 944px;
 }
 
+.all-albums-title {
+    color: white;
+    background-color: transparent;
+    margin-left: 30px;
+}
+
 .albumTile {
     background-color: transparent;
     height: 260px;

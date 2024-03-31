@@ -9,11 +9,24 @@
     font-size: 22px;
 }
 
+#loginButton:hover {
+    background-color: #129f31;
+    cursor: pointer;
+    transition: 100ms;
+}
+
 #signupButton {
     font-size: 22px;
     border: none;
     color: white;
     background-color: transparent;
+}
+
+#signupButton:hover {
+    color: #c7c7c7;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: 100ms;
 }
 
 #logoutButton {
@@ -25,6 +38,12 @@
     width: 137px;
     height: 46px;
     font-size: 22px;
+}
+
+#logoutButton:hover {
+    background-color: #0c0c0c;
+    cursor: pointer;
+    transition: 100ms;
 }
 
 #welcomeMessage {
@@ -48,4 +67,18 @@
     flex-direction: row;
     justify-content: flex-end;
     background-color: transparent;
+}
+
+#manageAlbums {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
+#manageAlbums:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    transition: 100ms;
+    color: #c7c7c7;
 }

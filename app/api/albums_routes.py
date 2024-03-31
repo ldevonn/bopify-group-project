@@ -27,6 +27,7 @@ def get_all_albums():
 @album_routes.route('/<int:album_id>', methods=['GET', 'PUT', 'DELETE'])
 def get_album_by_id(album_id):
     album = Album.query.get(album_id)
+    print("HIT!!!", album)
 
     if not album:
         response = jsonify({"message": "Album couldn't be found"})
@@ -170,6 +171,7 @@ def create_album():
             # album = Album.query.get(new_album.id).to_dict()
             return jsonify({"message": "Album successfully created."}), 201
 
+        print(form.errors)
         errors = {}
         for field, error in form.errors.items():
             field_obj = getattr(form, field)

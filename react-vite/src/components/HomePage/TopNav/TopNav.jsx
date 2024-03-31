@@ -22,6 +22,9 @@ function TopNav() {
         return (
             <div id="topNavLoggedIn">
                 <p id='welcomeMessage'>Welcome, {sessionUser.name}!</p>
+                {sessionUser && sessionUser.isArtist ? (
+                <button id="manageAlbums" onClick={() => navigate('/albums/manage')}>Manage Albums</button>
+                ) : (<div></div>)}
                 <button id='logoutButton' onClick={logOut}>Log Out</button>
             </div>
         )

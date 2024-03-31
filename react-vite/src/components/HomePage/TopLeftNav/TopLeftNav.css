@@ -15,7 +15,14 @@
     font-size: 22px;
 }
 
-#searchButton{
+#homeButton:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    transition: 100ms;
+    color: #c7c7c7;
+}
+
+#createAlbumButton {
     position: absolute;
     left: 129px;
     top: 151px;
@@ -23,6 +30,12 @@
     background: none;
     border: none;
     font-size: 22px;
+}
+
+#createAlbumButton:hover {
+    color: #c7c7c7;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #spotifyLogo {

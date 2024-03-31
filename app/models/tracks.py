@@ -10,7 +10,7 @@ class Track(db.Model):
 
     album = relationship("Album", back_populates="tracks")
     playlists = relationship('Playlist', secondary=PlaylistsTracks, back_populates='tracks')
-    user_likes = relationship('User', secondary=Like, back_populates='track_likes')
+    user_likes = relationship('User', secondary=Like, back_populates='track_likes', cascade="all, delete")
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

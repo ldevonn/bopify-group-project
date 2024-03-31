@@ -14,7 +14,7 @@
     top: 21px;
 }
 
-#createPlaylistComp {
+/* #createPlaylistComp {
     background-color: #1E1E1E;
     color: white;
     margin-top: 79px;
@@ -41,3 +41,9 @@
     border: none;
     font-size: 16px;
 }
+#createPlaylistButton:hover {
+    background-color: #c7c7c7;
+    cursor: pointer;
+    transition: 100ms;
+}
+} */

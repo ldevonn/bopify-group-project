@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf"
+
 const GET_PLAYLISTS_BY_CURRENT_USER = 'playlists/getPlaylistsByCurrentUser'
 const GET_PLAYLIST_DETAILS = 'playlists/getPlaylistDetails'
 const ADD_PLAYLIST = 'playlists/addPlaylist'
@@ -6,7 +8,7 @@ const DELETE_PLAYLIST = 'playlists/deletePlaylist'
 
 const getPlaylistsByCurrentUser = (allPlaylists) => {
   return {
-    type: GET_PLAYLISTS,
+    type: GET_PLAYLISTS_BY_CURRENT_USER,
     allPlaylists
   }
 }
@@ -40,7 +42,7 @@ const deletePlaylist = (playlist) => {
 }
 
 export const fetchPlaylistByCurrentUser = () => async (dispatch) => {
-  const res = await fetch("api/playlists/current")
+  const res = await csrfFetch("api/playlists/current")
   if (res.ok) {
     const data = await res.json()
     const playlistsData = {}
@@ -62,7 +64,7 @@ export const fetchPlaylistByCurrentUser = () => async (dispatch) => {
 }
 
 export const fetchGetPlaylistDetails = (playlistId) => async (dispatch) => {
-  const res = await fetch(`/api/playlists/${playlistId}`)
+  const res = await csrfFetch(`/api/playlists/${playlistId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getPlaylistDetails(data))
@@ -78,14 +80,13 @@ export const fetchGetPlaylistDetails = (playlistId) => async (dispatch) => {
 export const createPlaylist = (payload) => async (dispatch) => {
   const res = await fetch(`/api/playlists/new`, {
     method: 'POST',
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: payload
   })
-
+  
   if (res.ok) {
-    const data = await res.json()
-    dispatch(addPlaylist(data))
-    return data
+    const { resPost } = await res.json()
+    dispatch(addPlaylist(resPost))
+    return resPost
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages
@@ -97,14 +98,13 @@ export const createPlaylist = (payload) => async (dispatch) => {
 export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
   const res = await fetch(`/api/playlists/${playlistId}`, {
     method: 'PUT',
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: payload
   })
-
+  
   if (res.ok) {
-    const data = await res.json()
-    dispatch(modifiedPlaylist(data))
-    return data
+    const { resPost } = await res.json()
+    dispatch(modifiedPlaylist(resPost))
+    return resPost
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages
@@ -114,7 +114,7 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
 }
 
 export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
-  const res = await fetch(`api/playlists/${playlistId}`, {
+  const res = await csrfFetch(`api/playlists/${playlistId}`, {
     method: 'DELETE'
   })
 
