@@ -1,5 +1,3 @@
-import { csrfFetch } from "./csrf"
-
 const GET_PLAYLISTS_BY_CURRENT_USER = 'playlists/getPlaylistsByCurrentUser'
 const GET_PLAYLIST_DETAILS = 'playlists/getPlaylistDetails'
 const ADD_PLAYLIST = 'playlists/addPlaylist'
@@ -42,7 +40,7 @@ const deletePlaylist = (playlist) => {
 }
 
 export const fetchPlaylistByCurrentUser = () => async (dispatch) => {
-  const res = await csrfFetch("api/playlists/current")
+  const res = await fetch("api/playlists/current")
   if (res.ok) {
     const data = await res.json()
     const playlistsData = {}
@@ -64,7 +62,7 @@ export const fetchPlaylistByCurrentUser = () => async (dispatch) => {
 }
 
 export const fetchGetPlaylistDetails = (playlistId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/playlists/${playlistId}`)
+  const res = await fetch(`/api/playlists/${playlistId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getPlaylistDetails(data))
@@ -115,7 +113,7 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
 
 export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
   console.log("Line 117", playlistId)
-  const res = await csrfFetch(`/api/playlists/${playlistId}`, {
+  const res = await fetch(`/api/playlists/${playlistId}`, {
     method: 'DELETE'
   })
 
