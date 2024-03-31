@@ -1,5 +1,3 @@
-import { csrfFetch } from "./csrf"
-
 const GET_TRACKS = 'tracks/getTracks'
 const GET_TRACK_DETAILS = 'tracks/getTrackDetails'
 const GET_TRACK_BY_USER = 'tracks/getTrackByUser'
@@ -50,7 +48,7 @@ const deleteTrack = (track) => {
 }
 
 export const fetchGetTracks = () => async (dispatch) => {
-  const res = await csrfFetch('/api/tracks')
+  const res = await fetch('/api/tracks')
   if(res.ok) {
     const data = await res.json()
     const tracksData = {}
@@ -72,7 +70,7 @@ export const fetchGetTracks = () => async (dispatch) => {
 }
 
 export const fetchGetTrackDetails = (trackId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/tracks/${trackId}`)
+  const res = await fetch(`/api/tracks/${trackId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getTrackDetails(data))
@@ -86,7 +84,7 @@ export const fetchGetTrackDetails = (trackId) => async (dispatch) => {
 }
 
 export const fetchCurrentUserTracks = () => async (dispatch) => {
-  const res = await csrfFetch('/api/tracks/current')
+  const res = await fetch('/api/tracks/current')
   if (res.ok) {
     const data = await res.json()
     dispatch(getTrackByCurrentUser(data))
@@ -104,7 +102,7 @@ export const createTrack = (payload) => async (dispatch) => {
     method: 'POST',
     body: payload
   })
-  
+
   if (res.ok) {
     const { resPost } = await res.json()
     console.log("CREATE TRACK: " , resPost)
@@ -119,7 +117,7 @@ export const createTrack = (payload) => async (dispatch) => {
 }
 
 export const updateTrack = (payload, trackId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/tracks/${trackId}`, {
+  const res = await fetch(`/api/tracks/${trackId}`, {
     method: 'PUT',
     header: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -138,7 +136,7 @@ export const updateTrack = (payload, trackId) => async (dispatch) => {
 }
 
 export const fetchDeleteTrack = (trackId) => async (dispatch) => {
-  const res = await csrfFetch(`api/tracks/${trackId}`, {
+  const res = await fetch(`/api/tracks/${trackId}`, {
     method: 'DELETE'
   })
 

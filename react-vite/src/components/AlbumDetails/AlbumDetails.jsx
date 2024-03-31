@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchGetAlbumDetails } from "../../redux/albums";
 import { likeTheTrack, removeLikedTrack } from "../../redux/likes.js";
+import DeleteElement from "../DeleteButtons/DeleteElement.jsx";
 import TopLeftNav from "../HomePage/TopLeftNav";
 import LeftNav from "../HomePage/LeftNav";
 import TopNav from "../HomePage/TopNav";
@@ -12,9 +13,11 @@ import "./AlbumDetails.css";
 function AlbumDetails() {
     let { albumId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     albumId = +albumId;
     const album = useSelector(state => state.albums.albumDetails);
     const [isLiked, setIsLiked] = useState(false);
+    const sessionUser = useSelector((state) => state.session.user)
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [track, setTrack] = useState(undefined)
@@ -81,6 +84,9 @@ function AlbumDetails() {
                                 <div className="dot"> • </div>
                                 <div className="spacer-10px"></div>
                                 <div className="album-detail-lighter-larger">{album && album.tracks.length} {songsPlural}</div>
+                                {sessionUser && album && sessionUser.id == album.artistId ? (
+                                    <button className="add-song-button" onClick={() => navigate(`/albums/${albumId}/tracks/new`)}>Add a Song</button>
+                                ) : <div></div>}
                             </div>
                         </div>
                     </div>
@@ -99,6 +105,9 @@ function AlbumDetails() {
                                     </div>
                                 </div>
                                 <div className="like-button-and-duration">
+                                    {sessionUser && album && sessionUser.id == album.artistId ? (
+                                        <DeleteElement trackId={track.trackId} albumIdForNav={albumId}/>
+                                    ) : <div></div>}
                                     <i className="fa-regular fa-heart" id='likeButton' style={{background: 'transparent', marginRight: 10}} onClick={() => toggleLike(track.trackId)}></i>
                                     <div className="album-detail-track-duration">{minutes}:{seconds}</div>
                                 </div>

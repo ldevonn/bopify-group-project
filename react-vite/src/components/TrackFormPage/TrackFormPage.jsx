@@ -31,8 +31,9 @@ function TrackFormPage() {
     )
     if (serverResponse) {
       setErrors(serverResponse)
+      console.log(errors)
     } else {
-      navigate('/')
+      navigate(`/albums/${albumId}`)
     }
   }
 

@@ -1,3 +1,159 @@
 #likes {
   color: white;
 }
+.album-details-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.album-detail-info-section {
+  background-color: transparent;
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.album-detail-image {
+  height: 155px;
+  width: 155px;
+  margin: 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+.album-detail-type-name-and-info {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+.album-detail-album-type-and-name{
+  background-color: transparent;
+}
+
+.artist-profile-pic {
+  height: 24px;
+  width: 24px;
+  border: none;
+  border-radius: 12px;
+  margin: 10px;
+}
+
+.album-detail-artist-release-date-length {
+  display: flex;
+  flex-direction: row;
+  font-size: small;
+  font-weight: light;
+  background-color: transparent;
+  margin-bottom: 11px;
+  align-items: center;
+}
+
+.album-detail-artist-name {
+  font-weight: bolder;
+  font-size: larger;
+  background-color: transparent;
+}
+
+.album-detail-lighter-larger {
+  font-weight: lighter;
+  font-size: larger;
+  background-color: transparent;
+}
+
+.likes-detail-title {
+  font-size: xx-large;
+  font-weight: bolder;
+  background-color: transparent;
+  margin-bottom: 7px;
+}
+
+.playlist-detail-playlist-tag {
+  font-weight: lighter;
+  background-color: transparent;
+}
+
+.album-detail-tracks-list{
+  color: white;
+  background-color: transparent;
+}
+
+.album-detail-track{
+  background-color: transparent;
+  height: 54px;
+  background-color: transparent;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.album-detail-track:hover {
+  cursor: pointer;
+  background-color: #1E1E1E;
+}
+
+.album-number-track-and-artist {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}
+
+.album-detail-track-number{
+  background-color: transparent;
+  color: rgb(133, 133, 133);
+  font-size: xx-large;
+  margin-left: 15px;
+}
+
+.album-detail-track-name {
+  background-color: transparent;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.album-detail-track-artist {
+  background-color: transparent;
+  color: rgb(133, 133, 133);
+  font-size: smaller;
+  font-weight: lighter;
+}
+
+.album-detail-track-and-artist {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.like-button-and-duration {
+  display: flex;
+  flex-direction: row;
+  margin-right: 40px;
+  background-color: transparent;
+}
+
+.album-detail-track-duration {
+  background-color: transparent;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.album-detail-like-button {
+  color: white;
+  margin-right: 20px;
+  background-color: transparent;
+}
+
+.spacer-10px {
+  width: 10px;
+  background-color: transparent;
+}
+
+.dot {
+  background-color: transparent;
+}

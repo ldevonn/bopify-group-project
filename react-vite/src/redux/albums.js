@@ -159,7 +159,7 @@ export const updateAlbum = (payload, albumId) => async (dispatch) => {
 }
 
 export const fetchDeleteAlbum = (albumId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/albums/${albumId}`, {
+  const res = await fetch(`/api/albums/${albumId}`, {
     method: 'DELETE'
   })
 
