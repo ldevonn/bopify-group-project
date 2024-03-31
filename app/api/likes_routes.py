@@ -7,36 +7,34 @@ likes_routes = Blueprint('likes', __name__)
 
 
 @likes_routes.route('/', methods=["GET"])
-@login_required
+# @login_required
 def get_all_liked_songs():
     """
     Query for all liked tracks by the logged in user
     """
     user_id = current_user.id
-    print("currentUser: ", current_user)
-    print("<--------------LIKE ROUTE FUNCTION WAS CALLED! --------------------->")
-    print("user_id: ", user_id)
 
-    liked_tracks = (
-    db.session.query(Track)
-    .join(Like, Like.c.track_id == Track.id)
-    .filter(Like.c.user_id == user_id)
-    .all()
-    )
+    # liked_tracks = (
+    # db.session.query(Track)
+    # .join(Like, Like.c.track_id == Track.id)
+    # .filter(Like.c.user_id == user_id)
+    # .all()
+    # )
 
-    trackList = []
+    # trackList = []
 
-    for track in liked_tracks:
-        track_data = track.to_dict()
+    # for track in liked_tracks:
+    #     track_data = track.to_dict()
 
-        artist = User.query.get(track_data['artistId'])
-        track_data['artistName'] = artist.name
+    #     artist = User.query.get(track_data['artistId'])
+    #     track_data['artistName'] = artist.name
 
-        album = Album.query.get(track_data['albumId']).to_dict()
-        track_data['albumImage'] = album['imageUrl']
+    #     album = Album.query.get(track_data['albumId']).to_dict()
+    #     track_data['albumImage'] = album['imageUrl']
 
-        trackList.append(track_data)
+    #     trackList.append(track_data)
 
+    return user_id
     return trackList
 
 

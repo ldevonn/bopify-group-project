@@ -1,5 +1,3 @@
-import { csrfFetch } from "./csrf"
-
 const GET_ALBUMS = 'albums/getAlbums'
 const GET_ALBUM_DETAILS = 'albums/getAlbumDetails'
 const GET_ALBUM_BY_ARTIST = 'albums/getAlbumByArtist'
@@ -58,7 +56,7 @@ const deleteAlbum = (album) => {
 }
 
 export const fetchGetAlbums = () => async (dispatch) => {
-  const res = await csrfFetch("/api/albums")
+  const res = await fetch("/api/albums")
   if (res.ok) {
     const data = await res.json()
     // const albumsData = {}
@@ -82,7 +80,7 @@ export const fetchGetAlbums = () => async (dispatch) => {
 }
 
 export const fetchGetAlbumDetails = (albumId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/albums/${albumId}`)
+  const res = await fetch(`/api/albums/${albumId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getAlbumDetails(data))
@@ -96,7 +94,7 @@ export const fetchGetAlbumDetails = (albumId) => async (dispatch) => {
 }
 
 export const fetchAlbumByArtist = (artistId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/albums/artists/${artistId}`)
+  const res = await fetch(`/api/albums/artists/${artistId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getAlbumByArtist(data))
@@ -110,7 +108,7 @@ export const fetchAlbumByArtist = (artistId) => async (dispatch) => {
 }
 
 export const fetchCurrentUserAlbums = () => async (dispatch) => {
-  const res = await csrfFetch(`/api/albums/current`)
+  const res = await fetch(`/api/albums/current`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getAlbumByCurrentUser(data))

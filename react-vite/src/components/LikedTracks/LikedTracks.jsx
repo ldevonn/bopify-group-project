@@ -27,9 +27,9 @@ function LikedTracks () {
     // }
 
     return (
-      <>
-      {user && (<h1 id='likes'>Likes</h1>)}
-      </>
+        <>
+        {user && (<h1 id='likes'>Likes</h1>)}
+        </>
         // <div className="playlist-details-page">
         //     <div className="leftColumn">
         //         <TopLeftNav />
