@@ -47,19 +47,19 @@ function PlaylistFormPage() {
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
 
-            <label style={{ background: 'none' }} htmlFor='name'>Name</label>
-            <input type='playlistName' id='playlistName' name='playlistName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
+            <label className='playlist-form-name playlist-form-element' htmlFor='name'>Name</label>
+            <input className='playlist-form-name playlist-form-element' type='playlistName' id='playlistName' name='playlistName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
 
-            <label style={{ background: 'none' }} htmlFor='playlistImageUrl'>Image URL</label>
-            <input type='file' accept='image/*' id='playlistImageUrl' name='playlistImageUrl' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
+            <label className='playlist-form-element' htmlFor='playlistImageUrl'>Upload Image</label>
+            <input className='playlist-form-element' type='file' accept='image/*' id='playlistImageUrl' name='playlistImageUrl' required placeholder='Upload Image' onChange={(e) => setImageUrl(e.target.files[0])} />
 
-            <label style={{ background: 'none' }} htmlFor='isPrivate'>Is this a private playlist?</label>
-            <select id='isPrivate' name='isPrivate' value={isPrivate} onChange={(e) => setIsPrivate(e.target.value)}>
+            <label className='playlist-form-element' htmlFor='isPrivate'>Is this a private playlist?</label>
+            <select className='playlist-form-element' id='isPrivate' name='isPrivate' value={isPrivate} onChange={(e) => setIsPrivate(e.target.value)}>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
-            
-            <button id='playlistSubmit' type='submit'>Create Album</button>
+
+            <button className='playlistSubmit playlist-form-element' type='submit'>Create Album</button>
           </form>
         </div>
       </div>
