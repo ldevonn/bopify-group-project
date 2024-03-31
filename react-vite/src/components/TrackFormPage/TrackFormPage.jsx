@@ -1,7 +1,7 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import { createTrack } from '../../redux/tracks'
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./TrackForm.css"
 
