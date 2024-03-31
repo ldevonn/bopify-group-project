@@ -24,7 +24,6 @@ function DeleteElement(props) {
             }
         }
     };
-    console.log(currentUrl)
 
     const handleDelete = async (elementId) => {
         try {

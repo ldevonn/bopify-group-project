@@ -14,7 +14,7 @@ function LikedTracks () {
     // const navigate = useNavigate()
     const user = useSelector(state => state.session.user);
     const likes = useSelector(state => state.likes.userLikedTracks);
-    console.log(likes)
+    // console.log(likes)
 
     useEffect(() => {
         dispatch(fetchGetLikedTracksByCurrentUser())

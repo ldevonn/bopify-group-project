@@ -20,12 +20,6 @@ function AllPlaylists () {
         dispatch(fetchPlaylistByCurrentUser())
     }, [dispatch, sessionUser])
 
-    // useEffect(() => {
-    //     if (!sessionUser) {
-    //         navigate('/login')
-    //     }
-    // }, [sessionUser, navigate])
-
     const handleCreatePlaylist = (e) => {
         e.preventDefault()
         if (!sessionUser) {

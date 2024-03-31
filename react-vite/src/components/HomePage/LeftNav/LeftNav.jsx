@@ -1,20 +1,7 @@
-import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux";
 import AllPlaylists from "../../AllPlaylistsCurrentUser/AllPlaylistsCurrentUser";
 import "./LeftNav.css"
 
 function LeftNav() {
-    const navigate = useNavigate()
-    const sessionUser = useSelector(state => state.session.user);
-
-    const handleCreatePlaylist = (e) => {
-        e.preventDefault()
-        if (!sessionUser) {
-            navigate('/login')
-        } else {
-            navigate('/playlists/new')
-        }
-    }
 
     return (
     <div id='leftNav'>
