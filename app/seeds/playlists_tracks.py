@@ -3,14 +3,14 @@ from sqlalchemy.sql import text, insert
 
 
 def seed_playlists_tracks():
-    playliststracks = [
+    seeds = [
         {'track_id': 1, 'playlist_id': 1},
         {'track_id': 1, 'playlist_id': 2},
         {'track_id': 3, 'playlist_id': 1},
         {'track_id': 2, 'playlist_id': 2},
     ]
 
-    db.session.execute(insert(PlaylistsTracks), playliststracks)
+    db.session.execute(insert(PlaylistsTracks), seeds)
     db.session.commit()
 
 def undo_playlists_tracks():
