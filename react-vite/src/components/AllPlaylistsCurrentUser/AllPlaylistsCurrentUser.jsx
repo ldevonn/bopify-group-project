@@ -70,7 +70,7 @@ function AllPlaylists () {
                     })}
                     </div>
                 </>
-            ) : (
+            ) : sessionUser ? (
                 <>
                 <div className="playlistTile" onClick={() => navigate(`/liked`)}>
                     <img src={`${likedsongs}`} className="playlist-image"></img>
@@ -89,6 +89,12 @@ function AllPlaylists () {
                     <button id='createPlaylistButton'  className="create-playlist-comp-element" onClick={handleCreatePlaylist} >Create playlist</button>
                 </div>
                 </>
+            ) : (
+                <div id='createPlaylistComp'>
+                    <div className="create-playlist-comp-element">Create your first playlist</div>
+                    <div className="create-playlist-comp-element">It&apos;s easy, we&apos;ll help you!</div>
+                    <button id='createPlaylistButton'  className="create-playlist-comp-element" onClick={handleCreatePlaylist} >Create playlist</button>
+                </div>
             )}
 
         </>
