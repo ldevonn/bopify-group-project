@@ -20,11 +20,7 @@ function DeleteElement(props) {
                 console.log("line 20: ", props)
                 if (props.albumId) await handleDelete(props.albumId)
                 if (props.playlistId) await handleDelete(props.playlistId)
-                if (props.trackId) {
-                    console.log(props.trackId)
-                    await handleDelete(props.playlistId)
-                    navigate(`/albums/${props.albumIdForNav}`)
-                }
+                if (props.trackId) await handleDelete(props.trackId, props.albumIdForNav)
                 navigate('/')
             } catch (error) {
                 console.error('Error deleting element:', error)
@@ -32,14 +28,14 @@ function DeleteElement(props) {
         }
     };
 
-    const handleDelete = async (elementId) => {
+    const handleDelete = async (elementId, albumId) => {
         try {
-            if (currentUrl.startsWith('/playlist')) {
+            if (currentUrl === `/playlists/${elementId}`) {
                 console.log('Line 19:', elementId)
                 await dispatch(fetchDeletePlaylist(elementId))
             } else if (currentUrl === '/albums/manage') {
                 await dispatch(fetchDeleteAlbum(elementId))
-            } else if (currentUrl === '/albums') {
+            } else if (currentUrl === `/albums/${albumId}`)  {
                 await dispatch(fetchDeleteTrack(elementId))
             } else {
                 console.log('current url not supported')

@@ -28,9 +28,7 @@ function TopNav() {
                 password: 'password'
             })
         )
-        if (serverResponse) {
-            setErrors(serverResponse)
-        } else {
+        if (!serverResponse) {
             navigate('/')
         }
     }
@@ -44,9 +42,7 @@ function TopNav() {
                 password: 'password'
             })
         )
-        if (serverResponse) {
-            setErrors(serverResponse)
-        } else {
+        if (!serverResponse) {
             navigate('/')
         }
     }

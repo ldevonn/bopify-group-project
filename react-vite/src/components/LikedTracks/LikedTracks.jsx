@@ -27,18 +27,6 @@ function LikedTracks () {
         dispatch(fetchGetLikedTracksByCurrentUser())
     }, [dispatch])
 
-    // useEffect(() => {
-    //     // Check if each track is liked by the user and update the isLiked state accordingly
-    //     if (likes && likes.length > 0) {
-    //         const likedTrackIds = likes.map(track => track.trackId);
-    //         const tracksWithLikeState = likedTrackIds.reduce((acc, trackId) => {
-    //             acc[trackId] = true;
-    //             return acc;
-    //         }, {});
-    //         setIsLiked(tracksWithLikeState);
-    //     }
-    // }, [likes]);
-
     async function toggleLike(trackId) {
         let likeButton = document.getElementById(`likeButton-${trackId}`);
         if (likeButton && !isLiked) {
@@ -66,9 +54,9 @@ function LikedTracks () {
         }
     }
 
-    let songsPlural = 'song'
-    if (likes && likes.length > 1) {
-        songsPlural = 'songs'
+    let songsPlural = 'songs'
+    if (likes && likes.length === 1) {
+        songsPlural = 'song'
     }
 
     return (
