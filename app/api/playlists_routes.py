@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import Playlist, Track, User, db
+from app.models import Playlist, Track, User, Album, db
 from app.models.playlists_tracks import PlaylistsTracks
 from app.forms.playlist_form import PlaylistForm
 from app.forms.playlist_track_form import PlaylistTrackForm
@@ -37,22 +37,37 @@ def get_playlist_by_id(playlist_id):
     res = jsonify({"message": "Playlist couldn't be found"})
     res.status_code = 404
     return res
-  
+
   if request.method in ["PUT", "DELETE"] and playlist.user_id != current_user.id:
     return jsonify({"message": "Unauthorized access"}), 403
 
   if request.method == "GET":
     tracks = Track.query.join(PlaylistsTracks).filter(PlaylistsTracks.columns.playlist_id == playlist_id).all()
-    return {"playlist": 
+    trackList = []
+    for track in tracks:
+        track_data = track.to_dict()
+
+        artist = User.query.get(track_data['artistId'])
+        track_data['artistName'] = artist.name
+
+        album = Album.query.get(track_data['albumId']).to_dict()
+        # print("HIT!!!", album.to_dict())
+        track_data['albumImage'] = album['imageUrl']
+
+        trackList.append(track_data)
+
+    user = User.query.get(playlist.user_id).to_dict()
+    return {"playlist":
               {
-                "name": playlist.name, 
+                "name": playlist.name,
                 "userId": playlist.user_id,
                 "imageUrl": playlist.image_url,
                 "Private": playlist.private,
-                "tracks": [track.to_dict() for track in tracks]
+                "user": user,
+                "tracks": trackList
               }
             }
-  
+
   if request.method == "PUT":
     form = PlaylistForm(obj=playlist)
 
@@ -67,17 +82,17 @@ def get_playlist_by_id(playlist_id):
 
       if "url" not in upload:
         form.errors['image'][0] == 'File upload failed'
-      
+
       url = upload["url"]
 
       playlist.image_url = url
-      
+
       db.session.commit()
 
       tracks = Track.query.join(PlaylistsTracks).filter(PlaylistsTracks.columns.playlist_id == playlist_id).all()
 
       return {
-              "name": playlist.name, 
+              "name": playlist.name,
               "userId": playlist.user_id,
               "imageUrl": playlist.image_url,
               "Private": playlist.private,
@@ -100,9 +115,9 @@ def create_playlist():
   user = User.query.get(current_user.id)
   if not user:
     return jsonify({"message": "User not found"}), 404
-  
+
   form = PlaylistForm()
-  
+
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     data = form.data
@@ -129,7 +144,7 @@ def create_playlist():
   else:
     print(form.errors)
     return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
-  
+
 
 @playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
 @login_required
@@ -141,10 +156,10 @@ def add_track_to_playlist(playlist_id):
 
   if not playlist:
     return jsonify({"message": "Playlist not found"}), 404
-  
+
   if playlist.user_id != current_user.id:
     return jsonify({"message": "Unauthorized access"}), 403
-  
+
   form = PlaylistTrackForm()
 
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -154,15 +169,15 @@ def add_track_to_playlist(playlist_id):
 
     if not track:
       return jsonify({"message": "Track not found"}), 404
-    
+
     if track in playlist.tracks:
       return jsonify({"message": "Track is already in the playlist"}), 400
-    
+
     playlist.tracks.append(track)
     db.session.commit()
 
     return jsonify({"message": "Track added to playlist successfully"}), 201
-  
+
   else:
         errors = form.errors
         return jsonify({"message": "Form validation errors", "errors": errors}), 400

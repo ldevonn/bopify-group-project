@@ -1,13 +1,11 @@
 import { fetchGetLikedTracksByCurrentUser } from "../../redux/likes"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import "./LikedTracks.css"
 
 function LikedTracks() {
   const likedTracks = useSelector(state => state.likes.userLikedTracks)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchGetLikedTracksByCurrentUser())

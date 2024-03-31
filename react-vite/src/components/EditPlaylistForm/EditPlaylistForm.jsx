@@ -1,8 +1,8 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import { updatePlaylist } from '../../redux/playlists';
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate, NavLink, useParams } from 'react-router-dom'
+import { useState } from "react";
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./EditPlaylist.css"
 
 function EditPlaylistForm() {

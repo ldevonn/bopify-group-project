@@ -1,12 +1,13 @@
-import demoSong from '../../media/music/SongDemo.mp3'
 import './MusicPlayer.css'
 import {useEffect, useState} from "react";
 
 
 
-function MusicPlayer() {
-    const [sliderValue, setSliderValue] = useState()
+function MusicPlayer(props) {
+    const [sliderValue, setSliderValue] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
+
+    console.log(props.trackUrl)
 
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value)
@@ -71,7 +72,7 @@ function MusicPlayer() {
         <>
             <div className='audioPage'>
                 <audio id="song">
-                    <source src={demoSong} type="audio/mpeg"/>
+                    <source src={props.trackUrl} type="audio/mpeg"/>
                 </audio>
                 <input type="range"
                        id='progressBar'

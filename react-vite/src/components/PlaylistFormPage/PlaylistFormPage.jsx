@@ -1,8 +1,8 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import { createPlaylist } from '../../redux/playlists';
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { Navigate, Link, useNavigate, NavLink } from 'react-router-dom'
+import { useState } from "react";
+import { Navigate, useNavigate } from 'react-router-dom'
 import "./PlaylistForm.css"
 
 function PlaylistFormPage() {
