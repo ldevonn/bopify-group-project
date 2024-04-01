@@ -154,3 +154,10 @@
 .dot {
     background-color: transparent;
 }
+
+.add-song-button {
+    color: white;
+    background-color: transparent;
+    height: 30px;
+    margin-left: 15px;
+}

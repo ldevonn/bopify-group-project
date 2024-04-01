@@ -1,7 +1,7 @@
 import { fetchCurrentUserAlbums } from "../../redux/albums"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import TopLeftNav from "../HomePage/TopLeftNav"
 import LeftNav from "../HomePage/LeftNav"
 import TopNav from "../HomePage/TopNav"
@@ -38,10 +38,14 @@ function ManageAlbums () {
                     {usersAlbums && usersAlbums.map(album => {
                         return (
                             <div key={album.id} className="albumTile">
-                                <img src={`${album.imageUrl}`} className="album-image"></img>
+                                <Link to={`/albums/${+album.albumId}`}>
+                                    <img src={`${album.imageUrl}`} className="album-image"></img>
+                                </Link>
                                 <div className="albumTileAlbumName">{album.name}</div>
                                 <div className="edit-delete-album-buttons">
-                                    <button className="placeholderEditbutton">Edit</button>
+                                    <Link to={`/albums/${+album.albumId}/edit`}>
+                                        <button className="placeholderEditbutton">Edit</button>
+                                    </Link>
                                     <DeleteElement albumId={album.albumId}/>
                                 </div>
                             </div>

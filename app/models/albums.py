@@ -18,7 +18,7 @@ class Album(db.Model):
     album_type = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)
     genre = db.Column(db.String(40), nullable=False)
-    artist_id = db.Column(db.Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    artist_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 

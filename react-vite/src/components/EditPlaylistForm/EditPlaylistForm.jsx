@@ -43,7 +43,7 @@ function EditPlaylistForm() {
       <div className='editPlaylistFormPage'>
         <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')} />
         <div className='editPlaylistFormCard'>
-          <h1 id='editPlaylistFormTitle'>Create your playlist</h1>
+          <h1 id='editPlaylistFormTitle'>Edit your playlist</h1>
           <form id='editPlaylistForm' onSubmit={handleSubmit} encType='multipart/form-data'>
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}

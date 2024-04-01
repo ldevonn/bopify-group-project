@@ -82,3 +82,28 @@
     transition: 100ms;
     color: #c7c7c7;
 }
+
+#demo-login-buttons{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    margin-right: 52px;
+}
+
+#demo-user-login{
+    background-color: #15BE3A;
+    border-radius: 30px;
+    border: none;
+    color: black;
+    width: 150px;
+    height: 21px;
+    margin: 1px;
+    font-size: 14px;
+
+}
+
+#demo-user-login:hover {
+    background-color: #129f31;
+    cursor: pointer;
+    transition: 100ms;
+}

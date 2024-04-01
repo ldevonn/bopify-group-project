@@ -59,12 +59,35 @@
     background-color: #181818;
 }
 
+#isArtistSU {
+    padding-left: 11px;
+    margin-top: -13px;
+    color: #6b6969;
+    margin-bottom: 15px;
+    height: 38px;
+    border-color: #ADADAD;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #181818;
+}
+
+#profileImageSU {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #nameDesc {
     margin-top: 1px;
     color: #707070;
 }
 
 #emailDesc {
+    margin-top: 1px;
+    color: #707070;
+}
+
+#artistDesc {
     margin-top: 1px;
     color: #707070;
 }

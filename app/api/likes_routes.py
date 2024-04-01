@@ -7,7 +7,7 @@ likes_routes = Blueprint('likes', __name__)
 
 
 @likes_routes.route('/', methods=["GET"])
-@login_required
+# @login_required
 def get_all_liked_songs():
     """
     Query for all liked tracks by the logged in user
@@ -33,7 +33,6 @@ def get_all_liked_songs():
         track_data['albumImage'] = album['imageUrl']
 
         trackList.append(track_data)
-
     return trackList
 
 

@@ -9,8 +9,17 @@ from app.api.aws import ALLOWED_IMG_EXTENSIONS
 def user_exists(form, field):
     # Checking if user exists
     email = field.data
+    print("<-------------------------------------------------->")
+    print("EMAIL: ", email)
+    print("<-------------------------------------------------->")
     user = User.query.filter(User.email == email).first()
+    print("<-------------------------------------------------->")
+    print("<-------------------------------------------------->")
+    print("USER: ", user)
+    print("<-------------------------------------------------->")
+    print("<-------------------------------------------------->")
     if user:
+        print("HIT!!!!!!!!!!!!!!!!!!!")
         raise ValidationError('Email address is already in use.')
 
 

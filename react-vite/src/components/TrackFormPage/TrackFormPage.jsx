@@ -1,7 +1,7 @@
 import spotifyLogo from '../../media/spotifyLogo.png'
 import { createTrack } from '../../redux/tracks'
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import "./TrackForm.css"
 
@@ -31,8 +31,9 @@ function TrackFormPage() {
     )
     if (serverResponse) {
       setErrors(serverResponse)
+      console.log(errors)
     } else {
-      navigate('/')
+      navigate(`/albums/${albumId}`)
     }
   }
 
@@ -40,7 +41,6 @@ function TrackFormPage() {
     <>
       <div className='TrackFormPage'>
         <img id='spotifyLogo' src={spotifyLogo} onClick={() => navigate('/')} />
-        <h1 id='LIKEY'>LIKEY</h1>
         <div className='TrackFormCard'>
           <h1 id='TrackFormTitle'>Create your track</h1>
           <form id='TrackForm' onSubmit={handleSubmit} encType='multipart/form-data'>

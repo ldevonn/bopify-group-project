@@ -58,8 +58,6 @@ function MusicPlayer(props) {
     }
 
     function rewind() {
-        let playToggle = document.getElementById('play/stop')
-
         if (props.currAudio) {
             props.currAudio.currentTime = 0;
             if (isPlaying) {
