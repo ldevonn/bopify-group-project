@@ -47,9 +47,8 @@ function TrackFormPage() {
           <h1 id='TrackFormTitle'>Create your track</h1>
           <form id='TrackForm' onSubmit={handleSubmit} encType='multipart/form-data'>
 
-            {errors.error.Name && <p className='error'>Name: {errors.error.Name}</p>}
-            {errors.error.Duration && <p className='error'>Duration: {errors.error.Duration}</p>}
-            {errors.error["Music File"] && <p className='error'>Duration: {errors.error["Music File"]}</p>}
+            {errors.error?.Name && <p className='error'>Name: {errors.error?.Name}</p>}
+            {errors.error?.Duration && <p className='error'>Duration: {errors.error?.Duration}</p>}
 
             <label style={{ background: 'none' }} htmlFor='name'>Name</label>
             <input type='trackName' id='trackName' name='trackName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
