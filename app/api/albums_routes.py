@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template, redirect
 from flask_login import current_user, login_required
 from app.models import Album, Track, User, db
-from app.api.aws import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+from app.api.aws import upload_file_to_s3, get_unique_filename, remove_file_from_s3, create_presigned_url
 from ..forms import CreateAlbumForm
 
 
@@ -70,7 +70,7 @@ def get_album_by_id(album_id):
             # if the dictionary doesn't have a url key
                 return render_template("create_track.html", form=form, errors=[upload])
             else:
-                album.image_url = upload["url"]
+                album.image_url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
 
             db.session.commit()
             return jsonify({"message": "Album has been updated successfully"}), 201
@@ -158,7 +158,7 @@ def create_album():
             # if the dictionary doesn't have a url key
                 return render_template("create_album.html", form=form, errors=[upload])
 
-            url = upload["url"]
+            url = create_presigned_url(imageUrl.filename, expiration_seconds=157680000)
 
             new_album = Album(name = name,
                             release_date = releaseDate,
