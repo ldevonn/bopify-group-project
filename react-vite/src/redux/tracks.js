@@ -138,7 +138,7 @@ export const updateTrack = (payload, trackId) => async (dispatch) => {
 }
 
 export const fetchDeleteTrack = (trackId) => async (dispatch) => {
-  const res = await csrfFetch(`api/tracks/${trackId}`, {
+  const res = await fetch(`/api/tracks/${trackId}`, {
     method: 'DELETE'
   })
 

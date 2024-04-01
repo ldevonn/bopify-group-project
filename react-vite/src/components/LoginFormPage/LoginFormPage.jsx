@@ -27,7 +27,9 @@ function LoginFormPage() {
             })
         )
         if (serverResponse) {
+            console.log("HIT!!!!")
             setErrors(serverResponse)
+            console.log("ERRORS: ", errors)
         } else {
             navigate('/')
         }
@@ -41,10 +43,10 @@ function LoginFormPage() {
             <div id='loginFormCard'>
                 <h1 id='loginTitle'>Login to Spotify</h1>
                 <hr className='divider'/>
+                {Object.keys(errors).length && <p id='loginError'>{errors.message}</p>}
                 <form id='loginForm' onSubmit={handleSubmit}>
                     <label style={{background: 'none'}} htmlFor='email'>Email</label>
                     <input type='email' id='email' name='email' required placeholder='Enter your email' onChange={(e) => setEmail(e.target.value)}/>
-                    {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
                     <label style={{background: 'none'}} htmlFor='password'>Password:</label>
                     <input type='password' id='password' name='password' required placeholder='Enter your password' onChange={(e) => setPassword(e.target.value)}/>
                     <button id='loginSubmit' type='submit'>Login</button>
