@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    image_url = db.Column(db.String(1000))
+    image_url = db.Column(db.Text)
     hashed_password = db.Column(db.String(255), nullable=False)
     is_artist = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

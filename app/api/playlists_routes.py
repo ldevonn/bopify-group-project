@@ -145,38 +145,66 @@ def create_playlist():
     return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
 
 
-@playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
+@playlist_routes.route('<int:playlist_id>/tracks/<int:track_id>', methods=["POST"])
 @login_required
-def add_track_to_playlist(playlist_id):
+def add_track_to_playlist(playlist_id, track_id):
   """
   Add a track to an existing playlist
   """
   playlist = Playlist.query.get(playlist_id)
-
+  track = Track.query.get(track_id)
   if not playlist:
     return jsonify({"message": "Playlist not found"}), 404
 
   if playlist.user_id != current_user.id:
     return jsonify({"message": "Unauthorized access"}), 403
 
-  form = PlaylistTrackForm()
+  if not track:
+    return jsonify({"message": "Track not found"}), 404
+  
+  if track in playlist.tracks:
+    return jsonify({"message": "Track is already in the playlist"}), 400
+  
+  put_track_in_playlist = {"track_id": track_id, "playlist_id": playlist_id}
+  db.session.execute(PlaylistsTracks.insert(), put_track_in_playlist)
+  db.session.commit()
+  return jsonify({"message": "You have successfully added the track to playlist"}), 201
 
-  form['csrf_token'].data = request.cookies['csrf_token']
-  if form.validate_on_submit():
-    track_id = form.track_id.data
-    track = Track.query.get(track_id)
 
-    if not track:
-      return jsonify({"message": "Track not found"}), 404
+# @playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
+# @login_required
+# def add_track_to_playlist(playlist_id):
+#   """
+#   Add a track to an existing playlist
+#   """
+#   playlist = Playlist.query.get(playlist_id)
 
-    if track in playlist.tracks:
-      return jsonify({"message": "Track is already in the playlist"}), 400
+#   if not playlist:
+#     return jsonify({"message": "Playlist not found"}), 404
 
-    playlist.tracks.append(track)
-    db.session.commit()
+#   if playlist.user_id != current_user.id:
+#     return jsonify({"message": "Unauthorized access"}), 403
 
-    return jsonify({"message": "Track added to playlist successfully"}), 201
+#   form = PlaylistTrackForm()
 
-  else:
-        errors = form.errors
-        return jsonify({"message": "Form validation errors", "errors": errors}), 400
+#   form['csrf_token'].data = request.cookies['csrf_token']
+#   if form.validate_on_submit():
+#     track_id = form.track_id.data
+#     track = Track.query.get(track_id)
+
+#     # print(form.errors)
+
+#     if not track:
+#       return jsonify({"message": "Track not found"}), 404
+
+#     if track in playlist.tracks:
+#       return jsonify({"message": "Track is already in the playlist"}), 400
+
+#     playlist.tracks.append(track)
+#     db.session.commit()
+
+#     return jsonify({"message": "Track added to playlist successfully"}), 201
+
+#   else:
+#         errors = form.errors
+#         return jsonify({"message": "Form validation errors", "errors": errors}), 400
