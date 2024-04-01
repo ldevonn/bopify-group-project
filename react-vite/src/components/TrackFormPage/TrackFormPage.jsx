@@ -51,7 +51,7 @@ function TrackFormPage() {
             <input type='trackName' id='trackName' name='trackName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
 
             <label style={{ background: 'none' }} htmlFor='duration'>Track Duration</label>
-            <input type='text' id='duration' name='duration' required placeholder='duration' onChange={(e) => setDuration(e.target.value)} />
+            <input type='text' id='duration' name='duration' required placeholder='Duration' onChange={(e) => setDuration(e.target.value)} />
 
             <label style={{ background: 'none' }} htmlFor='trackFile'>Track File</label>
             <input type='file' accept='audio/*' id='trackFile' name='trackFile' onChange={(e) => setFile(e.target.files[0])}></input>

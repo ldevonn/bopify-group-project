@@ -120,7 +120,7 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
 }
 
 export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/playlists/${playlistId}`, {
+  const res = await fetch(`/api/playlists/${playlistId}`, {
     method: 'DELETE'
   })
 

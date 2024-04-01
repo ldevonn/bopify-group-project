@@ -29,8 +29,28 @@
   flex-direction: column;
 }
 
+#playlistImageUrl {
+  display: flex;
+  color: wheat;
+  flex-direction: column;
+  /* border: white 2px solid */
+}
+
+#isPrivateLabel {
+  margin-top: 7px
+}
+
 #isPrivate {
   color: wheat;
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
 }
 
 #playlistSubmit {
@@ -41,6 +61,7 @@
   width: 150px;
   height: 46px;
   font-size: 18px;
+  margin-left: 59px;
 }
 
 .playlist-form-name {

@@ -26,15 +26,35 @@
 }
 
 #trackName {
-  color: wheat
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
 }
 
 #duration {
-  color: wheat
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
 }
 
 #trackFile {
-  color: wheat
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  color: wheat;
 }
 
 /* #name {
@@ -61,5 +81,13 @@
 } */
 
 #trackSubmit {
-  color: white
+  color: black;
+  background-color: #15BE3A;
+  border-radius: 30px;
+  border: none;
+  width: 150px;
+  height: 46px;
+  font-size: 18px;
+  margin-left: 53px;
+  margin-top: 10px;
 }
