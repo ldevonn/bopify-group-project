@@ -163,10 +163,12 @@ def add_track_to_playlist(playlist_id, track_id):
   if not track:
     return jsonify({"message": "Track not found"}), 404
   
-  if track in playlist.tracks:
-    return jsonify({"message": "Track is already in the playlist"}), 400
   
   if request.method == "POST":
+    
+    if track in playlist.tracks:
+      return jsonify({"message": "Track is already in the playlist"}), 400
+    
     put_track_in_playlist = {"track_id": track_id, "playlist_id": playlist_id}
     db.session.execute(PlaylistsTracks.insert(), put_track_in_playlist)
     db.session.commit()
