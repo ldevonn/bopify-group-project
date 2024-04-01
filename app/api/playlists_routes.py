@@ -5,6 +5,7 @@ from app.forms.playlist_form import PlaylistForm
 from app.forms.playlist_track_form import PlaylistTrackForm
 from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 from flask_login import current_user, login_required
+from sqlalchemy import delete
 
 playlist_routes = Blueprint('playlists', __name__)
 
@@ -145,7 +146,7 @@ def create_playlist():
     return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
 
 
-@playlist_routes.route('<int:playlist_id>/tracks/<int:track_id>', methods=["POST"])
+@playlist_routes.route('<int:playlist_id>/tracks/<int:track_id>', methods=["POST", "DELETE"])
 @login_required
 def add_track_to_playlist(playlist_id, track_id):
   """
@@ -165,10 +166,25 @@ def add_track_to_playlist(playlist_id, track_id):
   if track in playlist.tracks:
     return jsonify({"message": "Track is already in the playlist"}), 400
   
-  put_track_in_playlist = {"track_id": track_id, "playlist_id": playlist_id}
-  db.session.execute(PlaylistsTracks.insert(), put_track_in_playlist)
-  db.session.commit()
-  return jsonify({"message": "You have successfully added the track to playlist"}), 201
+  if request.method == "POST":
+    put_track_in_playlist = {"track_id": track_id, "playlist_id": playlist_id}
+    db.session.execute(PlaylistsTracks.insert(), put_track_in_playlist)
+    db.session.commit()
+    return jsonify({"message": "You have successfully added the track to playlist"}), 201
+  
+  if request.method == "DELETE":
+    delete_track_from_playlist = delete(PlaylistsTracks).where(
+      PlaylistsTracks.c.track_id == track_id,
+      PlaylistsTracks.c.playlist_id == playlist_id
+    )
+
+    result = db.session.execute(delete_track_from_playlist)
+    db.session.commit()
+
+    if result.rowcount > 0:
+      return jsonify({"message": "Successfully Deleted Track from Playlist"}), 200
+    else:
+      return jsonify({"message": "Track couldn't be found"}), 404
 
 
 # @playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
