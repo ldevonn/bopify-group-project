@@ -69,7 +69,8 @@ def sign_up():
             # if the dictionary doesn't have a url key
             form.errors['image'][0] == 'File upload failed'
 
-        url = create_presigned_url(image.filename, expiration_seconds=157680000)
+        # url = create_presigned_url(image.filename, expiration_seconds=157680000)
+        url = upload["url"]
 
         user = User(
             name=form.data['name'],

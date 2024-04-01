@@ -83,7 +83,8 @@ def get_playlist_by_id(playlist_id):
       if "url" not in upload:
         return jsonify({"message": "File upload failed"}), 400
 
-      url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
+      # url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
+      url = upload["url"]
 
       playlist.image_url = url
 
@@ -132,7 +133,8 @@ def create_playlist():
     if "url" not in upload:
       form.errors['image'][0] == 'File upload failed'
 
-    url = create_presigned_url(image.filename, expiration_seconds=157680000)
+    # url = create_presigned_url(image.filename, expiration_seconds=157680000)
+    url = upload["url"]
 
     new_playlist = Playlist(
                       name = data["name"],
