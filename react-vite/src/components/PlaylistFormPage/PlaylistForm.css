@@ -44,5 +44,13 @@
 }
 
 .playlist-form-name {
-  background-color: black;
+  position: relative;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  height: 24px;
+  border-color: #ADADAD;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #181818;
 }

@@ -112,8 +112,7 @@ function AlbumFormPage () {
             <label style={{ background: 'none' }} htmlFor='createAlbumImage'>Image URL</label>
             <input type='file' accept='image/*' id='createAlbumImage' name='createAlbumImage' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
 
-            <button id='createAlbumSubmit
-            ' type='submit'>Create Album</button>
+            <button id='createAlbumSubmit' type='submit'>Create Album</button>
           </form>
         </div>
       </div>

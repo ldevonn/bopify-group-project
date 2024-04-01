@@ -47,7 +47,7 @@ function PlaylistFormPage() {
 
             {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
 
-            <label className='playlist-form-name playlist-form-element' htmlFor='name'>Name</label>
+            <label htmlFor='name'>Name</label>
             <input className='playlist-form-name playlist-form-element' type='playlistName' id='playlistName' name='playlistName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
 
             <label className='playlist-form-element' htmlFor='playlistImageUrl'>Upload Image</label>
