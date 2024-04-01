@@ -137,8 +137,9 @@ export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
   }
 }
 
-export const fetchAddToPlaylist = (payload, playlistId) => async (dispatch) => {
-  const res = await fetch(`/api/playlists/${playlistId}/add-a-track`, {
+export const fetchAddToPlaylist = (trackId, playlistId) => async (dispatch) => {
+  const payload = {}
+  const res = await fetch(`/api/playlists/${playlistId}/tracks/${trackId}`, {
     method: 'POST',
     header: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)

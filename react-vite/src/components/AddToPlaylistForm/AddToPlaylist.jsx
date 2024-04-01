@@ -33,9 +33,7 @@ function AddToPlaylist() {
     trackId = parseInt(trackId)
     if (playlist) {
         const serverResponse = await dispatch(
-            fetchAddToPlaylist({
-                "track_id": trackId
-            }, playlist)
+            fetchAddToPlaylist(trackId, playlist)
         )
         if (serverResponse) {
           setErrors(serverResponse)
