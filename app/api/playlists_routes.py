@@ -3,7 +3,7 @@ from app.models import Playlist, Track, User, Album, db
 from app.models.playlists_tracks import PlaylistsTracks
 from app.forms.playlist_form import PlaylistForm
 from app.forms.playlist_track_form import PlaylistTrackForm
-from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
+from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3, create_presigned_url)
 from flask_login import current_user, login_required
 from sqlalchemy import delete
 
@@ -79,11 +79,12 @@ def get_playlist_by_id(playlist_id):
       newImageUrl.filename = get_unique_filename(newImageUrl.filename)
       upload = upload_file_to_s3(newImageUrl)
       print(upload)
+      print(form.errors)
 
       if "url" not in upload:
-        form.errors['image'][0] == 'File upload failed'
+        return jsonify({"message": "File upload failed"}), 400
 
-      url = upload["url"]
+      url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
 
       playlist.image_url = url
 
@@ -98,6 +99,9 @@ def get_playlist_by_id(playlist_id):
               "Private": playlist.private,
               "tracks": [track.to_dict() for track in tracks]
             }, 201
+    else:
+      errors = form.errors
+      return jsonify({"message": "Form validation errors", "errors": errors}), 400
 
   if request.method == "DELETE":
     remove_file_from_s3(playlist.image_url)
@@ -129,7 +133,7 @@ def create_playlist():
     if "url" not in upload:
       form.errors['image'][0] == 'File upload failed'
 
-    url = upload["url"]
+    url = create_presigned_url(image.filename, expiration_seconds=157680000)
 
     new_playlist = Playlist(
                       name = data["name"],

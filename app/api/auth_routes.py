@@ -3,7 +3,7 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.api.aws import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+from app.api.aws import upload_file_to_s3, get_unique_filename, remove_file_from_s3, create_presigned_url
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -69,7 +69,7 @@ def sign_up():
             # if the dictionary doesn't have a url key
             form.errors['image'][0] == 'File upload failed'
 
-        url = upload["url"]
+        url = create_presigned_url(image.filename, expiration_seconds=157680000)
 
         user = User(
             name=form.data['name'],
