@@ -166,6 +166,8 @@ def add_track_to_playlist(playlist_id):
     track_id = form.track_id.data
     track = Track.query.get(track_id)
 
+    # print(form.errors)
+
     if not track:
       return jsonify({"message": "Track not found"}), 404
 
@@ -179,4 +181,5 @@ def add_track_to_playlist(playlist_id):
 
   else:
         errors = form.errors
+        print("!!!!!!!!!!!!!!!!", errors)
         return jsonify({"message": "Form validation errors", "errors": errors}), 400

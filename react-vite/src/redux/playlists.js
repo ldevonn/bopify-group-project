@@ -5,6 +5,7 @@ const GET_PLAYLIST_DETAILS = 'playlists/getPlaylistDetails'
 const ADD_PLAYLIST = 'playlists/addPlaylist'
 const UPDATE_PLAYLIST = 'playlists/updatePlaylist'
 const DELETE_PLAYLIST = 'playlists/deletePlaylist'
+const ADD_TO_PLAYLIST = 'playlists/addToPlaylist'
 
 const getPlaylistsByCurrentUser = (allPlaylists) => {
   return {
@@ -38,6 +39,13 @@ const deletePlaylist = (playlist) => {
   return {
     type: DELETE_PLAYLIST,
     playlist
+  }
+}
+
+const addToPlaylist = (data) => {
+  return {
+    type: ADD_TO_PLAYLIST,
+    data
   }
 }
 
@@ -114,7 +122,6 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
 }
 
 export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
-  console.log("Line 117", playlistId)
   const res = await csrfFetch(`/api/playlists/${playlistId}`, {
     method: 'DELETE'
   })
@@ -122,6 +129,25 @@ export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
   if (res.ok) {
     dispatch(deletePlaylist())
     return res
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const fetchAddToPlaylist = (payload, playlistId) => async (dispatch) => {
+  const res = await fetch(`/api/playlists/${playlistId}/add-a-track`, {
+    method: 'POST',
+    header: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(addToPlaylist(data))
+    return data
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages
@@ -140,6 +166,8 @@ const playlistsReducer = (state = {}, action) => {
       return { ...state, playlistDetails: action.newPlaylist }
     case UPDATE_PLAYLIST:
       return { ...state, playlistDetails: action.updatedPlaylist }
+    case ADD_TO_PLAYLIST:
+      return { ...state, playlistDetails: action.addToPlaylist}
     default:
       return state
   }

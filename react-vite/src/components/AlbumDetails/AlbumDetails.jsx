@@ -108,6 +108,7 @@ function AlbumDetails() {
                                     {sessionUser && album && sessionUser.id == album.artistId ? (
                                         <DeleteElement trackId={track.trackId} albumIdForNav={albumId}/>
                                     ) : <div></div>}
+                                    <i className="fa-regular fa-plus" id='plusButton' onClick={() => navigate(`/playlists/addTrack/${track.trackId}`)}></i>
                                     <i className="fa-regular fa-heart" id='likeButton' style={{background: 'transparent', marginRight: 10}} onClick={() => toggleLike(track.trackId)}></i>
                                     <div className="album-detail-track-duration">{minutes}:{seconds}</div>
                                 </div>
