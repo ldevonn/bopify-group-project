@@ -6,6 +6,7 @@ const ADD_PLAYLIST = 'playlists/addPlaylist'
 const UPDATE_PLAYLIST = 'playlists/updatePlaylist'
 const DELETE_PLAYLIST = 'playlists/deletePlaylist'
 const ADD_TO_PLAYLIST = 'playlists/addToPlaylist'
+const DELETE_FROM_PLAYLIST = 'playlists/deleteFromPlaylist'
 
 const getPlaylistsByCurrentUser = (allPlaylists) => {
   return {
@@ -45,6 +46,13 @@ const deletePlaylist = (playlist) => {
 const addToPlaylist = (data) => {
   return {
     type: ADD_TO_PLAYLIST,
+    data
+  }
+}
+
+const deleteFromPlaylist = (data) => {
+  return {
+    type: DELETE_FROM_PLAYLIST,
     data
   }
 }
@@ -149,6 +157,22 @@ export const fetchAddToPlaylist = (trackId, playlistId) => async (dispatch) => {
     const data = await res.json()
     dispatch(addToPlaylist(data))
     return data
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const fetchDeleteFromPlaylist = (trackId, playlistId) => async (dispatch) => {
+  const res = await fetch(`/api/playlists/${playlistId}/tracks/${trackId}`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    dispatch(deleteFromPlaylist())
+    return res
   } else if (res.status < 500) {
     const errorMessages = await res.json()
     return errorMessages
