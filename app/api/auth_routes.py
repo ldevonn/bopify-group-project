@@ -15,7 +15,7 @@ def authenticate():
     """
     if current_user.is_authenticated:
         return current_user.to_dict()
-    return {'message': 'Authentication required'}, 401
+    return {'error': 'Authentication required'}, 401
 
 
 @auth_routes.route('/login', methods=['POST'])
@@ -34,11 +34,11 @@ def login():
         return user.to_dict()
     if "email" in form.errors:
         if form.errors["email"][0] == "Email provided not found.":
-            return {"message": "Invalid credentials"}, 401
+            return {"error": "Invalid credentials"}, 401
     if "password" in form.errors:
         if form.errors["password"][0] == 'Password was incorrect.':
-            return {"message": "Invalid credentials"}, 401
-    return {"message": "Bad Request", "errors": form.errors}, 400
+            return {"error": "Invalid credentials"}, 401
+    return {"error": "Bad Request", "errors": form.errors}, 400
 
 
 
@@ -84,7 +84,7 @@ def sign_up():
         return user.to_dict()
     # return form.errors, 401
     if form.errors["email"][0] == "Email address is already in use.":
-        return {"message": "Email already exists", "errors": form.errors}, 500
+        return {"error": "Email already exists", "errors": form.errors}, 500
     else:
         return form.errors, 400
 
@@ -94,4 +94,4 @@ def unauthorized():
     """
     Returns unauthorized JSON when flask-login authentication fails
     """
-    return {'message': 'Forbidden'}, 403
+    return {'error': 'Forbidden'}, 403

@@ -35,12 +35,12 @@ def get_playlist_by_id(playlist_id):
   playlist = Playlist.query.get(playlist_id)
 
   if not playlist:
-    res = jsonify({"message": "Playlist couldn't be found"})
+    res = jsonify({"error": "Playlist couldn't be found"})
     res.status_code = 404
     return res
 
   if request.method in ["PUT", "DELETE"] and playlist.user_id != current_user.id:
-    return jsonify({"message": "Unauthorized access"}), 403
+    return jsonify({"error": "Unauthorized access"}), 403
 
   if request.method == "GET":
     tracks = Track.query.join(PlaylistsTracks).filter(PlaylistsTracks.columns.playlist_id == playlist_id).all()
@@ -114,7 +114,7 @@ def create_playlist():
   """
   user = User.query.get(current_user.id)
   if not user:
-    return jsonify({"message": "User not found"}), 404
+    return jsonify({"error": "User not found"}), 404
 
   form = PlaylistForm()
 
@@ -143,7 +143,7 @@ def create_playlist():
     return jsonify(playlist), 201
   else:
     print(form.errors)
-    return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
+    return jsonify({"error": "Form validation errors", "errors": form.errors}), 400
 
 
 @playlist_routes.route('<int:playlist_id>/tracks/<int:track_id>', methods=["POST", "DELETE"])

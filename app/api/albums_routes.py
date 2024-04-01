@@ -30,7 +30,7 @@ def get_album_by_id(album_id):
     print("HIT!!!", album)
 
     if not album:
-        response = jsonify({"message": "Album couldn't be found"})
+        response = jsonify({"error": "Album couldn't be found"})
         response.status_code = 404
         return response
 
@@ -38,7 +38,7 @@ def get_album_by_id(album_id):
         if current_user.is_authenticated and album.artist_id == current_user.id:
             pass
         else:
-            return jsonify({"message": "Unauthorized access"}), 403
+            return jsonify({"error": "Unauthorized access"}), 403
 
     if request.method == 'GET':
         tracks = [track.to_dict() for track in album.tracks]
@@ -81,7 +81,7 @@ def get_album_by_id(album_id):
 
             response = jsonify({
                 "message": "Bad Request",
-                "errors": error_messages,
+                "error": error_messages,
             })
             response.status_code = 400
             return response
@@ -99,7 +99,7 @@ def get_album_by_artistId(artist_id):
     albums = Album.query.filter(Album.artist_id == artist_id).all()
 
     if not albums:
-        response = jsonify({"message": "Artist couldn't be found"})
+        response = jsonify({"error": "Artist couldn't be found"})
         response.status_code = 404
         return response
 
@@ -137,7 +137,7 @@ def create_album():
     user = User.query.filter_by(id=user_id).one().to_dict()
 
     if not user['isArtist']:
-        response = jsonify({"message": "User is not an artist. Only artists can create Albums."})
+        response = jsonify({"error": "User is not an artist. Only artists can create Albums."})
         response.status_code = 403
         return response
     else:
@@ -178,7 +178,7 @@ def create_album():
             errors[field_obj.label.text] = error[0]
         error_response = {
             "message": "Body validation errors",
-            "errors": errors
+            "error": errors
         }
         return jsonify(error_response), 400
 
