@@ -45,6 +45,7 @@ function PlaylistDetails () {
         }
     }
 
+
     return (
         <div className="playlist-details-page">
             <div className="leftColumn">
@@ -69,8 +70,8 @@ function PlaylistDetails () {
                         </div>
                         {sessionUser && playlist && sessionUser.id == playlist.playlist.userId ? (
                             <>
-                                <DeleteElement id="deleteButton" playlistId={playlistId}/>
-                                <button className="edit-playlist-button" onClick={() => navigate(`/playlists/${playlistId}/edit`)}>Edit</button>
+                                <DeleteElement id="deleteButton" playlistId={playlistId} albumId={null} deletePlaylistTrack={false}/>
+                                <button className="edit-playlist-button" onClick={() => navigate(`/playlists/${playlistId}/edit`)}>Edit Details</button>
                             </>
                         ) : (<div></div>)}
                     </div>
@@ -92,6 +93,9 @@ function PlaylistDetails () {
                                     </div>
                                 </div>
                                 <div className="like-button-and-duration">
+                                {sessionUser && playlist && sessionUser.id == playlist.playlist.userId ? (
+                                        <DeleteElement id='deleteButton' playlistTrackId={track.trackId} albumId={null} deletePlaylistTrack={true} playlistTrackDeleteId={playlistId}/>
+                                    ) : <div></div>}
                                 <i className="fa-regular fa-heart" id='likeButton' style={{background: 'transparent', marginRight: 10}} onClick={() => toggleLike(track.trackId)}></i>
                                     <div className="album-detail-track-duration">{minutes}:{seconds}</div>
                                 </div>

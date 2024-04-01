@@ -14,9 +14,6 @@ function AddToPlaylist() {
   const [playlist, setPlaylist] = useState()
   const [errors, setErrors] = useState({})
 
-//   const spotState = useSelector((state) => state.spots.allSpots) || {}
-//   const spots = Object.values(spotState)
-
   const usersPlaylists = useSelector(state => state.playlists.allPlaylists) || {};
 
   useEffect(() => {
@@ -32,17 +29,14 @@ function AddToPlaylist() {
     console.log("PlaylistId: ", playlist)
     trackId = parseInt(trackId)
     if (playlist) {
-        const serverResponse = await dispatch(
-            fetchAddToPlaylist(trackId, playlist)
-        )
-        if (serverResponse) {
-          setErrors(serverResponse)
-        } else {
-          navigate(`/playlists/${playlist}`)
-        }
-    }
-    else {
-        return
+        await dispatch(fetchAddToPlaylist(trackId, playlist))
+        .then((res) => {
+          if (res.error) {
+            setErrors(res)
+          } else {
+            navigate(`/playlists/${playlist}`)
+          }
+        })
     }
   }
 
@@ -54,7 +48,7 @@ function AddToPlaylist() {
           <h1 id='editPlaylistFormTitle'>Add to a playlist</h1>
           <form id='editPlaylistForm' onSubmit={handleSubmit} >
 
-            {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
+            {errors.error && <p className="error" >{errors.error}</p>}
 
             {Object.keys(usersPlaylists).length && <>
             <label style={{ background: 'none'}} htmlFor='playlist'>Select a playlist</label>
