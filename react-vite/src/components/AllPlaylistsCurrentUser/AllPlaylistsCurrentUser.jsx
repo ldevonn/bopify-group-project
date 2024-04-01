@@ -3,10 +3,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import likedsongs from "../../media/likedsongs.png"
-// import TopLeftNav from "../HomePage/TopLeftNav"
-// import LeftNav from "../HomePage/LeftNav"
-// import TopNav from "../HomePage/TopNav"
-// import MusicPlayer from "../MusicPlayer/MusicPlayer"
 import "./AllPlaylistsCurrentUser.css"
 
 function AllPlaylists () {

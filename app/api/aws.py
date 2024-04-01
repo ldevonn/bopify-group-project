@@ -52,3 +52,15 @@ def remove_file_from_s3(image_url):
     except Exception as e:
         return { "errors": str(e) }
     return True
+
+
+def create_presigned_url(file, expiration_seconds=157680000):
+    try:
+        url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': BUCKET_NAME, 'Key': file},
+            ExpiresIn=expiration_seconds
+        )
+        return url
+    except Exception as e:
+        return { "errors": str(e) }

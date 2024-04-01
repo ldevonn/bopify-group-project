@@ -3,6 +3,7 @@ import './SignupForm.css'
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { thunkSignup } from "../../redux/session.js";
+import { thunkLogin } from "../../redux/session.js";
 import { useSelector, useDispatch } from "react-redux";
 
 
@@ -38,6 +39,13 @@ function SignupFormPage() {
     if (serverResponse) {
       setErrors(serverResponse)
     } else {
+
+    await dispatch(
+        thunkLogin({
+            email: email,
+            password: password
+        })
+    )
       navigate('/')
     }
   }

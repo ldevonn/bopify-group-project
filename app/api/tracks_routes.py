@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, abort, render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app.models import Track, User, Album, db
-from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
+from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3, create_presigned_url)
 from ..forms import TrackForm, EditTrackForm
 
 track_routes = Blueprint('tracks', __name__)
@@ -27,7 +27,7 @@ def get_or_update_or_delete_track(track_id):
     track = Track.query.get(track_id)
 
     if not track:
-        response = jsonify({"message": "Track couldn't be found"})
+        response = jsonify({"error": "Track couldn't be found"})
         response.status_code = 404
         return response
     
@@ -35,7 +35,7 @@ def get_or_update_or_delete_track(track_id):
         if current_user.is_authenticated and track.artist_id == current_user.id:
             pass
         else:
-            return jsonify({"message": "Unauthorized access"}), 403 
+            return jsonify({"error": "Unauthorized access"}), 403 
     
     if request.method == 'GET':
         return track.to_dict()
@@ -49,16 +49,6 @@ def get_or_update_or_delete_track(track_id):
         if form.validate_on_submit():
             track.name = form.name.data
             track.duration = form.duration.data
-            # new_file = form.file.data
-            # if new_file.filename:
-            #     new_file.filename = get_unique_filename(new_file.filename)
-            #     upload = upload_file_to_s3(new_file)
-            #     print(upload)
-            # if "url" not in upload:
-            # # if the dictionary doesn't have a url key
-            #     return render_template("create_track.html", form=form, errors=[upload])
-            # else:
-            #     track.file = upload["url"]
             track.album_id = form.albumId.data
 
             db.session.commit()
@@ -70,7 +60,7 @@ def get_or_update_or_delete_track(track_id):
 
             response = jsonify({
                 "message": "Bad Request",
-                "errors": error_messages,
+                "error": error_messages,
             })
             response.status_code = 400
             return response
@@ -92,7 +82,7 @@ def get_artist_tracks():
     tracks = Track.query.filter_by(artist_id=user_id).all()
 
     if not tracks:
-        response = jsonify({"message": "User is not an artist and/or does not have any uploaded tracks"}), 400
+        response = jsonify({"error": "User is not an artist and/or does not have any uploaded tracks"}), 400
         return response
     
     return jsonify([track.to_dict() for track in tracks])
@@ -108,7 +98,7 @@ def create_track():
     user = User.query.filter_by(id=user_id).one().to_dict()
 
     if not user['isArtist']:
-        response = jsonify({"message": "User is not an artist. Only artists can upload tracks."})
+        response = jsonify({"error": "User is not an artist. Only artists can upload tracks."})
         response.status_code = 403
         return response
     else:
@@ -130,6 +120,7 @@ def create_track():
             # if the dictionary doesn't have a url key
                 return render_template("create_track.html", form=form, errors=[upload])
 
+            # url = create_presigned_url(file.filename, expiration_seconds=157680000)
             url = upload["url"]
 
             new_track = Track(
@@ -151,7 +142,7 @@ def create_track():
         if errors:
             error_response = {
                 "message": "Body validation errors",
-                "errors": errors
+                "error": errors
             }
             print(form.errors)
             return jsonify(error_response), 400

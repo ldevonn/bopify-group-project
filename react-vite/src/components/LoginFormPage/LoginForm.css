@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+#loginError {
+    color: red
+}
+
 #loginTopBar {
     background-color: black;
     height: 125px;

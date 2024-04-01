@@ -3,8 +3,9 @@ from app.models import Playlist, Track, User, Album, db
 from app.models.playlists_tracks import PlaylistsTracks
 from app.forms.playlist_form import PlaylistForm
 from app.forms.playlist_track_form import PlaylistTrackForm
-from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
+from app.api.aws import (upload_file_to_s3, get_unique_filename, remove_file_from_s3, create_presigned_url)
 from flask_login import current_user, login_required
+from sqlalchemy import delete
 
 playlist_routes = Blueprint('playlists', __name__)
 
@@ -34,12 +35,12 @@ def get_playlist_by_id(playlist_id):
   playlist = Playlist.query.get(playlist_id)
 
   if not playlist:
-    res = jsonify({"message": "Playlist couldn't be found"})
+    res = jsonify({"error": "Playlist couldn't be found"})
     res.status_code = 404
     return res
 
   if request.method in ["PUT", "DELETE"] and playlist.user_id != current_user.id:
-    return jsonify({"message": "Unauthorized access"}), 403
+    return jsonify({"error": "Unauthorized access"}), 403
 
   if request.method == "GET":
     tracks = Track.query.join(PlaylistsTracks).filter(PlaylistsTracks.columns.playlist_id == playlist_id).all()
@@ -78,10 +79,12 @@ def get_playlist_by_id(playlist_id):
       newImageUrl.filename = get_unique_filename(newImageUrl.filename)
       upload = upload_file_to_s3(newImageUrl)
       print(upload)
+      print(form.errors)
 
       if "url" not in upload:
-        form.errors['image'][0] == 'File upload failed'
+        return jsonify({"message": "File upload failed"}), 400
 
+      # url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
       url = upload["url"]
 
       playlist.image_url = url
@@ -97,6 +100,9 @@ def get_playlist_by_id(playlist_id):
               "Private": playlist.private,
               "tracks": [track.to_dict() for track in tracks]
             }, 201
+    else:
+      errors = form.errors
+      return jsonify({"message": "Form validation errors", "errors": errors}), 400
 
   if request.method == "DELETE":
     remove_file_from_s3(playlist.image_url)
@@ -113,7 +119,7 @@ def create_playlist():
   """
   user = User.query.get(current_user.id)
   if not user:
-    return jsonify({"message": "User not found"}), 404
+    return jsonify({"error": "User not found"}), 404
 
   form = PlaylistForm()
 
@@ -128,6 +134,7 @@ def create_playlist():
     if "url" not in upload:
       form.errors['image'][0] == 'File upload failed'
 
+    # url = create_presigned_url(image.filename, expiration_seconds=157680000)
     url = upload["url"]
 
     new_playlist = Playlist(
@@ -142,41 +149,86 @@ def create_playlist():
     return jsonify(playlist), 201
   else:
     print(form.errors)
-    return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
+    return jsonify({"error": "Form validation errors", "errors": form.errors}), 400
 
 
-@playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
+@playlist_routes.route('<int:playlist_id>/tracks/<int:track_id>', methods=["POST", "DELETE"])
 @login_required
-def add_track_to_playlist(playlist_id):
+def add_track_to_playlist(playlist_id, track_id):
   """
   Add a track to an existing playlist
   """
   playlist = Playlist.query.get(playlist_id)
-
+  track = Track.query.get(track_id)
   if not playlist:
-    return jsonify({"message": "Playlist not found"}), 404
+    return jsonify({"error": "Playlist not found"}), 404
 
   if playlist.user_id != current_user.id:
-    return jsonify({"message": "Unauthorized access"}), 403
+    return jsonify({"error": "Unauthorized access"}), 403
 
-  form = PlaylistTrackForm()
+  if not track:
+    return jsonify({"error": "Track not found"}), 404
 
-  form['csrf_token'].data = request.cookies['csrf_token']
-  if form.validate_on_submit():
-    track_id = form.track_id.data
-    track = Track.query.get(track_id)
 
-    if not track:
-      return jsonify({"message": "Track not found"}), 404
+  if request.method == "POST":
 
     if track in playlist.tracks:
-      return jsonify({"message": "Track is already in the playlist"}), 400
+      return jsonify({"error": "Track is already in the playlist"}), 400
 
-    playlist.tracks.append(track)
+    put_track_in_playlist = {"track_id": track_id, "playlist_id": playlist_id}
+    db.session.execute(PlaylistsTracks.insert(), put_track_in_playlist)
+    db.session.commit()
+    return jsonify({"message": "You have successfully added the track to playlist"}), 201
+
+  if request.method == "DELETE":
+    delete_track_from_playlist = delete(PlaylistsTracks).where(
+      PlaylistsTracks.c.track_id == track_id,
+      PlaylistsTracks.c.playlist_id == playlist_id
+    )
+
+    result = db.session.execute(delete_track_from_playlist)
     db.session.commit()
 
-    return jsonify({"message": "Track added to playlist successfully"}), 201
+    if result.rowcount > 0:
+      return jsonify({"message": "Successfully Deleted Track from Playlist"}), 200
+    else:
+      return jsonify({"error": "Track couldn't be found"}), 404
 
-  else:
-        errors = form.errors
-        return jsonify({"message": "Form validation errors", "errors": errors}), 400
+
+# @playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])
+# @login_required
+# def add_track_to_playlist(playlist_id):
+#   """
+#   Add a track to an existing playlist
+#   """
+#   playlist = Playlist.query.get(playlist_id)
+
+#   if not playlist:
+#     return jsonify({"message": "Playlist not found"}), 404
+
+#   if playlist.user_id != current_user.id:
+#     return jsonify({"message": "Unauthorized access"}), 403
+
+#   form = PlaylistTrackForm()
+
+#   form['csrf_token'].data = request.cookies['csrf_token']
+#   if form.validate_on_submit():
+#     track_id = form.track_id.data
+#     track = Track.query.get(track_id)
+
+#     # print(form.errors)
+
+#     if not track:
+#       return jsonify({"message": "Track not found"}), 404
+
+#     if track in playlist.tracks:
+#       return jsonify({"message": "Track is already in the playlist"}), 400
+
+#     playlist.tracks.append(track)
+#     db.session.commit()
+
+#     return jsonify({"message": "Track added to playlist successfully"}), 201
+
+#   else:
+#         errors = form.errors
+#         return jsonify({"message": "Form validation errors", "errors": errors}), 400

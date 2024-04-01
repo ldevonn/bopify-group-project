@@ -1,10 +1,10 @@
-import { csrfFetch } from "./csrf"
-
 const GET_PLAYLISTS_BY_CURRENT_USER = 'playlists/getPlaylistsByCurrentUser'
 const GET_PLAYLIST_DETAILS = 'playlists/getPlaylistDetails'
 const ADD_PLAYLIST = 'playlists/addPlaylist'
 const UPDATE_PLAYLIST = 'playlists/updatePlaylist'
 const DELETE_PLAYLIST = 'playlists/deletePlaylist'
+const ADD_TO_PLAYLIST = 'playlists/addToPlaylist'
+const DELETE_FROM_PLAYLIST = 'playlists/deleteFromPlaylist'
 
 const getPlaylistsByCurrentUser = (allPlaylists) => {
   return {
@@ -41,8 +41,22 @@ const deletePlaylist = (playlist) => {
   }
 }
 
+const addToPlaylist = (data) => {
+  return {
+    type: ADD_TO_PLAYLIST,
+    data
+  }
+}
+
+const deleteFromPlaylist = (data) => {
+  return {
+    type: DELETE_FROM_PLAYLIST,
+    data
+  }
+}
+
 export const fetchPlaylistByCurrentUser = () => async (dispatch) => {
-  const res = await csrfFetch("api/playlists/current")
+  const res = await fetch("api/playlists/current")
   if (res.ok) {
     const data = await res.json()
     const playlistsData = {}
@@ -64,7 +78,7 @@ export const fetchPlaylistByCurrentUser = () => async (dispatch) => {
 }
 
 export const fetchGetPlaylistDetails = (playlistId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/playlists/${playlistId}`)
+  const res = await fetch(`/api/playlists/${playlistId}`)
   if (res.ok) {
     const data = await res.json()
     dispatch(getPlaylistDetails(data))
@@ -114,8 +128,7 @@ export const updatePlaylist = (payload, playlistId) => async (dispatch) => {
 }
 
 export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
-  console.log("Line 117", playlistId)
-  const res = await csrfFetch(`/api/playlists/${playlistId}`, {
+  const res = await fetch(`/api/playlists/${playlistId}`, {
     method: 'DELETE'
   })
 
@@ -130,6 +143,45 @@ export const fetchDeletePlaylist = (playlistId) => async (dispatch) => {
   }
 }
 
+export const fetchAddToPlaylist = (trackId, playlistId) => async (dispatch) => {
+  const payload = {}
+  const res = await fetch(`/api/playlists/${playlistId}/tracks/${trackId}`, {
+    method: 'POST',
+    header: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(addToPlaylist(data))
+    return data
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    // console.log("ERROR!!!!!!!!!!!!!!: ",errorMessages)
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const fetchDeleteFromPlaylist = (trackId, playlistId) => async (dispatch) => {
+  const res = await fetch(`/api/playlists/${playlistId}/tracks/${trackId}`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    dispatch(deleteFromPlaylist())
+    return res
+  } else if (res.status < 500) {
+    const errorMessages = await res.json()
+    return errorMessages
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+
+
 const playlistsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_PLAYLISTS_BY_CURRENT_USER:
@@ -140,6 +192,8 @@ const playlistsReducer = (state = {}, action) => {
       return { ...state, playlistDetails: action.newPlaylist }
     case UPDATE_PLAYLIST:
       return { ...state, playlistDetails: action.updatedPlaylist }
+    case ADD_TO_PLAYLIST:
+      return { ...state, playlistDetails: action.addToPlaylist}
     default:
       return state
   }

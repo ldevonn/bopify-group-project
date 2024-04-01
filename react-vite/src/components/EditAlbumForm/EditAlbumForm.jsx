@@ -113,7 +113,7 @@ function EditAlbumForm() {
             <label style={{ background: 'none' }} htmlFor='imageUrl'>Image URL</label>
             <input type='file' accept='image/*' id='albumImageUrl' name='albumImageUrl' required placeholder='Image Url' onChange={(e) => setImageUrl(e.target.files[0])} />
 
-            <button id='albumSubmit' type='submit'>Update Album</button>
+            <button id='updateAlbumSubmit' type='submit'>Update Album</button>
           </form>
         </div>
       </div>
