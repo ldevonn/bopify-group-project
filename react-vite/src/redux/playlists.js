@@ -159,6 +159,7 @@ export const fetchAddToPlaylist = (trackId, playlistId) => async (dispatch) => {
     return data
   } else if (res.status < 500) {
     const errorMessages = await res.json()
+    // console.log("ERROR!!!!!!!!!!!!!!: ",errorMessages)
     return errorMessages
   } else {
     return { server: "Something went wrong. Please try again" }

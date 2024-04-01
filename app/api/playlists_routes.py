@@ -35,12 +35,12 @@ def get_playlist_by_id(playlist_id):
   playlist = Playlist.query.get(playlist_id)
 
   if not playlist:
-    res = jsonify({"message": "Playlist couldn't be found"})
+    res = jsonify({"error": "Playlist couldn't be found"})
     res.status_code = 404
     return res
 
   if request.method in ["PUT", "DELETE"] and playlist.user_id != current_user.id:
-    return jsonify({"message": "Unauthorized access"}), 403
+    return jsonify({"error": "Unauthorized access"}), 403
 
   if request.method == "GET":
     tracks = Track.query.join(PlaylistsTracks).filter(PlaylistsTracks.columns.playlist_id == playlist_id).all()
@@ -118,7 +118,7 @@ def create_playlist():
   """
   user = User.query.get(current_user.id)
   if not user:
-    return jsonify({"message": "User not found"}), 404
+    return jsonify({"error": "User not found"}), 404
 
   form = PlaylistForm()
 
@@ -147,7 +147,7 @@ def create_playlist():
     return jsonify(playlist), 201
   else:
     print(form.errors)
-    return jsonify({"message": "Form validation errors", "errors": form.errors}), 400
+    return jsonify({"error": "Form validation errors", "errors": form.errors}), 400
 
 
 @playlist_routes.route('<int:playlist_id>/tracks/<int:track_id>', methods=["POST", "DELETE"])
@@ -159,25 +159,25 @@ def add_track_to_playlist(playlist_id, track_id):
   playlist = Playlist.query.get(playlist_id)
   track = Track.query.get(track_id)
   if not playlist:
-    return jsonify({"message": "Playlist not found"}), 404
+    return jsonify({"error": "Playlist not found"}), 404
 
   if playlist.user_id != current_user.id:
-    return jsonify({"message": "Unauthorized access"}), 403
+    return jsonify({"error": "Unauthorized access"}), 403
 
   if not track:
-    return jsonify({"message": "Track not found"}), 404
-  
-  
+    return jsonify({"error": "Track not found"}), 404
+
+
   if request.method == "POST":
-    
+
     if track in playlist.tracks:
-      return jsonify({"message": "Track is already in the playlist"}), 400
-    
+      return jsonify({"error": "Track is already in the playlist"}), 400
+
     put_track_in_playlist = {"track_id": track_id, "playlist_id": playlist_id}
     db.session.execute(PlaylistsTracks.insert(), put_track_in_playlist)
     db.session.commit()
     return jsonify({"message": "You have successfully added the track to playlist"}), 201
-  
+
   if request.method == "DELETE":
     delete_track_from_playlist = delete(PlaylistsTracks).where(
       PlaylistsTracks.c.track_id == track_id,
@@ -190,7 +190,7 @@ def add_track_to_playlist(playlist_id, track_id):
     if result.rowcount > 0:
       return jsonify({"message": "Successfully Deleted Track from Playlist"}), 200
     else:
-      return jsonify({"message": "Track couldn't be found"}), 404
+      return jsonify({"error": "Track couldn't be found"}), 404
 
 
 # @playlist_routes.route('/<int:playlist_id>/add-a-track', methods=['POST'])

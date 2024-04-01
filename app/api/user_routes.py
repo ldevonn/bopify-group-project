@@ -32,7 +32,7 @@ def user(id):
     """
     user = User.query.get(id)
     if not user:
-        return {'errors': {'message': 'User not found'}}, 404
+        return {'error': {'message': 'User not found'}}, 404
     return user.to_dict()
 
 # @user_routes.route('/<int:id>/playlists')
