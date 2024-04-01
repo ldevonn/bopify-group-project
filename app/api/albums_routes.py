@@ -70,8 +70,9 @@ def get_album_by_id(album_id):
             # if the dictionary doesn't have a url key
                 return render_template("create_track.html", form=form, errors=[upload])
             else:
-                album.image_url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
-
+                # album.image_url = create_presigned_url(newImageUrl.filename, expiration_seconds=157680000)
+                album.image_url = upload["url"]
+            
             db.session.commit()
             return jsonify({"message": "Album has been updated successfully"}), 201
         else:
@@ -158,7 +159,8 @@ def create_album():
             # if the dictionary doesn't have a url key
                 return render_template("create_album.html", form=form, errors=[upload])
 
-            url = create_presigned_url(imageUrl.filename, expiration_seconds=157680000)
+            # url = create_presigned_url(imageUrl.filename, expiration_seconds=157680000)
+            url = upload["url"]
 
             new_album = Album(name = name,
                             release_date = releaseDate,

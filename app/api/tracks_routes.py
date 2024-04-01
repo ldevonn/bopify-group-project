@@ -120,7 +120,8 @@ def create_track():
             # if the dictionary doesn't have a url key
                 return render_template("create_track.html", form=form, errors=[upload])
 
-            url = create_presigned_url(file.filename, expiration_seconds=157680000)
+            # url = create_presigned_url(file.filename, expiration_seconds=157680000)
+            url = upload["url"]
 
             new_track = Track(
                 name=name,
