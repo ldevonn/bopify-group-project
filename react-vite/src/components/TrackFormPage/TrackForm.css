@@ -91,3 +91,9 @@
   margin-left: 53px;
   margin-top: 10px;
 }
+
+#trackSubmit:hover {
+  cursor: pointer;
+  transition: 100ms;
+  background-color: #119b2f;
+}

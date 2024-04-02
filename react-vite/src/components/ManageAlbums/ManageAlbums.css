@@ -46,13 +46,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: transparent;
+    background: none;
 }
 
 .placeholderEditbutton {
     color: white;
+    background-color: #1e521e;
+    border: none;
+    width: 50px;
+    height: 20px;
+    border-radius: 15px;
     margin-left: 15px;
     margin-top: 15px;
+}
+.placeholderEditbutton:hover {
+    background-color: #246424;
+    cursor: pointer;
+    transition: 100ms;
 }
 
 .placeholderDeletebutton {
@@ -60,4 +70,8 @@
     background-color: rgb(255, 74, 74);
     margin-right: 15px;
     margin-top: 15px;
+}
+
+#linkFIX {
+    background: none;
 }

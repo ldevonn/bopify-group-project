@@ -99,3 +99,9 @@
   margin-left: 55px;
   margin-top: 10px;
 }
+
+#createAlbumSubmit:hover {
+  cursor: pointer;
+  transition: 100ms;
+  background-color: #10942d;
+}

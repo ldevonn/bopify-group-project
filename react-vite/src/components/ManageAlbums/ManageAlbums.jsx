@@ -38,12 +38,12 @@ function ManageAlbums () {
                     {usersAlbums && usersAlbums.map(album => {
                         return (
                             <div key={album.id} className="albumTile">
-                                <Link to={`/albums/${+album.albumId}`}>
+                                <Link to={`/albums/${+album.albumId}`} id='linkFIX'>
                                     <img src={`${album.imageUrl}`} className="album-image"></img>
                                 </Link>
                                 <div className="albumTileAlbumName">{album.name}</div>
                                 <div className="edit-delete-album-buttons">
-                                    <Link to={`/albums/${+album.albumId}/edit`}>
+                                    <Link to={`/albums/${+album.albumId}/edit`} id='linkFIX'>
                                         <button className="placeholderEditbutton">Edit</button>
                                     </Link>
                                     <DeleteElement albumId={album.albumId}/>
