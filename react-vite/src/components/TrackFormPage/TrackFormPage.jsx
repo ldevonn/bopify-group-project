@@ -30,8 +30,10 @@ function TrackFormPage() {
       createTrack(formData)
     )
     if (serverResponse) {
+      console.log("SERVER RESPONSE: ", serverResponse)
+      // if (serverResponse.error) setErrors(Object.entries(serverResponse.error))
       setErrors(serverResponse)
-      console.log(errors)
+      console.log("ERRORS: ", errors)
     } else {
       navigate(`/albums/${albumId}`)
     }
@@ -45,12 +47,13 @@ function TrackFormPage() {
           <h1 id='TrackFormTitle'>Create your track</h1>
           <form id='TrackForm' onSubmit={handleSubmit} encType='multipart/form-data'>
 
-            {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
+            {errors.error?.Name && <p className='error'>Name: {errors.error?.Name}</p>}
+            {errors.error?.Duration && <p className='error'>Duration: {errors.error?.Duration}</p>}
 
             <label style={{ background: 'none' }} htmlFor='name'>Name</label>
             <input type='trackName' id='trackName' name='trackName' required placeholder='Name' onChange={(e) => setName(e.target.value)} />
 
-            <label style={{ background: 'none' }} htmlFor='duration'>Track Duration</label>
+            <label style={{ background: 'none' }} htmlFor='duration'>Track Duration (in seconds)</label>
             <input type='text' id='duration' name='duration' required placeholder='Duration' onChange={(e) => setDuration(e.target.value)} />
 
             <label style={{ background: 'none' }} htmlFor='trackFile'>Track File</label>
