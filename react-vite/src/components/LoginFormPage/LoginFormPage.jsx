@@ -41,7 +41,7 @@ function LoginFormPage() {
                 <img id='spotifyLogo' src={spotifyLogo} alt={'Image of the Spotify logo'} onClick={() => navigate('/')}/>
             </div>
             <div id='loginFormCard'>
-                <h1 id='loginTitle'>Login to Spotify</h1>
+                <h1 id='loginTitle'>Login to Bopify</h1>
                 <hr className='divider'/>
                 {Object.keys(errors).length && <p id='loginError'>{errors.message}</p>}
                 <form id='loginForm' onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ function LoginFormPage() {
                     <button id='loginSubmit' type='submit'>Login</button>
                 </form>
                 <hr className='divider'/>
-                <p id='noAccountPrompt'>Don&apos;t have an account? <Link id='noAccountPromptLink' to='/signup'>Sign up for Spotify!</Link></p>
+                <p id='noAccountPrompt'>Don&apos;t have an account? <Link id='noAccountPromptLink' to='/signup'>Sign up for Bopify!</Link></p>
             </div>
         </div>
     </>
