@@ -81,7 +81,7 @@ function SignupFormPage() {
 
               <button id='loginSubmit' type='submit'>Signup</button>
               <hr className='dividerSU'/>
-              <p id='signupAdditional'>Already have an account? <Link id='loginLnk' to='/login'>Log in to Spotify!</Link></p>
+              <p id='signupAdditional'>Already have an account? <Link id='loginLnk' to='/login'>Log in to Bopify!</Link></p>
             </form>
           </div>
         </div>

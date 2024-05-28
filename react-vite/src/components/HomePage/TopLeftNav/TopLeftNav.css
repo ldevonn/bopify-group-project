@@ -8,7 +8,7 @@
 #homeButton{
     position: absolute;
     left: 129px;
-    top: 111px;
+    top: 124px;
     color: white;
     background: none;
     border: none;
@@ -44,7 +44,7 @@
     top: 30px;
     background-color: transparent;
     width: 231px;
-    height: 74px;
+    margin-bottom: 20px;
 }
 
 #spotifyLogo:hover {
