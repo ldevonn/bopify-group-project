@@ -12,6 +12,14 @@ function MusicPlayer(props) {
     }
 
     useEffect(() => {
+        return () => {
+            if (props.currAudio) {
+                props.currAudio.pause()
+            }
+        }
+    }, [props.currAudio])
+
+    useEffect(() => {
         let progress = document.getElementById('progressBar')
 
         if (props.isPlaying){
@@ -22,12 +30,13 @@ function MusicPlayer(props) {
             props.currAudio.onloadedmetadata = function (){
                 progress.max = props.currAudio.duration;
                 progress.value = props.currAudio.currentTime
+                props.currAudio.play()
             }
             props.currAudio.ontimeupdate = function () {
                 progress.value = props.currAudio.currentTime
             }
             props.currAudio.onended = function () {
-                setIsPlaying(false)
+                props.handlePlayNext();
             }
             props.currAudio.onplay = function () {
                 setIsPlaying(true)
@@ -66,7 +75,6 @@ function MusicPlayer(props) {
         }
     }
 
-
     return (
         <>
             <div className='audioPage'>
@@ -83,7 +91,7 @@ function MusicPlayer(props) {
                 <div onClick={playPause}>
                     <i className={`fa-solid ${isPlaying ? 'fa-stop' : 'fa-play'}`} id='play/stop'></i>
                 </div>
-                <div>
+                <div onClick={props.handlePlayNext}>
                     <i className="fa-solid fa-forward-fast"></i>
                 </div>
             </div>

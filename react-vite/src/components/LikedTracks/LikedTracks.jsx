@@ -8,7 +8,6 @@ import LeftNav from "../HomePage/LeftNav"
 import TopNav from "../HomePage/TopNav"
 import MusicPlayer from "../MusicPlayer/MusicPlayer"
 import likedsongs from "../../media/likedsongs.png"
-// import { useNavigate } from "react-router-dom"
 import "./LikedTracks.css"
 
 function LikedTracks () {
@@ -20,8 +19,7 @@ function LikedTracks () {
     const [isPlaying, setIsPlaying] = useState(false)
     const [track, setTrack] = useState(undefined)
     const [isLiked, setIsLiked] = useState(false);
-
-    console.log(likes)
+    const [trackId, setTrackId] = useState(null)
 
     useEffect(() => {
         dispatch(fetchGetLikedTracksByCurrentUser())
@@ -42,16 +40,19 @@ function LikedTracks () {
         }
     }
 
-    function handlePlay(audioFile) {
-        console.log(audioFile)
-        if (!isPlaying) {
-            const audio = new Audio(audioFile)
-            audio.onloadedmetadata = () => {
-                audio.play()
-                setIsPlaying(true)
-                setTrack(audio)
-            }
+    function handlePlay(track, i) {
+        const audio = new Audio(track.file)
+        setTrack(audio)
+        setTrackId(i)
+    }
+
+    function handleNext(){
+        let nextSongIndex = trackId + 1;
+        if (nextSongIndex >= likes.length){
+            nextSongIndex = 0
         }
+        const nextSong = likes[nextSongIndex];
+        handlePlay(nextSong, nextSongIndex)
     }
 
     let songsPlural = 'songs'
@@ -89,7 +90,7 @@ function LikedTracks () {
                         const minutes = Math.floor(track.duration / 60);
                         const seconds = track.duration % 60;
                         return (
-                            <div key={i} className="album-detail-track" onDoubleClick={() => handlePlay(track.file)}>
+                            <div key={i} className="album-detail-track" onDoubleClick={() => handlePlay(track, i)}>
                                 <div className="album-number-track-and-artist">
                                     <div className="album-detail-track-number">{i + 1}</div>
                                     <div className="album-detail-track-and-artist">
@@ -107,7 +108,12 @@ function LikedTracks () {
                 </div>
             </div>
             <div className="music-player">
-                <MusicPlayer isPlaying={isPlaying} currAudio={track}/>
+                <MusicPlayer
+                    currAudio={track}
+                    currAudioId={trackId}
+                    likedSongs={likes}
+                    handlePlayNext={handleNext}
+                />
             </div>
         </div>
     );
