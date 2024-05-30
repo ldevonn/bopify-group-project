@@ -16,7 +16,6 @@ function LikedTracks () {
     const user = useSelector(state => state.session.user);
     const likes = useSelector(state => state.likes.userLikedTracks);
 
-    const [isPlaying, setIsPlaying] = useState(false)
     const [track, setTrack] = useState(undefined)
     const [isLiked, setIsLiked] = useState(false);
     const [trackId, setTrackId] = useState(null)

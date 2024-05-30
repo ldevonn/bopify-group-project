@@ -18,10 +18,9 @@ function AlbumDetails() {
     const album = useSelector(state => state.albums.albumDetails);
     const [isLiked, setIsLiked] = useState(false);
     const sessionUser = useSelector((state) => state.session.user)
-
-    const [isPlaying, setIsPlaying] = useState(false)
     const [track, setTrack] = useState(undefined)
-
+    const [trackId, setTrackId] = useState(null)
+    const albumTracks = album && album.tracks;
 
     useEffect(() => {
         dispatch(fetchGetAlbumDetails(albumId));
@@ -47,16 +46,19 @@ function AlbumDetails() {
         }
     }
 
-    function handlePlay(audioFile) {
-        console.log(audioFile)
-        if (!isPlaying) {
-            const audio = new Audio(audioFile)
-            audio.onloadedmetadata = () => {
-                audio.play()
-                setIsPlaying(true)
-                setTrack(audio)
-            }
+    function handlePlay(track, i) {
+        const audio = new Audio(track.file)
+        setTrack(audio)
+        setTrackId(i)
+    }
+
+    function handleNext(){
+        let nextSongIndex = trackId + 1;
+        if (nextSongIndex >= albumTracks.length){
+            nextSongIndex = 0
         }
+        const nextSong = albumTracks[nextSongIndex];
+        handlePlay(nextSong, nextSongIndex)
     }
 
     return (
@@ -96,7 +98,7 @@ function AlbumDetails() {
                         const minutes = Math.floor(track.duration / 60);
                         const seconds = track.duration % 60;
                         return (
-                            <div key={i} className="album-detail-track" onDoubleClick={() => handlePlay(track.file)}>
+                            <div key={i} className="album-detail-track" onDoubleClick={() => handlePlay(track, i)}>
                                 <div className="album-number-track-and-artist">
                                     <div className="album-detail-track-number">{i + 1}</div>
                                     <div className="album-detail-track-and-artist">
@@ -118,7 +120,12 @@ function AlbumDetails() {
                 </div>
             </div>
             <div className="music-player">
-                <MusicPlayer isPlaying={isPlaying} currAudio={track}/>
+                <MusicPlayer
+                    currAudio={track}
+                    currAudioId={trackId}
+                    albumTracks={albumTracks}
+                    handlePlayNext={handleNext}
+                />
             </div>
         </div>
     );
