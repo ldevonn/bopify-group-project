@@ -15,8 +15,9 @@
 
 #TrackFormTitle {
   color: wheat;
-  width: 300px;
+  width: fit-content;
   font-size: 48px;
+  align-self: center;
 }
 
 #TrackForm {
@@ -90,10 +91,4 @@
   font-size: 18px;
   margin-left: 53px;
   margin-top: 10px;
-}
-
-#trackSubmit:hover {
-  cursor: pointer;
-  transition: 100ms;
-  background-color: #119b2f;
 }

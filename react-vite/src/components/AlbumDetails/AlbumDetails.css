@@ -23,6 +23,7 @@
     flex-direction: column;
     background-color: transparent;
     justify-content: space-between;
+    background-color: transparent;
 }
 
 .album-detail-album-type-and-name{
@@ -41,7 +42,7 @@
     display: flex;
     flex-direction: row;
     font-size: small;
-    font-weight: lighter;
+    font-weight: light;
     background-color: transparent;
     margin-bottom: 11px;
     align-items: center;
@@ -139,9 +140,10 @@
     align-items: center;
 }
 
-#likeButton:hover {
-    color: #d3d3d3;
-    transition: 100ms;
+.album-detail-like-button {
+    color: white;
+    margin-right: 20px;
+    background-color: transparent;
 }
 
 .spacer-10px {
@@ -155,25 +157,15 @@
 
 .add-song-button {
     color: white;
-    background-color: #1e521e;
-    border: none;
-    border-radius: 10px;
+    background-color: transparent;
     height: 30px;
     margin-left: 15px;
 }
 
-.add-song-button:hover {
-    background-color: #246424;
-    cursor: pointer;
-    transition: 100ms;
-}
-
 #plusButton {
-    background: transparent;
-    margin-right: 5px;
+    margin-left: 8px;
 }
 
-#plusButton:hover {
-    color: #d0d0d0;
-    transition: 100ms;
+#likeButton {
+    margin-left: 8px;
 }
