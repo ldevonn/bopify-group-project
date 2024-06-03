@@ -1,6 +1,5 @@
 import { fetchGetLikedTracksByCurrentUser } from "../../redux/likes"
 import { useSelector, useDispatch } from "react-redux"
-// import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import { likeTheTrack, removeLikedTrack } from "../../redux/likes.js";
 import TopLeftNav from "../HomePage/TopLeftNav"
@@ -16,7 +15,6 @@ function LikedTracks () {
     const user = useSelector(state => state.session.user);
     const likes = useSelector(state => state.likes.userLikedTracks);
 
-    const [isPlaying, setIsPlaying] = useState(false)
     const [track, setTrack] = useState(undefined)
     const [isLiked, setIsLiked] = useState(false);
     const [trackId, setTrackId] = useState(null)
