@@ -50,19 +50,19 @@ def seed_albums():
 
     album1 = Album(
         name='The Dark Side of the Moon', release_date=date(1973,3,1), album_type='album', image_url=
-        'https://en.wikipedia.org/wiki/File:Dark_Side_of_the_Moon.png#/media/File:Dark_Side_of_the_Moon.png', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Dark_Side_Of_Moon.jpg', 
         genre='rock', artist_id=3)
     album2 = Album(
         name='The Life of Pablo', release_date=date(2016,2,14), album_type='album', image_url=
-        'https://en.wikipedia.org/wiki/The_Life_of_Pablo#/media/File:The_life_of_pablo_alternate.jpg', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Life_Of_Pablo.jpg', 
         genre='hiphop', artist_id=4)
     album3 = Album(
         name='Lift Yourself', release_date=date(2018,4,29), album_type='single', image_url=
-        'https://en.wikipedia.org/wiki/Lift_Yourself#/media/File:Lift_yourself_cover.jpg', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Life_Yourself.jpg', 
         genre='hiphop', artist_id=4)
     album4 = Album(
         name='Room for Squares', release_date=date(2001,8,16), album_type='album', image_url=
-        'https://en.wikipedia.org/wiki/Room_for_Squares#/media/File:JohnMayer_RoomForSquares.jpg', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Room_For_Squares.jpg', 
         genre='pop', artist_id=5)
 
     db.session.add(album1)
