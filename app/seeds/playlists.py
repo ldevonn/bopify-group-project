@@ -41,11 +41,11 @@ def seed_playlists():
 
     playlist1 = Playlist(
         name='Rap', user_id=1, image_url=
-        'https://s3.us-west-1.amazonaws.com/my.spotify.music/Playlist1.jpeg',
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Playlist1.jpeg',
         private=False)
     playlist2 = Playlist(
         name='someone else', user_id=2, image_url=
-        'https://s3.us-west-1.amazonaws.com/my.spotify.music/Playlist2.jpeg',
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Playlist2.jpeg',
         private=True)
 
     db.session.add(playlist1)
