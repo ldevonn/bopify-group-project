@@ -66,19 +66,19 @@ def seed_tracks():
 
     track1 = Track(
         name='3x5', duration=289, file=
-        'https://s3.us-west-1.amazonaws.com/my.spotify.music/JohnMayer1.mp3', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/JohnMayer1.mp3', 
         artist_id=5, album_id=4)
     track2 = Track(
         name='I Love Kanye', duration=44, file=
-        'https://s3.us-west-1.amazonaws.com/my.spotify.music/Track2.mp3', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Track2.mp3', 
         artist_id=4, album_id=2)
     track3 = Track(
         name='Lift Yourself', duration=147, file=
-        'https://s3.us-west-1.amazonaws.com/my.spotify.music/Track3.mp3', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Track3.mp3', 
         artist_id=4, album_id=3)
     track4 = Track(
         name='On The Run', duration=215, file=
-        'https://s3.us-west-1.amazonaws.com/my.spotify.music/Track4.mp3', 
+        'https://bopify-files.s3.us-west-1.amazonaws.com/Track4.mp3', 
         artist_id=3, album_id=1)
 
 
