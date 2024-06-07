@@ -15,6 +15,16 @@
     font-size: 22px;
 }
 
+#creditsButton{
+    position: absolute;
+    left: 129px;
+    top: 155px;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
 #homeButton:hover{
     cursor: pointer;
     text-decoration: underline;

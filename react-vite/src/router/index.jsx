@@ -15,6 +15,7 @@ import LikedTracks from '../components/LikedTracks/LikedTracks.jsx';
 import EditPlaylistForm from '../components/EditPlaylistForm/EditPlaylistForm.jsx';
 import TrackFormPage from '../components/TrackFormPage/index.js';
 import AddToPlaylist from '../components/AddToPlaylistForm/AddToPlaylist.jsx';
+import Credits from '../components/Credits/Credits.jsx'
 
 
 export const router = createBrowserRouter([
@@ -80,7 +81,12 @@ export const router = createBrowserRouter([
       {
         path: '/playlists/addTrack/:trackId',
         element: <AddToPlaylist />
+      },
+      {
+        path: '/credits',
+        element: <Credits/>
       }
+
     ],
   },
 ]);
