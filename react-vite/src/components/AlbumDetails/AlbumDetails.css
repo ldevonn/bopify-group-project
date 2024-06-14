@@ -163,9 +163,21 @@
 }
 
 #plusButton {
+    background: none;
     margin-left: 8px;
 }
 
 #likeButton {
     margin-left: 8px;
+}
+
+#albumDetailPlay {
+    color: green;
+    transform: scale(1.5);
+    margin-left: 24px;
+}
+
+#albumDetailPlay:hover {
+    color: #a3a3a3;
+    transition-duration: 250ms;
 }

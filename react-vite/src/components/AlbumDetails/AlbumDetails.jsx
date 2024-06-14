@@ -48,16 +48,22 @@ function AlbumDetails() {
     }
 
     function handlePlay(audioFile) {
-        console.log(audioFile)
-        if (!isPlaying) {
-            const audio = new Audio(audioFile)
-            audio.onloadedmetadata = () => {
-                audio.play()
-                setIsPlaying(true)
-                setTrack(audio)
-            }
-        }
+    if (!isPlaying) {
+      if (!track) {
+        const audio = new Audio(audioFile);
+        audio.onloadedmetadata = () => {
+          audio.play();
+          setTrack(audio);
+        };
+      } else {
+        track.play();
+      }
+      setIsPlaying(true);
+    } else {
+      track.pause();
+      setIsPlaying(false);
     }
+  }
 
     return (
         <div className="album-details-page">
@@ -108,9 +114,13 @@ function AlbumDetails() {
                                     {sessionUser && album && sessionUser.id == album.artistId ? (
                                         <DeleteElement trackId={track.trackId} albumIdForNav={albumId}/>
                                     ) : <div></div>}
-                                    <i className="fa-regular fa-plus" id='plusButton' onClick={() => navigate(`/playlists/addTrack/${track.trackId}`)}></i>
-                                    <i className="fa-regular fa-heart" id='likeButton' style={{background: 'transparent', marginRight: 10}} onClick={() => toggleLike(track.trackId)}></i>
+                                    <i className="fa-regular fa-plus" id='plusButton'
+                                       onClick={() => navigate(`/playlists/addTrack/${track.trackId}`)}></i>
+                                    <i className="fa-regular fa-heart" id='likeButton'
+                                       style={{background: 'transparent', marginRight: 10}}
+                                       onClick={() => toggleLike(track.trackId)}></i>
                                     <div className="album-detail-track-duration">{minutes}:{seconds}</div>
+                                    <i className={`fa-solid ${isPlaying ? 'fa-stop' : 'fa-play'}`} id='albumDetailPlay' onClick={() => handlePlay(track.file)}></i>
                                 </div>
                             </div>
                         );
@@ -118,7 +128,7 @@ function AlbumDetails() {
                 </div>
             </div>
             <div className="music-player">
-                <MusicPlayer isPlaying={isPlaying} currAudio={track}/>
+                <MusicPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} currAudio={track}/>
             </div>
         </div>
     );

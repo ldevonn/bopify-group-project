@@ -39,10 +39,10 @@ function MusicPlayer(props) {
                 props.handlePlayNext();
             }
             props.currAudio.onplay = function () {
-                setIsPlaying(true)
+                props.setIsPlaying(true)
             }
             props.currAudio.onpause = function () {
-                setIsPlaying(false)
+                props.setIsPlaying(false)
             }
         }
 
@@ -57,11 +57,14 @@ function MusicPlayer(props) {
 
     function playPause() {
         if (props.currAudio) {
-            if (isPlaying) {
+            if (props.isPlaying || isPlaying) {
                 props.currAudio.pause();
+                props.setIsPlaying(false)
                 setIsPlaying(false)
             } else {
                 props.currAudio.play();
+                props.setIsPlaying(true)
+                setIsPlaying(true)
             }
         }
     }
@@ -89,7 +92,7 @@ function MusicPlayer(props) {
                     <i className="fa-solid fa-backward-fast"></i>
                 </div>
                 <div onClick={playPause}>
-                    <i className={`fa-solid ${isPlaying ? 'fa-stop' : 'fa-play'}`} id='play/stop'></i>
+                    <i className={`fa-solid ${props.isPlaying ? 'fa-stop' : 'fa-play'}`} id='play/stop'></i>
                 </div>
                 <div onClick={props.handlePlayNext}>
                     <i className="fa-solid fa-forward-fast"></i>
